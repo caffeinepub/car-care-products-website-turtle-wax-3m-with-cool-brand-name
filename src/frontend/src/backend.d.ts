@@ -10,13 +10,15 @@ export type Option<T> = Some<T> | None;
 export interface Product {
     id: bigint;
     imgPath: string;
+    originalMrp: bigint;
     name: string;
     tags?: Array<string>;
     shortDescription: string;
     brand: string;
+    discountedPrice: bigint;
 }
 export interface backendInterface {
-    addProduct(product: Product): Promise<void>;
+    addProduct(id: bigint, brand: string, name: string, shortDescription: string, imgPath: string, originalMrp: bigint, discountedPrice: bigint, tags: Array<string> | null): Promise<void>;
     getAllProducts(): Promise<Array<Product>>;
     getProduct(id: bigint): Promise<Product>;
     getProductsByBrand(brand: string): Promise<Array<Product>>;

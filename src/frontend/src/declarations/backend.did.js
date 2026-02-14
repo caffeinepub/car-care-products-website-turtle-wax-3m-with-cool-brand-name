@@ -11,14 +11,29 @@ import { IDL } from '@icp-sdk/core/candid';
 export const Product = IDL.Record({
   'id' : IDL.Nat,
   'imgPath' : IDL.Text,
+  'originalMrp' : IDL.Nat,
   'name' : IDL.Text,
   'tags' : IDL.Opt(IDL.Vec(IDL.Text)),
   'shortDescription' : IDL.Text,
   'brand' : IDL.Text,
+  'discountedPrice' : IDL.Nat,
 });
 
 export const idlService = IDL.Service({
-  'addProduct' : IDL.Func([Product], [], []),
+  'addProduct' : IDL.Func(
+      [
+        IDL.Nat,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Nat,
+        IDL.Nat,
+        IDL.Opt(IDL.Vec(IDL.Text)),
+      ],
+      [],
+      [],
+    ),
   'getAllProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
   'getProduct' : IDL.Func([IDL.Nat], [Product], ['query']),
   'getProductsByBrand' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
@@ -35,14 +50,29 @@ export const idlFactory = ({ IDL }) => {
   const Product = IDL.Record({
     'id' : IDL.Nat,
     'imgPath' : IDL.Text,
+    'originalMrp' : IDL.Nat,
     'name' : IDL.Text,
     'tags' : IDL.Opt(IDL.Vec(IDL.Text)),
     'shortDescription' : IDL.Text,
     'brand' : IDL.Text,
+    'discountedPrice' : IDL.Nat,
   });
   
   return IDL.Service({
-    'addProduct' : IDL.Func([Product], [], []),
+    'addProduct' : IDL.Func(
+        [
+          IDL.Nat,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Nat,
+          IDL.Nat,
+          IDL.Opt(IDL.Vec(IDL.Text)),
+        ],
+        [],
+        [],
+      ),
     'getAllProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
     'getProduct' : IDL.Func([IDL.Nat], [Product], ['query']),
     'getProductsByBrand' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),

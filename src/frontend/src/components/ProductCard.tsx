@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { Product } from '../backend';
 import { Badge } from '@/components/ui/badge';
+import { formatINR } from '@/lib/pricing';
+import { getProductImagePath } from '@/lib/productImages';
 
 interface ProductCardProps {
   product: Product;
@@ -8,11 +10,20 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const fallbackImage = '/assets/generated/product-placeholders-set.dim_1200x800.png';
-  const [imageSrc, setImageSrc] = useState(product.imgPath || fallbackImage);
+  
+  // Try to get the original product image first, then use product.imgPath, then fallback
+  const originalImage = getProductImagePath({ brand: product.brand, name: product.name });
+  const initialImage = originalImage || product.imgPath || fallbackImage;
+  
+  const [imageSrc, setImageSrc] = useState(initialImage);
 
   const handleImageError = () => {
     setImageSrc(fallbackImage);
   };
+
+  // Use backend pricing: originalMrp as display MRP, discountedPrice as selling price
+  const displayMrp = product.originalMrp;
+  const sellingPrice = product.discountedPrice;
 
   return (
     <div className="group relative bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all duration-300 hover:-translate-y-1">
@@ -35,6 +46,22 @@ export function ProductCard({ product }: ProductCardProps) {
           <p className="text-sm text-muted-foreground line-clamp-2">
             {product.shortDescription}
           </p>
+        </div>
+
+        {/* Pricing Section */}
+        <div className="space-y-1 pt-2 border-t border-border/50">
+          <div className="flex items-baseline gap-2">
+            <span className="text-xs text-muted-foreground">MRP:</span>
+            <span className="text-sm font-medium text-muted-foreground line-through">
+              {formatINR(displayMrp)}
+            </span>
+          </div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-xs text-muted-foreground">Selling Price:</span>
+            <span className="text-xl font-bold text-primary">
+              {formatINR(sellingPrice)}
+            </span>
+          </div>
         </div>
 
         {/* Tags */}

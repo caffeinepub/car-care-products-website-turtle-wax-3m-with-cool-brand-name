@@ -1,20 +1,85 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Ensure newly seeded catalog products render without broken images",
+  "title": "Update Turtle Wax product images and discounted pricing display",
   "requirements": [
     {
-      "id": "REQ-24",
-      "summary": "Harden product image rendering so newly seeded products never display broken image icons and fall back to the existing placeholder when imgPath is empty or fails to load.",
+      "id": "REQ-29",
+      "summary": "Replace Turtle Wax product card images with the 4 provided uploaded photos served as static generated assets.",
       "acceptanceCriteria": [
-        "The homepage renders additional ProductCard tiles for both \"Turtle Wax\" and \"3M\" without broken image icons.",
-        "If any product imgPath is empty, the ProductCard uses the existing fallback image path \"/assets/generated/product-placeholders-set.dim_1200x800.png\"."
+        "The uploaded image IMG_5129.jpeg is used for the product named \"Turtle Wax Rubbing Compound\".",
+        "The uploaded image IMG_5130.jpeg is used for the product named \"Turtle Wax Ceramic Car Wash\".",
+        "The uploaded image IMG_5131.jpeg is used for the product named \"Turtle Wax All Wheel Cleaner\".",
+        "The uploaded image IMG_5132.jpeg is used for the product named \"Turtle Wax Ice Spray Wax\".",
+        "All 4 Turtle Wax products render the intended uploaded image on the homepage product grid with no broken image URLs (the fallback image is not shown for these products)."
       ],
       "file_operations": [
         {
+          "path": "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
+          "operation": "modify",
+          "description": "Replace the existing generated asset with the uploaded photo (IMG_5129.jpeg) so this file renders for \"Turtle Wax Rubbing Compound\" across the app."
+        },
+        {
+          "path": "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
+          "operation": "modify",
+          "description": "Replace the existing generated asset with the uploaded photo (IMG_5130.jpeg) so this file renders for \"Turtle Wax Ceramic Car Wash\" across the app."
+        },
+        {
+          "path": "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
+          "operation": "modify",
+          "description": "Replace the existing generated asset with the uploaded photo (IMG_5131.jpeg) so this file renders for \"Turtle Wax All Wheel Cleaner\" across the app."
+        },
+        {
+          "path": "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png",
+          "operation": "modify",
+          "description": "Replace the existing generated asset with the uploaded photo (IMG_5132.jpeg) so this file renders for \"Turtle Wax Ice Spray Wax\" across the app."
+        }
+      ]
+    },
+    {
+      "id": "REQ-30",
+      "summary": "Update the brand+name keyed product image lookup so Turtle Wax products resolve to the updated static asset paths (frontend mapping takes precedence).",
+      "acceptanceCriteria": [
+        "For brand \"Turtle Wax\", the product image mapping returns the updated asset paths for the 4 products listed in REQ-29.",
+        "No changes are required to backend product imgPath values for the 4 Turtle Wax products in order for the correct images to display (i.e., the frontend mapping takes precedence as it does today)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/productImages.ts",
+          "operation": "modify",
+          "description": "Ensure the Turtle Wax brand+name mappings resolve to the updated static paths: /assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png, /assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png, /assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png, and /assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png; keep lookup keyed by brand+name so it overrides backend imgPath as intended."
+        },
+        {
           "path": "frontend/src/components/ProductCard.tsx",
           "operation": "modify",
-          "description": "Update ProductCard image handling to (1) continue using the existing fallback when product.imgPath is empty and (2) add a runtime onError fallback so that invalid/unreachable imgPath values automatically swap to \"/assets/generated/product-placeholders-set.dim_1200x800.png\" instead of showing a broken image icon."
+          "description": "Keep product card image selection order as: frontend brand+name mapping first, then backend product.imgPath, then fallback; verify Turtle Wax products always resolve to the mapped generated assets and do not hit the fallback."
+        }
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "summary": "Adjust pricing display so displayed MRP is +200 INR and displayed selling price is a discounted value strictly lower than displayed MRP (no longer MRP+200 for selling price).",
+      "acceptanceCriteria": [
+        "In the UI, for every product card, the displayed Selling Price is strictly less than the displayed MRP.",
+        "The selling price calculation no longer uses the current formula of MRP + 200.",
+        "Existing persisted products have their mrpInRupees increased by exactly 200 INR after upgrade (via a conditional migration), so the displayed MRP reflects the +200 increase without requiring manual re-entry.",
+        "All user-facing pricing labels remain in English (e.g., \"MRP\" and \"Selling Price\")."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/pricing.ts",
+          "operation": "modify",
+          "description": "Replace the current selling-price formula (MRP + 200) with utilities that (a) compute displayed MRP as stored MRP + 200 INR, and (b) compute displayed selling price as a discounted value that is guaranteed to be strictly less than the displayed MRP (e.g., using the product’s discounted price while clamping to < displayed MRP if needed)."
+        },
+        {
+          "path": "frontend/src/components/ProductCard.tsx",
+          "operation": "modify",
+          "description": "Update the product card pricing section to use the new pricing utilities: render displayed MRP as (stored MRP + 200) and render selling price as the discounted value (strictly < displayed MRP), keeping the English labels \"MRP\" and \"Selling Price\"."
+        },
+        {
+          "path": "frontend/src/backend.d.ts",
+          "operation": "modify",
+          "description": "Align the frontend Product type used by UI components with the fields consumed for pricing (e.g., ensure the type definition matches the pricing display inputs used in ProductCard) to avoid mismatches and keep price rendering consistent."
         }
       ]
     }

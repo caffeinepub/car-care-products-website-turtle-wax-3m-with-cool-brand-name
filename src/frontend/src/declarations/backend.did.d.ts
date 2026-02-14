@@ -13,13 +13,27 @@ import type { Principal } from '@icp-sdk/core/principal';
 export interface Product {
   'id' : bigint,
   'imgPath' : string,
+  'originalMrp' : bigint,
   'name' : string,
   'tags' : [] | [Array<string>],
   'shortDescription' : string,
   'brand' : string,
+  'discountedPrice' : bigint,
 }
 export interface _SERVICE {
-  'addProduct' : ActorMethod<[Product], undefined>,
+  'addProduct' : ActorMethod<
+    [
+      bigint,
+      string,
+      string,
+      string,
+      string,
+      bigint,
+      bigint,
+      [] | [Array<string>],
+    ],
+    undefined
+  >,
   'getAllProducts' : ActorMethod<[], Array<Product>>,
   'getProduct' : ActorMethod<[bigint], Product>,
   'getProductsByBrand' : ActorMethod<[string], Array<Product>>,

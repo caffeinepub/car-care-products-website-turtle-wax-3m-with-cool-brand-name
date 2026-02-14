@@ -1,31 +1,57 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T18:45:23.294Z",
+  "generatedAt": "2026-02-14T19:54:04.430Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 1,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-23",
-        "summary": "Populate the Motoko product catalog with additional products so the site shows more items on the homepage for the existing brands (\"Turtle Wax\" and \"3M\") without requiring any manual calls to addProduct.",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-24",
-        "summary": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
+        "id": "REQ-29",
+        "summary": "Add the 4 user-uploaded Turtle Wax product photos as static assets under frontend/public/assets/generated and wire each photo to the correct Turtle Wax product by name so the correct image renders on every Turtle Wax product card.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
+          "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
+          "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
+          "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
+          "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
+          "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
+          "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png"
+        ]
+      },
+      {
+        "id": "REQ-30",
+        "summary": "Update the product image lookup so Turtle Wax products resolve to the updated Turtle Wax image asset paths (keeping the mapping keyed by brand+name).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/lib/productImages.ts",
           "frontend/src/components/ProductCard.tsx"
         ],
         "matchedFiles": [
           "frontend/src/components/ProductCard.tsx"
+        ]
+      },
+      {
+        "id": "REQ-31",
+        "summary": "Change pricing behavior so that (1) each product’s stored MRP value is increased by 200 INR, and (2) the displayed selling price is a discounted price lower than the displayed MRP.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/lib/pricing.ts",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/backend.d.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/lib/pricing.ts",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/backend.d.ts"
         ]
       }
     ]
@@ -37,7 +63,16 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
+    "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
+    "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png",
+    "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
     "frontend/src/components/ProductCard.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/lib/pricing.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

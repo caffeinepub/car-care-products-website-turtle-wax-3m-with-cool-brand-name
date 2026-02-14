@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Seed the Motoko product catalog with additional items for the existing brands (“Turtle Wax” and “3M”) so the homepage shows more products on a fresh install.
+**Goal:** Replace the Turtle Wax product card images with the user-uploaded photos and adjust pricing so MRP increases while Selling Price shows as a discounted value below MRP.
 
 **Planned changes:**
-- Update backend catalog initialization to include multiple seeded products for “Turtle Wax” and multiple seeded products for “3M” without requiring manual `addProduct` calls.
-- Ensure all seeded products have unique `id` values and include `brand`, `name`, `shortDescription`, and `imgPath` (with `tags` optional).
-- Keep `getAllProducts` returning products sorted by `id` ascending, and ensure each product’s `imgPath` either resolves to a valid in-app image URL or is left empty so the existing frontend fallback image is used.
+- Add the 4 uploaded Turtle Wax photos as static assets under `frontend/public/assets/generated` and wire them to the correct Turtle Wax products by name.
+- Update the frontend product image lookup/mapping (keyed by brand + name) so these Turtle Wax products resolve to the new asset paths without backend `imgPath` changes.
+- Update pricing behavior so all products’ stored MRP increases by 200 INR (via upgrade migration) and the displayed Selling Price is strictly less than the displayed MRP.
 
-**User-visible outcome:** On a fresh install, the homepage shows additional product tiles under both “Turtle Wax” and “3M” sections, with no broken product images.
+**User-visible outcome:** On the homepage product grid, Turtle Wax product cards show the correct uploaded images, and every product card shows an increased MRP with a discounted Selling Price displayed below it.

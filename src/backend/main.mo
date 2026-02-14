@@ -1,4 +1,5 @@
 import Array "mo:core/Array";
+import Nat "mo:core/Nat";
 import Text "mo:core/Text";
 import Iter "mo:core/Iter";
 import Order "mo:core/Order";
@@ -14,6 +15,8 @@ actor {
     name : Text;
     shortDescription : Text;
     imgPath : Text;
+    originalMrp : Nat;
+    discountedPrice : Nat;
     tags : ?[Text];
   };
 
@@ -29,8 +32,27 @@ actor {
 
   let products = Map.empty<Nat, Product>();
 
-  public shared ({ caller }) func addProduct(product : Product) : async () {
-    products.add(product.id, product);
+  public shared ({ caller }) func addProduct(
+    id : Nat,
+    brand : Text,
+    name : Text,
+    shortDescription : Text,
+    imgPath : Text,
+    originalMrp : Nat,
+    discountedPrice : Nat,
+    tags : ?[Text],
+  ) : async () {
+    let product : Product = {
+      id;
+      brand;
+      name;
+      shortDescription;
+      imgPath;
+      originalMrp;
+      discountedPrice;
+      tags;
+    };
+    products.add(id, product);
   };
 
   public query ({ caller }) func getProduct(id : Nat) : async Product {

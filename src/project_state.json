@@ -1,13 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
+  "projectStateVersion": 21,
   "summary": "Website project for a car care products site featuring brands like Turtle Wax and 3M, branded as “Urban Wax Studio.”",
   "architectural_notes": [
     "Brand/site name selected: “Urban Wax Studio” (use consistently across header, footer, document title, and About copy).",
-    "Visual design direction: match Turtle Wax website theme closely (color palette + text styling/typography) across the UI."
+    "Visual design direction: match Turtle Wax website theme closely (color palette + text styling/typography) across the UI.",
+    "Ensure each product has a valid imagePath so product pictures render (or use the existing frontend fallback if intentionally blank).",
+    "Pricing rules updated: increase each product’s MRP by 200 INR, and display a discounted selling price that is lower than MRP (do not compute selling price as MRP + 200).",
+    "Turtle Wax product images must match their respective product names (replace mismatched pictures accordingly)."
   ],
   "known_issues": [],
-  "isFixRequest": false,
+  "isFixRequest": true,
+  "imageRequirements": "## Edit Images\n- Use the uploaded photo as the product image (IMG_5129.jpeg > product-turtle-wax-rubbing-compound.dim_800x800.png)\n- Use the uploaded photo as the product image (IMG_5130.jpeg > product-turtle-wax-ceramic-car-wash.dim_800x800.png)\n- Use the uploaded photo as the product image (IMG_5131.jpeg > product-turtle-wax-all-wheel-cleaner.dim_800x800.png)\n- Use the uploaded photo as the product image (IMG_5132.jpeg > product-turtle-wax-ice-spray-wax.dim_800x800.png)",
   "existing_features": [
     {
       "id": "feature-create-a-car-care-products-website-with-a-cool-memorable-site-name-and-consistent-branding-logo-wordmark-tagline-and-navigation-label-applied-across-the-app",
@@ -184,6 +188,46 @@
         "REQ-24"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-product-ui-cards-to-display-pricing-for-every-product-in-english-showing-mrp-inr-and-a-selling-price-computed-as-mrp-200-inr-rupees",
+      "title": "Update the product UI cards to display pricing for every product in English, showing MRP (INR) and a selling price computed as MRP + 200 INR (rupees).",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-and-serve-static-product-images-for-each-original-product-under-frontend-public-assets-generated-and-wire-each-original-product-s-imgpath-to-its-corresponding-image-so-every-original-product-displays-a-picture",
+      "title": "Add and serve static product images for each original product under frontend/public/assets/generated, and wire each original product’s imgPath to its corresponding image so every original product displays a picture.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-4-user-uploaded-turtle-wax-product-photos-as-static-assets-under-frontend-public-assets-generated-and-wire-each-photo-to-the-correct-turtle-wax-product-by-name-so-the-correct-image-renders-on-every-turtle-wax-product-card",
+      "title": "Add the 4 user-uploaded Turtle Wax product photos as static assets under frontend/public/assets/generated and wire each photo to the correct Turtle Wax product by name so the correct image renders on every Turtle Wax product card.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-product-image-lookup-so-turtle-wax-products-resolve-to-the-updated-turtle-wax-image-asset-paths-keeping-the-mapping-keyed-by-brand-name",
+      "title": "Update the product image lookup so Turtle Wax products resolve to the updated Turtle Wax image asset paths (keeping the mapping keyed by brand+name).",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-pricing-behavior-so-that-1-each-product-s-stored-mrp-value-is-increased-by-200-inr-and-2-the-displayed-selling-price-is-a-discounted-price-lower-than-the-displayed-mrp",
+      "title": "Change pricing behavior so that (1) each product’s stored MRP value is increased by 200 INR, and (2) the displayed selling price is a discounted price lower than the displayed MRP.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -237,6 +281,40 @@
       "reqIds": [
         "REQ-23"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Display all original products with product images and show pricing for every product.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add MRP and computed selling price fields for products, where displayed price = MRP + 200 INR (rupees) for all products.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Extend the backend Product model to include pricing fields for each product: an MRP value in INR (rupees) and enough information for the frontend to display the selling price as MRP + 200 INR for every product.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Update the backend product catalog data so that all original products (3M 1080 Film, 3M Velcro Tape, 3M Wire Harness Tape, Turtle Wax Rubbing Compound, Turtle Wax Ceramic Car Wash, Turtle Wax All Wheel Cleaner, Turtle Wax Ice Spray Wax) each have: (1) a valid imgPath pointing to a real static image file, and (2) an MRP (INR) value so pricing can be displayed for every product.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Replace Turtle Wax product images so each product displays the correct picture by name, and change pricing logic so MRP is increased by 200 INR while the selling price is a discounted price lower than MRP (not MRP + 200).",
+      "reqIds": [],
       "status": "pending"
     }
   ],

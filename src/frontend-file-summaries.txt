@@ -3,7 +3,7 @@
   "frontend/src/components/SiteHeader.tsx": "Sticky header component with Urban Wax Studio logo, brand name from centralized config, and responsive navigation menu with green hover states matching the Turtle Wax theme.",
   "frontend/src/components/SiteFooter.tsx": "Footer component displaying copyright information with centralized app name, green heart icon, and attribution link to caffeine.ai with proper UTM tracking.",
   "frontend/src/components/HomeHero.tsx": "Hero section component featuring the main headline with green accent text, tagline, description, and hero banner image with green and yellow decorative gradient accents.",
-  "frontend/src/components/ProductCard.tsx": "Reusable product card component that displays product image with fallback handling for empty or broken image paths, product name, description, and optional tags with green hover effects and border highlights.",
+  "frontend/src/components/ProductCard.tsx": "Reusable product card component that displays product image with fallback handling, product name, description, pricing (MRP and discounted selling price from backend), and optional tags with green hover effects.",
   "frontend/src/components/BrandSection.tsx": "Section component that renders a brand heading with green accent underline and grid of product cards for a specific brand (Turtle Wax or 3M).",
   "frontend/src/components/BrandsSection.tsx": "Informational section displaying detailed descriptions of featured brands (Turtle Wax with green accents and 3M with yellow accents) with icons and styling.",
   "frontend/src/components/AboutSection.tsx": "About section component with company description, feature highlights with green icon accents, and informational content using centralized branding.",
@@ -13,5 +13,7 @@
   "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens mapped to the Turtle Wax-inspired green and yellow theme, Inter font family, extended shadows, and design system utilities.",
   "frontend/index.html": "HTML entry point with updated title for Urban Wax Studio and meta description for car care products.",
   "frontend/src/config/branding.ts": "Centralized branding configuration module that exports app name, slug, and tagline as a single source of truth, with fallback defaults set to Urban Wax Studio.",
-  "frontend/.env": "Vite environment variables defining the app name as \"Urban Wax Studio\" and slug as \"urban-wax-studio\" for centralized branding configuration."
+  "frontend/.env": "Vite environment variables defining the app name as \"Urban Wax Studio\" and slug as \"urban-wax-studio\" for centralized branding configuration.",
+  "frontend/src/lib/pricing.ts": "Pricing utility functions that format INR amounts with rupee symbol and calculate discount percentages between MRP and selling price.",
+  "frontend/src/lib/productImages.ts": "Product image mapping helper that resolves original products to their specific static image paths under frontend/public/assets/generated."
 }

@@ -1,56 +1,92 @@
 {
   "kind": "build_request",
-  "title": "Add more products to the catalog",
+  "title": "Replace Turtle Wax product images with uploaded photos and update pricing to show discounted selling price below increased MRP",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-23",
-      "text": "Populate the Motoko product catalog with additional products so the site shows more items on the homepage for the existing brands (\"Turtle Wax\" and \"3M\") without requiring any manual calls to addProduct.",
-      "target": "backend",
+      "id": "REQ-29",
+      "text": "Add the 4 user-uploaded Turtle Wax product photos as static assets under frontend/public/assets/generated and wire each photo to the correct Turtle Wax product by name so the correct image renders on every Turtle Wax product card.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-4"
         ],
         "quotes": [
-          "Add products"
+          "Replace these pictures with the given products of turtlewax according to their respective names"
         ]
       },
       "acceptanceCriteria": [
-        "Calling getAllProducts returns a non-empty list of products on a fresh install.",
-        "The returned products include multiple items for brand \"Turtle Wax\" and multiple items for brand \"3M\" (so both brand sections render on the homepage).",
-        "All seeded products have unique id values and include brand, name, shortDescription, and imgPath fields (tags optional).",
-        "getAllProducts returns products sorted by id (ascending) as it does today."
+        "The uploaded image IMG_5129.jpeg is used for the product named \"Turtle Wax Rubbing Compound\".",
+        "The uploaded image IMG_5130.jpeg is used for the product named \"Turtle Wax Ceramic Car Wash\".",
+        "The uploaded image IMG_5131.jpeg is used for the product named \"Turtle Wax All Wheel Cleaner\".",
+        "The uploaded image IMG_5132.jpeg is used for the product named \"Turtle Wax Ice Spray Wax\".",
+        "All 4 Turtle Wax products render the intended uploaded image on the homepage product grid with no broken image URLs (the fallback image is not shown for these products)."
       ]
     },
     {
-      "id": "REQ-24",
-      "text": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
-      "target": "both",
+      "id": "REQ-30",
+      "text": "Update the product image lookup so Turtle Wax products resolve to the updated Turtle Wax image asset paths (keeping the mapping keyed by brand+name).",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-4"
         ],
         "quotes": [
-          "Add products"
+          "Replace these pictures with the given products of turtlewax according to their respective names"
         ]
       },
       "acceptanceCriteria": [
-        "The homepage renders additional ProductCard tiles for both \"Turtle Wax\" and \"3M\" without broken image icons.",
-        "If any product imgPath is empty, the ProductCard uses the existing fallback image path \"/assets/generated/product-placeholders-set.dim_1200x800.png\"."
+        "For brand \"Turtle Wax\", the product image mapping returns the updated asset paths for the 4 products listed in REQ-29.",
+        "No changes are required to backend product imgPath values for the 4 Turtle Wax products in order for the correct images to display (i.e., the frontend mapping takes precedence as it does today)."
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "text": "Change pricing behavior so that (1) each product’s stored MRP value is increased by 200 INR, and (2) the displayed selling price is a discounted price lower than the displayed MRP.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "increase mrp 200 selling price lesser than mrp extra and sell at a discounted price"
+        ]
+      },
+      "acceptanceCriteria": [
+        "In the UI, for every product card, the displayed Selling Price is strictly less than the displayed MRP.",
+        "The selling price calculation no longer uses the current formula of MRP + 200.",
+        "Existing persisted products have their mrpInRupees increased by exactly 200 INR after upgrade (via a conditional migration), so the displayed MRP reflects the +200 increase without requiring manual re-entry.",
+        "All user-facing pricing labels remain in English (e.g., \"MRP\" and \"Selling Price\")."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
-    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything in frontend/src/components/ui."
+    "Do not edit files in frontend/src/components/ui or any path listed under frontend.immutablePaths in SYSTEM_CONTEXT.",
+    "Serve product images as static frontend assets from frontend/public/assets/generated (do not serve images via the backend).",
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo); only add backend/migration.mo if required for an upgrade."
   ],
   "nonGoals": [
-    "Building an admin UI for adding/editing products.",
-    "Adding new brands or new site sections beyond showing more products for the existing brands.",
-    "Introducing an external database or external image hosting."
+    "Adding new brands or new products beyond updating the existing Turtle Wax product images.",
+    "Implementing checkout, cart, payments, or inventory management.",
+    "Third-party image hosting or CDN integration."
   ],
   "imageRequirements": {
     "required": [],
-    "edits": []
+    "edits": [
+      "Use the uploaded photo as the product image (IMG_5129.jpeg > product-turtle-wax-rubbing-compound.dim_800x800.png)",
+      "Use the uploaded photo as the product image (IMG_5130.jpeg > product-turtle-wax-ceramic-car-wash.dim_800x800.png)",
+      "Use the uploaded photo as the product image (IMG_5131.jpeg > product-turtle-wax-all-wheel-cleaner.dim_800x800.png)",
+      "Use the uploaded photo as the product image (IMG_5132.jpeg > product-turtle-wax-ice-spray-wax.dim_800x800.png)"
+    ]
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

@@ -2,8 +2,24 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-ensure-all-newly-added-products-render-correctly-in-the-existing-ui-by-providing-imgpath-values-that-resolve-to-a-valid-image-url-or-intentionally-leaving-imgpath-empty-so-the-frontend-fallback-image-is-used",
-      "featureTitle": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
+      "featureId": "feature-add-the-4-user-uploaded-turtle-wax-product-photos-as-static-assets-under-frontend-public-assets-generated-and-wire-each-photo-to-the-correct-turtle-wax-product-by-name-so-the-correct-image-renders-on-every-turtle-wax-product-card",
+      "featureTitle": "Add the 4 user-uploaded Turtle Wax product photos as static assets under frontend/public/assets/generated and wire each photo to the correct Turtle Wax product by name so the correct image renders on every Turtle Wax product card.",
+      "files": [],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-29"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-product-image-lookup-so-turtle-wax-products-resolve-to-the-updated-turtle-wax-image-asset-paths-keeping-the-mapping-keyed-by-brand-name",
+      "featureTitle": "Update the product image lookup so Turtle Wax products resolve to the updated Turtle Wax image asset paths (keeping the mapping keyed by brand+name).",
       "files": [
         "frontend/src/components/ProductCard.tsx"
       ],
@@ -15,7 +31,26 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-24"
+        "REQ-30"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-change-pricing-behavior-so-that-1-each-product-s-stored-mrp-value-is-increased-by-200-inr-and-2-the-displayed-selling-price-is-a-discounted-price-lower-than-the-displayed-mrp",
+      "featureTitle": "Change pricing behavior so that (1) each product’s stored MRP value is increased by 200 INR, and (2) the displayed selling price is a discounted price lower than the displayed MRP.",
+      "files": [
+        "frontend/src/components/ProductCard.tsx",
+        "frontend/src/lib/pricing.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-31"
       ],
       "confidence": "high"
     }
