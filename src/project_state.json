@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Website project for a car care products site featuring brands like Turtle Wax and 3M, including a cool website name/branding.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-car-care-products-website-with-a-cool-memorable-site-name-and-consistent-branding-logo-wordmark-tagline-and-navigation-label-applied-across-the-app",
+      "title": "Create a car care products website with a cool, memorable site name and consistent branding (logo wordmark, tagline, and navigation label) applied across the app.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-homepage-that-showcases-car-care-products-including-at-least-two-product-sections-for-the-brands-turtle-wax-and-3m-each-with-multiple-products-and-basic-details-name-short-description-and-an-image",
+      "title": "Implement a homepage that showcases car care products, including at least two product sections for the brands Turtle Wax and 3M, each with multiple products and basic details (name, short description, and an image).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-connect-the-frontend-to-the-backend-product-catalog-using-react-query-and-render-products-grouped-by-brand-on-the-homepage",
+      "title": "Connect the frontend to the backend product catalog using React Query and render products grouped by brand on the homepage.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-establish-a-coherent-visual-theme-for-a-car-care-retail-brand-site-colors-typography-spacing-and-component-styling-and-apply-it-consistently-across-all-pages-and-components-avoid-blue-purple-as-primary-brand-colors",
+      "title": "Establish a coherent visual theme for a car-care retail/brand site (colors, typography, spacing, and component styling) and apply it consistently across all pages and components; avoid blue/purple as primary brand colors.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-basic-site-structure-with-a-header-site-name-navigation-a-footer-and-at-least-these-sections-pages-home-brands-and-about-simple-static-copy-in-english",
+      "title": "Add a basic site structure with a header (site name + navigation), a footer, and at least these sections/pages: Home, Brands, and About (simple static copy in English).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-visual-assets-logo-and-hero-banner-and-integrate-them-into-the-ui-from-frontend-public-assets-generated-served-statically-not-through-the-backend",
+      "title": "Add generated static visual assets (logo and hero banner) and integrate them into the UI from frontend/public/assets/generated (served statically, not through the backend).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-the-website-app-name-from-autogleam-supply-to-torqueshine-supply-and-update-all-user-facing-branding-text-to-match-across-the-frontend-header-logo-alt-text-about-section-heading-body-copy-footer-copyright-and-html-document-title",
+      "title": "Change the website/app name from \"AutoGleam Supply\" to \"TorqueShine Supply\" and update all user-facing branding text to match across the frontend (header/logo alt text, About section heading/body copy, footer copyright, and HTML document title).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-centralize-the-site-app-name-in-a-single-frontend-constant-module-and-refactor-all-components-that-display-the-site-name-to-use-that-constant-so-future-renames-do-not-require-hunting-for-duplicated-strings",
+      "title": "Centralize the site/app name in a single frontend constant/module and refactor all components that display the site name to use that constant so future renames do not require hunting for duplicated strings.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-footer-s-non-browser-fallback-identifier-string-used-for-the-caffeine-ai-attribution-url-parameter-to-a-slug-that-matches-the-new-name-e-g-torqueshine-supply",
+      "title": "Update the footer’s non-browser fallback identifier string (used for the caffeine.ai attribution URL parameter) to a slug that matches the new name (e.g., \"torqueshine-supply\").",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a car care products website featuring products/brands like Turtle Wax and 3M, including selecting a cool website name.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add a simple product catalog data source in the Motoko backend that returns a list of products with fields sufficient to render the homepage (id, brand, name, shortDescription, imagePath, and optional tags).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Change the website/app name (update branding/site name across the UI where it appears, e.g., header/nav and related branding text).",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Car Care Products Website (Turtle Wax & 3M) with Cool Brand Name",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

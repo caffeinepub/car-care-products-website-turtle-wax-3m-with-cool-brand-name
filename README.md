@@ -1,2 +1,3 @@
-# car-care-products-website-turtle-wax-3m-with-cool-brand-name
-Exported from Caffeine project: Car Care Products Website (Turtle Wax &amp; 3M) with Cool Brand Name
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

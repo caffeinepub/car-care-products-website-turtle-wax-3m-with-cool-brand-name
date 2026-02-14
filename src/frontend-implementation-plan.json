@@ -1,0 +1,116 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Update app branding name to TorqueShine Supply and centralize branding constants",
+  "requirements": [
+    {
+      "id": "REQ-8",
+      "summary": "Rename all user-facing branding text from \"AutoGleam Supply\" to \"TorqueShine Supply\" across header, about section, footer, and HTML document title.",
+      "acceptanceCriteria": [
+        "The header brand name text shows \"TorqueShine Supply\".",
+        "The header logo image alt text uses \"TorqueShine Supply\".",
+        "The About section heading and any body copy that mentions \"AutoGleam Supply\" are updated to \"TorqueShine Supply\".",
+        "The footer copyright line displays \"© <currentYear> TorqueShine Supply. All rights reserved.\".",
+        "frontend/index.html <title> is updated to start with \"TorqueShine Supply\".",
+        "No remaining visible occurrences of \"AutoGleam Supply\" exist in the UI."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Update the base HTML document title to start with \"TorqueShine Supply\" and (where applicable) refactor it to read from a centralized Vite HTML env variable so the visible title stays in sync with the app name."
+        },
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Replace hardcoded \"AutoGleam Supply\" brand text and logo alt text with the centralized app name constant so the header displays \"TorqueShine Supply\" consistently."
+        },
+        {
+          "path": "frontend/src/components/AboutSection.tsx",
+          "operation": "modify",
+          "description": "Update About section heading and body copy to use \"TorqueShine Supply\" (via the centralized app name constant) and eliminate any remaining \"AutoGleam Supply\" occurrences."
+        },
+        {
+          "path": "frontend/src/components/SiteFooter.tsx",
+          "operation": "modify",
+          "description": "Update footer copyright text to \"© <currentYear> TorqueShine Supply. All rights reserved.\" using the centralized app name constant."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure the runtime document title (document.title) is set using the centralized app name constant so the in-app title matches branding."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Centralize the site/app name in a single frontend module and refactor all site-name usages (header, footer, about, document title) to use it.",
+      "acceptanceCriteria": [
+        "There is a single source of truth for the site/app name used by header, footer, about section, and document title.",
+        "Renaming the app requires changing the name in only one place in the frontend codebase.",
+        "Build passes with no TypeScript errors."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/.env",
+          "operation": "create",
+          "description": "Add Vite environment variables to act as the single source of truth for branding (e.g., app name and slug) so both index.html and TypeScript can consume the same values for future renames."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Refactor the <title> to use the Vite HTML env substitution for the app name (while keeping it starting with \"TorqueShine Supply\")."
+        },
+        {
+          "path": "frontend/src/config/branding.ts",
+          "operation": "create",
+          "description": "Create a centralized branding module that exports the app name (and related branding values) derived from Vite env vars with safe defaults."
+        },
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Import and use the app name from frontend/src/config/branding.ts for the brand text and logo alt text; remove duplicated strings."
+        },
+        {
+          "path": "frontend/src/components/AboutSection.tsx",
+          "operation": "modify",
+          "description": "Import and use the app name from frontend/src/config/branding.ts for the About heading/body references; remove duplicated strings."
+        },
+        {
+          "path": "frontend/src/components/SiteFooter.tsx",
+          "operation": "modify",
+          "description": "Import and use the app name from frontend/src/config/branding.ts for the footer copyright string; remove duplicated strings."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Import and use the app name from frontend/src/config/branding.ts to set document.title so document title changes require no duplicated edits."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Update the footer’s non-browser fallback identifier string used for the caffeine.ai attribution URL parameter to a slug matching the new name.",
+      "acceptanceCriteria": [
+        "When window is undefined, the footer attribution URL uses the updated fallback slug based on \"TorqueShine Supply\"."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/config/branding.ts",
+          "operation": "modify",
+          "description": "Add/export a centralized app slug value (e.g., \"torqueshine-supply\") derived from Vite env vars with a default, to be used by the footer for non-browser fallback cases."
+        },
+        {
+          "path": "frontend/src/components/SiteFooter.tsx",
+          "operation": "modify",
+          "description": "Replace the hardcoded non-browser fallback identifier ('autogleam-supply') with the centralized slug so SSR/non-window environments use \"torqueshine-supply\"."
+        },
+        {
+          "path": "frontend/.env",
+          "operation": "modify",
+          "description": "Set/update the Vite env variable for the app slug to \"torqueshine-supply\" so the footer fallback identifier matches the new name."
+        }
+      ]
+    }
+  ]
+}

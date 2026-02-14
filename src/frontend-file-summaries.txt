@@ -1,0 +1,17 @@
+{
+  "frontend/src/App.tsx": "Main application component that orchestrates the site layout with header, hero, product sections, brands info, about section, and footer, now setting document title from centralized branding config.",
+  "frontend/src/components/SiteHeader.tsx": "Sticky header component with logo, brand name from centralized config, and responsive navigation menu that smoothly scrolls to different sections.",
+  "frontend/src/components/SiteFooter.tsx": "Footer component displaying copyright information with centralized app name and attribution link to caffeine.ai with proper UTM tracking using centralized app slug.",
+  "frontend/src/components/HomeHero.tsx": "Hero section component featuring the main headline, tagline, description, and hero banner image with decorative gradient accents.",
+  "frontend/src/components/ProductCard.tsx": "Reusable product card component that displays product image, name, description, and optional tags with hover effects.",
+  "frontend/src/components/BrandSection.tsx": "Section component that renders a brand heading and grid of product cards for a specific brand (Turtle Wax or 3M).",
+  "frontend/src/components/BrandsSection.tsx": "Informational section displaying detailed descriptions of featured brands (Turtle Wax and 3M) with icons and styling.",
+  "frontend/src/components/AboutSection.tsx": "About section component with company description, feature highlights, and informational content using centralized branding for TorqueShine Supply.",
+  "frontend/src/components/EmptyState.tsx": "Reusable empty/error state component that displays friendly messages when products fail to load or no data is available.",
+  "frontend/src/hooks/useProducts.ts": "React Query hook that fetches all products from the backend canister using the actor interface.",
+  "frontend/src/index.css": "Global styles with OKLCH color system defining a charcoal and orange-red automotive theme for both light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens, Inter font family, extended shadows, and design system utilities.",
+  "frontend/index.html": "HTML entry point with updated title for TorqueShine Supply and meta description for car care products.",
+  "frontend/src/config/branding.ts": "Centralized branding configuration module that exports app name, slug, and tagline as a single source of truth, with fallback defaults.",
+  "frontend/.env": "Vite environment variables defining the app name as \"TorqueShine Supply\" and slug as \"torqueshine-supply\" for centralized branding configuration."
+}

@@ -1,0 +1,76 @@
+{
+  "kind": "build_request",
+  "title": "Change site/app name across branding and metadata",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-8",
+      "text": "Change the website/app name from \"AutoGleam Supply\" to \"TorqueShine Supply\" and update all user-facing branding text to match across the frontend (header/logo alt text, About section heading/body copy, footer copyright, and HTML document title).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Change the name"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The header brand name text shows \"TorqueShine Supply\".",
+        "The header logo image alt text uses \"TorqueShine Supply\".",
+        "The About section heading and any body copy that mentions \"AutoGleam Supply\" are updated to \"TorqueShine Supply\".",
+        "The footer copyright line displays \"© <currentYear> TorqueShine Supply. All rights reserved.\".",
+        "frontend/index.html <title> is updated to start with \"TorqueShine Supply\".",
+        "No remaining visible occurrences of \"AutoGleam Supply\" exist in the UI."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Centralize the site/app name in a single frontend constant/module and refactor all components that display the site name to use that constant so future renames do not require hunting for duplicated strings.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Change the name"
+        ]
+      },
+      "acceptanceCriteria": [
+        "There is a single source of truth for the site/app name used by header, footer, about section, and document title.",
+        "Renaming the app requires changing the name in only one place in the frontend codebase.",
+        "Build passes with no TypeScript errors."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Update the footer’s non-browser fallback identifier string (used for the caffeine.ai attribution URL parameter) to a slug that matches the new name (e.g., \"torqueshine-supply\").",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Change the name"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When window is undefined, the footer attribution URL uses the updated fallback slug based on \"TorqueShine Supply\"."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit files under frontend/src/components/ui (compose existing UI components instead).",
+    "Do not edit any paths listed in frontend immutablePaths.",
+    "Keep the backend unchanged; this request is branding-only."
+  ],
+  "nonGoals": [
+    "Changing product catalog data, brands, or product content.",
+    "Generating new logo/hero images or changing existing generated asset filenames.",
+    "Adding new pages, navigation items, or authentication changes."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
