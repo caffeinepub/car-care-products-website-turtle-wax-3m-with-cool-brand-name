@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-site-wide-visual-theme-to-closely-match-the-turtle-wax-website-look-and-feel-specifically-aligning-the-primary-secondary-color-palette-and-default-text-colors-used-across-the-ui-headers-body-text-links-buttons-cards-borders-and-section-backgrounds",
-      "featureTitle": "Update the site-wide visual theme to closely match the Turtle Wax website look-and-feel, specifically aligning the primary/secondary color palette and default text colors used across the UI (headers, body text, links, buttons, cards, borders, and section backgrounds).",
+      "featureId": "feature-ensure-all-newly-added-products-render-correctly-in-the-existing-ui-by-providing-imgpath-values-that-resolve-to-a-valid-image-url-or-intentionally-leaving-imgpath-empty-so-the-frontend-fallback-image-is-used",
+      "featureTitle": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
       "files": [
-        "frontend/src/index.css"
+        "frontend/src/components/ProductCard.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,32 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-21"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-apply-the-turtle-wax-inspired-theme-consistently-to-key-components-by-adjusting-their-tailwind-classes-to-use-the-updated-theme-tokens-e-g-ensuring-headings-navigation-links-section-dividers-badges-and-hover-states-reflect-the-new-palette-rather-than-the-prior-charcoal-orange-styling",
-      "featureTitle": "Apply the Turtle Wax-inspired theme consistently to key components by adjusting their Tailwind classes to use the updated theme tokens (e.g., ensuring headings, navigation links, section dividers, badges, and hover states reflect the new palette rather than the prior charcoal–orange styling).",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/AboutSection.tsx",
-        "frontend/src/components/BrandSection.tsx",
-        "frontend/src/components/BrandsSection.tsx",
-        "frontend/src/components/HomeHero.tsx",
-        "frontend/src/components/ProductCard.tsx",
-        "frontend/src/components/SiteFooter.tsx",
-        "frontend/src/components/SiteHeader.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-22"
+        "REQ-24"
       ],
       "confidence": "high"
     }

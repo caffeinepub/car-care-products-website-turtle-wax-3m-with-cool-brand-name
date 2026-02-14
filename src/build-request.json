@@ -1,56 +1,53 @@
 {
   "kind": "build_request",
-  "title": "Update UI theme to match Turtle Wax website colors and text styling",
+  "title": "Add more products to the catalog",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-21",
-      "text": "Update the site-wide visual theme to closely match the Turtle Wax website look-and-feel, specifically aligning the primary/secondary color palette and default text colors used across the UI (headers, body text, links, buttons, cards, borders, and section backgrounds).",
-      "target": "frontend",
+      "id": "REQ-23",
+      "text": "Populate the Motoko product catalog with additional products so the site shows more items on the homepage for the existing brands (\"Turtle Wax\" and \"3M\") without requiring any manual calls to addProduct.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-6"
         ],
         "quotes": [
-          "Make exact as turtlewax website theme with same colour text"
+          "Add products"
         ]
       },
       "acceptanceCriteria": [
-        "The global Tailwind/CSS variable tokens (e.g., background/foreground/primary/secondary/accent/muted/border/ring) are updated so the site’s dominant colors and text colors visually match the Turtle Wax-inspired theme.",
-        "Text colors across all major sections (Header, Home hero, Brand sections, Brands section, About section, Footer) are consistent with the new theme and maintain readable contrast.",
-        "No blue/purple becomes the primary brand color (keep within the Turtle Wax-inspired palette while meeting accessibility/contrast)."
+        "Calling getAllProducts returns a non-empty list of products on a fresh install.",
+        "The returned products include multiple items for brand \"Turtle Wax\" and multiple items for brand \"3M\" (so both brand sections render on the homepage).",
+        "All seeded products have unique id values and include brand, name, shortDescription, and imgPath fields (tags optional).",
+        "getAllProducts returns products sorted by id (ascending) as it does today."
       ]
     },
     {
-      "id": "REQ-22",
-      "text": "Apply the Turtle Wax-inspired theme consistently to key components by adjusting their Tailwind classes to use the updated theme tokens (e.g., ensuring headings, navigation links, section dividers, badges, and hover states reflect the new palette rather than the prior charcoal–orange styling).",
-      "target": "frontend",
+      "id": "REQ-24",
+      "text": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-6"
         ],
         "quotes": [
-          "Make exact as turtlewax website theme with same colour text"
+          "Add products"
         ]
       },
       "acceptanceCriteria": [
-        "SiteHeader navigation text, hover states, and header background/border styling align with the new theme tokens and do not look like the previous theme.",
-        "HomeHero gradient/background, headline accent color, and decorative blobs are updated to match the new theme palette.",
-        "BrandSection divider color and ProductCard hover/active styling (including title hover color) match the new theme.",
-        "BrandsSection icon accent backgrounds/colors and card styling match the new theme.",
-        "SiteFooter link color and icon styling match the new theme."
+        "The homepage renders additional ProductCard tiles for both \"Turtle Wax\" and \"3M\" without broken image icons.",
+        "If any product imgPath is empty, the ProductCard uses the existing fallback image path \"/assets/generated/product-placeholders-set.dim_1200x800.png\"."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under frontend/src/components/ui (Shadcn UI sources are read-only).",
-    "Do not edit immutable hook/bootstrap files listed in SYSTEM_CONTEXT (compose around them instead).",
-    "Keep the existing site branding name/slug behavior driven by frontend/src/config/branding.ts and environment variables (do not rename the app unless explicitly requested)."
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
+    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything in frontend/src/components/ui."
   ],
   "nonGoals": [
-    "Do not copy Turtle Wax website content, layout structure, proprietary assets, or trademarks/logos; only adapt a similar color/typography theme.",
-    "Do not change backend behavior, product catalog data, or add new backend endpoints.",
-    "Do not add new pages or new product features beyond theme/styling changes."
+    "Building an admin UI for adding/editing products.",
+    "Adding new brands or new site sections beyond showing more products for the existing brands.",
+    "Introducing an external database or external image hosting."
   ],
   "imageRequirements": {
     "required": [],

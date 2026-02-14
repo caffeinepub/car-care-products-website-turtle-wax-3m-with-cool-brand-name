@@ -1,69 +1,43 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T18:24:01.331Z",
+  "generatedAt": "2026-02-14T18:45:23.294Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 2,
-    "implemented": 2,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-21",
-        "summary": "Update the site-wide visual theme to closely match the Turtle Wax website look-and-feel, specifically aligning the primary/secondary color palette and default text colors used across the UI (headers, body text, links, buttons, cards, borders, and section backgrounds).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/index.css",
-          "frontend/tailwind.config.js"
-        ],
-        "matchedFiles": [
-          "frontend/src/index.css"
-        ]
+        "id": "REQ-23",
+        "summary": "Populate the Motoko product catalog with additional products so the site shows more items on the homepage for the existing brands (\"Turtle Wax\" and \"3M\") without requiring any manual calls to addProduct.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       },
       {
-        "id": "REQ-22",
-        "summary": "Apply the Turtle Wax-inspired theme consistently to key components by adjusting their Tailwind classes to use the updated theme tokens (e.g., ensuring headings, navigation links, section dividers, badges, and hover states reflect the new palette rather than the prior charcoal–orange styling).",
+        "id": "REQ-24",
+        "summary": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/components/HomeHero.tsx",
-          "frontend/src/components/BrandSection.tsx",
-          "frontend/src/components/ProductCard.tsx",
-          "frontend/src/components/BrandsSection.tsx",
-          "frontend/src/components/AboutSection.tsx",
-          "frontend/src/components/SiteFooter.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/ProductCard.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/components/HomeHero.tsx",
-          "frontend/src/components/BrandSection.tsx",
-          "frontend/src/components/ProductCard.tsx",
-          "frontend/src/components/BrandsSection.tsx",
-          "frontend/src/components/AboutSection.tsx",
-          "frontend/src/components/SiteFooter.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/components/ProductCard.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/components/AboutSection.tsx",
-    "frontend/src/components/BrandSection.tsx",
-    "frontend/src/components/BrandsSection.tsx",
-    "frontend/src/components/HomeHero.tsx",
     "frontend/src/components/ProductCard.tsx",
-    "frontend/src/components/SiteFooter.tsx",
-    "frontend/src/components/SiteHeader.tsx",
-    "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 17,
   "summary": "Website project for a car care products site featuring brands like Turtle Wax and 3M, branded as “Urban Wax Studio.”",
   "architectural_notes": [
     "Brand/site name selected: “Urban Wax Studio” (use consistently across header, footer, document title, and About copy).",
@@ -176,6 +176,14 @@
         "REQ-22"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-ensure-all-newly-added-products-render-correctly-in-the-existing-ui-by-providing-imgpath-values-that-resolve-to-a-valid-image-url-or-intentionally-leaving-imgpath-empty-so-the-frontend-fallback-image-is-used",
+      "title": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -215,6 +223,20 @@
       "id": "AR-8",
       "summary": "Update the site’s visual theme to closely match the Turtle Wax website (colors and text styling/typography) across the UI.",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add more products to the catalog so additional items appear on the site (e.g., on the homepage/brand sections).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Populate the Motoko product catalog with additional products so the site shows more items on the homepage for the existing brands (\"Turtle Wax\" and \"3M\") without requiring any manual calls to addProduct.",
+      "reqIds": [
+        "REQ-23"
+      ],
       "status": "pending"
     }
   ],

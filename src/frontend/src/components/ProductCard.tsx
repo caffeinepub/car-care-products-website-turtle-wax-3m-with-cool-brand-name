@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Product } from '../backend';
 import { Badge } from '@/components/ui/badge';
 
@@ -6,7 +7,12 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const imageSrc = product.imgPath || '/assets/generated/product-placeholders-set.dim_1200x800.png';
+  const fallbackImage = '/assets/generated/product-placeholders-set.dim_1200x800.png';
+  const [imageSrc, setImageSrc] = useState(product.imgPath || fallbackImage);
+
+  const handleImageError = () => {
+    setImageSrc(fallbackImage);
+  };
 
   return (
     <div className="group relative bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all duration-300 hover:-translate-y-1">
@@ -15,6 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <img
           src={imageSrc}
           alt={product.name}
+          onError={handleImageError}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>

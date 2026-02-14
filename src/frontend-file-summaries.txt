@@ -3,7 +3,7 @@
   "frontend/src/components/SiteHeader.tsx": "Sticky header component with Urban Wax Studio logo, brand name from centralized config, and responsive navigation menu with green hover states matching the Turtle Wax theme.",
   "frontend/src/components/SiteFooter.tsx": "Footer component displaying copyright information with centralized app name, green heart icon, and attribution link to caffeine.ai with proper UTM tracking.",
   "frontend/src/components/HomeHero.tsx": "Hero section component featuring the main headline with green accent text, tagline, description, and hero banner image with green and yellow decorative gradient accents.",
-  "frontend/src/components/ProductCard.tsx": "Reusable product card component that displays product image, name, description, and optional tags with green hover effects and border highlights.",
+  "frontend/src/components/ProductCard.tsx": "Reusable product card component that displays product image with fallback handling for empty or broken image paths, product name, description, and optional tags with green hover effects and border highlights.",
   "frontend/src/components/BrandSection.tsx": "Section component that renders a brand heading with green accent underline and grid of product cards for a specific brand (Turtle Wax or 3M).",
   "frontend/src/components/BrandsSection.tsx": "Informational section displaying detailed descriptions of featured brands (Turtle Wax with green accents and 3M with yellow accents) with icons and styling.",
   "frontend/src/components/AboutSection.tsx": "About section component with company description, feature highlights with green icon accents, and informational content using centralized branding.",

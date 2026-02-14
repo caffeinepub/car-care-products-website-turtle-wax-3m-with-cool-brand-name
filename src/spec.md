@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Update the site’s global UI theme to closely match a Turtle Wax-inspired color palette and text styling across all major sections and components.
+**Goal:** Seed the Motoko product catalog with additional items for the existing brands (“Turtle Wax” and “3M”) so the homepage shows more products on a fresh install.
 
 **Planned changes:**
-- Update global theme tokens (e.g., background/foreground/primary/secondary/accent/muted/border/ring) to align the site-wide palette and default text colors with the new Turtle Wax-inspired look.
-- Adjust key frontend components’ Tailwind classes to consistently use the updated theme tokens for headings, links, buttons, cards, borders/dividers, backgrounds, and hover/active states.
-- Ensure the updated palette avoids blue/purple as primary brand colors and maintains readable contrast across Header, Home hero, Brand/Brands sections, About, and Footer.
+- Update backend catalog initialization to include multiple seeded products for “Turtle Wax” and multiple seeded products for “3M” without requiring manual `addProduct` calls.
+- Ensure all seeded products have unique `id` values and include `brand`, `name`, `shortDescription`, and `imgPath` (with `tags` optional).
+- Keep `getAllProducts` returning products sorted by `id` ascending, and ensure each product’s `imgPath` either resolves to a valid in-app image URL or is left empty so the existing frontend fallback image is used.
 
-**User-visible outcome:** The site visually adopts a cohesive Turtle Wax-inspired theme, with consistent colors and text styling across navigation, hero, sections, cards, and footer.
+**User-visible outcome:** On a fresh install, the homepage shows additional product tiles under both “Turtle Wax” and “3M” sections, with no broken product images.

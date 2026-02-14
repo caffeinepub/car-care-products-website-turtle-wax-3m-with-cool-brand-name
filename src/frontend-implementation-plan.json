@@ -1,84 +1,20 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Turtle Wax-inspired global theme and component styling updates",
+  "title": "Ensure newly seeded catalog products render without broken images",
   "requirements": [
     {
-      "id": "REQ-21",
-      "summary": "Update global theme tokens (colors + default text styling) to a Turtle Wax-inspired palette and ensure consistent readable contrast site-wide.",
+      "id": "REQ-24",
+      "summary": "Harden product image rendering so newly seeded products never display broken image icons and fall back to the existing placeholder when imgPath is empty or fails to load.",
       "acceptanceCriteria": [
-        "The global Tailwind/CSS variable tokens (e.g., background/foreground/primary/secondary/accent/muted/border/ring) are updated so the site’s dominant colors and text colors visually match the Turtle Wax-inspired theme.",
-        "Text colors across all major sections (Header, Home hero, Brand sections, Brands section, About section, Footer) are consistent with the new theme and maintain readable contrast.",
-        "No blue/purple becomes the primary brand color (keep within the Turtle Wax-inspired palette while meeting accessibility/contrast)."
+        "The homepage renders additional ProductCard tiles for both \"Turtle Wax\" and \"3M\" without broken image icons.",
+        "If any product imgPath is empty, the ProductCard uses the existing fallback image path \"/assets/generated/product-placeholders-set.dim_1200x800.png\"."
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Replace the existing charcoal–orange CSS variable theme with a Turtle Wax-inspired palette by updating --background/--foreground/--primary/--secondary/--accent/--muted/--border/--ring (and related *-foreground variables), plus dark-mode equivalents, keeping strong contrast and avoiding blue/purple as primary."
-        },
-        {
-          "path": "frontend/index.css",
-          "operation": "modify",
-          "description": "Align root-level CSS theme tokens with frontend/src/index.css (or otherwise ensure it does not diverge) so any builds referencing this file still use the Turtle Wax-inspired palette and readable default text colors."
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Adjust Tailwind theme configuration only as needed to support the updated token-based theme (e.g., ensure ring/border/background/foreground token mappings remain correct and optionally refine typography defaults to keep headings/body text consistent with the new theme without introducing blue/purple as primary)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-22",
-      "summary": "Apply the updated theme tokens consistently across key UI sections and components by adjusting Tailwind classes for headings, links, dividers, badges, and hover states.",
-      "acceptanceCriteria": [
-        "SiteHeader navigation text, hover states, and header background/border styling align with the new theme tokens and do not look like the previous theme.",
-        "HomeHero gradient/background, headline accent color, and decorative blobs are updated to match the new theme palette.",
-        "BrandSection divider color and ProductCard hover/active styling (including title hover color) match the new theme.",
-        "BrandsSection icon accent backgrounds/colors and card styling match the new theme.",
-        "SiteFooter link color and icon styling match the new theme."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/SiteHeader.tsx",
-          "operation": "modify",
-          "description": "Update header background/border opacity choices and navigation/link hover states to use the new theme tokens (primary/secondary/accent/foreground/muted-foreground) so the header reads as Turtle Wax-inspired rather than charcoal–orange."
-        },
-        {
-          "path": "frontend/src/components/HomeHero.tsx",
-          "operation": "modify",
-          "description": "Retheme hero background (gradient or solid), headline accent color, and decorative blob colors to use the updated theme tokens (e.g., primary/secondary/accent) consistent with the Turtle Wax-inspired palette and high contrast text."
-        },
-        {
-          "path": "frontend/src/components/BrandSection.tsx",
-          "operation": "modify",
-          "description": "Update the section divider and heading styling to match the new theme tokens (e.g., divider uses the new primary/secondary accent) and ensure brand section text colors remain consistent with global defaults."
-        },
         {
           "path": "frontend/src/components/ProductCard.tsx",
           "operation": "modify",
-          "description": "Retheme product card hover/active states, border/shadow emphasis, and title hover color to use the updated theme tokens (primary/accent/border/muted) while maintaining readable card-foreground text."
-        },
-        {
-          "path": "frontend/src/components/BrandsSection.tsx",
-          "operation": "modify",
-          "description": "Update brand cards and icon accent blocks to use the new theme tokens (e.g., primary for Turtle Wax-inspired highlight, secondary/accent for alternate brand highlight) and ensure card text uses foreground/muted-foreground appropriately."
-        },
-        {
-          "path": "frontend/src/components/AboutSection.tsx",
-          "operation": "modify",
-          "description": "Adjust typography classes (including Tailwind Typography 'prose' overrides via utility classes) so headings, body text, and feature icon accents use the new theme tokens consistently and remain readable."
-        },
-        {
-          "path": "frontend/src/components/SiteFooter.tsx",
-          "operation": "modify",
-          "description": "Update footer background/border styling and link/icon colors to use the new theme tokens (foreground/muted-foreground/primary) so footer links and the heart icon align with the updated palette."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Update section background wrappers (e.g., Brands section background) to use the updated theme tokens consistently across sections, avoiding legacy accent tints that resemble the prior theme."
+          "description": "Update ProductCard image handling to (1) continue using the existing fallback when product.imgPath is empty and (2) add a runtime onError fallback so that invalid/unreachable imgPath values automatically swap to \"/assets/generated/product-placeholders-set.dim_1200x800.png\" instead of showing a broken image icon."
         }
       ]
     }
