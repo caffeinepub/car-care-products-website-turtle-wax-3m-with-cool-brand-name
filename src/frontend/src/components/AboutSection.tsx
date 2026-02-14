@@ -7,7 +7,7 @@ export function AboutSection() {
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="text-center space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
             About {BRANDING.appName}
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -30,7 +30,7 @@ export function AboutSection() {
               <div className="inline-flex p-4 bg-primary/10 rounded-lg">
                 <Package className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-semibold text-lg">Premium Selection</h3>
+              <h3 className="font-semibold text-lg text-foreground">Premium Selection</h3>
               <p className="text-sm text-muted-foreground">
                 Only the finest products from trusted manufacturers
               </p>
@@ -40,7 +40,7 @@ export function AboutSection() {
               <div className="inline-flex p-4 bg-primary/10 rounded-lg">
                 <Award className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-semibold text-lg">Professional Grade</h3>
+              <h3 className="font-semibold text-lg text-foreground">Professional Grade</h3>
               <p className="text-sm text-muted-foreground">
                 Products used by detailing professionals worldwide
               </p>
@@ -50,7 +50,7 @@ export function AboutSection() {
               <div className="inline-flex p-4 bg-primary/10 rounded-lg">
                 <Users className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-semibold text-lg">Expert Curation</h3>
+              <h3 className="font-semibold text-lg text-foreground">Expert Curation</h3>
               <p className="text-sm text-muted-foreground">
                 Carefully selected for quality and performance
               </p>

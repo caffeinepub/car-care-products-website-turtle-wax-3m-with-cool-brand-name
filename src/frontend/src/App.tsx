@@ -78,7 +78,7 @@ function App() {
         </section>
 
         {/* Brands Section */}
-        <section id="brands" className="bg-accent/30">
+        <section id="brands" className="bg-primary/5">
           <BrandsSection />
         </section>
 

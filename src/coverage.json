@@ -1,67 +1,48 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T16:39:19.555Z",
+  "generatedAt": "2026-02-14T18:24:01.331Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Update the footer’s non-browser fallback identifier string (used for the caffeine.ai attribution URL parameter) to a slug that matches the new name (e.g., \"torqueshine-supply\").",
+        "id": "REQ-21",
+        "summary": "Update the site-wide visual theme to closely match the Turtle Wax website look-and-feel, specifically aligning the primary/secondary color palette and default text colors used across the UI (headers, body text, links, buttons, cards, borders, and section backgrounds).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/config/branding.ts",
-          "frontend/src/components/SiteFooter.tsx",
-          "frontend/.env"
+          "frontend/src/index.css",
+          "frontend/index.css",
+          "frontend/tailwind.config.js"
         ],
         "matchedFiles": [
-          "frontend/src/config/branding.ts",
-          "frontend/src/components/SiteFooter.tsx",
-          "frontend/.env"
+          "frontend/src/index.css"
         ]
       },
       {
-        "id": "REQ-8",
-        "summary": "Change the website/app name from \"AutoGleam Supply\" to \"TorqueShine Supply\" and update all user-facing branding text to match across the frontend (header/logo alt text, About section heading/body copy, footer copyright, and HTML document title).",
+        "id": "REQ-22",
+        "summary": "Apply the Turtle Wax-inspired theme consistently to key components by adjusting their Tailwind classes to use the updated theme tokens (e.g., ensuring headings, navigation links, section dividers, badges, and hover states reflect the new palette rather than the prior charcoal–orange styling).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html",
           "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/components/HomeHero.tsx",
+          "frontend/src/components/BrandSection.tsx",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/components/BrandsSection.tsx",
           "frontend/src/components/AboutSection.tsx",
           "frontend/src/components/SiteFooter.tsx",
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/index.html",
           "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/components/AboutSection.tsx",
-          "frontend/src/components/SiteFooter.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-9",
-        "summary": "Centralize the site/app name in a single frontend constant/module and refactor all components that display the site name to use that constant so future renames do not require hunting for duplicated strings.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/.env",
-          "frontend/index.html",
-          "frontend/src/config/branding.ts",
-          "frontend/src/components/SiteHeader.tsx",
-          "frontend/src/components/AboutSection.tsx",
-          "frontend/src/components/SiteFooter.tsx",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/.env",
-          "frontend/index.html",
-          "frontend/src/config/branding.ts",
-          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/components/HomeHero.tsx",
+          "frontend/src/components/BrandSection.tsx",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/components/BrandsSection.tsx",
           "frontend/src/components/AboutSection.tsx",
           "frontend/src/components/SiteFooter.tsx",
           "frontend/src/App.tsx"
@@ -71,17 +52,18 @@
   },
   "changedFiles": [
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/.env",
-    "frontend/index.html",
     "frontend/src/App.tsx",
     "frontend/src/components/AboutSection.tsx",
+    "frontend/src/components/BrandSection.tsx",
+    "frontend/src/components/BrandsSection.tsx",
+    "frontend/src/components/HomeHero.tsx",
+    "frontend/src/components/ProductCard.tsx",
     "frontend/src/components/SiteFooter.tsx",
     "frontend/src/components/SiteHeader.tsx",
-    "frontend/src/config/branding.ts",
+    "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,6 +1,6 @@
 export function HomeHero() {
   return (
-    <div className="relative w-full overflow-hidden bg-gradient-to-br from-background via-accent/20 to-background">
+    <div className="relative w-full overflow-hidden bg-gradient-to-br from-background via-primary/5 to-background">
       <div className="container mx-auto px-4 py-20 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}

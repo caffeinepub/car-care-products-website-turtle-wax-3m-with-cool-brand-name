@@ -2,12 +2,33 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-change-the-website-app-name-from-autogleam-supply-to-torqueshine-supply-and-update-all-user-facing-branding-text-to-match-across-the-frontend-header-logo-alt-text-about-section-heading-body-copy-footer-copyright-and-html-document-title",
-      "featureTitle": "Change the website/app name from \"AutoGleam Supply\" to \"TorqueShine Supply\" and update all user-facing branding text to match across the frontend (header/logo alt text, About section heading/body copy, footer copyright, and HTML document title).",
+      "featureId": "feature-update-the-site-wide-visual-theme-to-closely-match-the-turtle-wax-website-look-and-feel-specifically-aligning-the-primary-secondary-color-palette-and-default-text-colors-used-across-the-ui-headers-body-text-links-buttons-cards-borders-and-section-backgrounds",
+      "featureTitle": "Update the site-wide visual theme to closely match the Turtle Wax website look-and-feel, specifically aligning the primary/secondary color palette and default text colors used across the UI (headers, body text, links, buttons, cards, borders, and section backgrounds).",
       "files": [
-        "frontend/index.html",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-21"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-the-turtle-wax-inspired-theme-consistently-to-key-components-by-adjusting-their-tailwind-classes-to-use-the-updated-theme-tokens-e-g-ensuring-headings-navigation-links-section-dividers-badges-and-hover-states-reflect-the-new-palette-rather-than-the-prior-charcoal-orange-styling",
+      "featureTitle": "Apply the Turtle Wax-inspired theme consistently to key components by adjusting their Tailwind classes to use the updated theme tokens (e.g., ensuring headings, navigation links, section dividers, badges, and hover states reflect the new palette rather than the prior charcoal–orange styling).",
+      "files": [
         "frontend/src/App.tsx",
         "frontend/src/components/AboutSection.tsx",
+        "frontend/src/components/BrandSection.tsx",
+        "frontend/src/components/BrandsSection.tsx",
+        "frontend/src/components/HomeHero.tsx",
+        "frontend/src/components/ProductCard.tsx",
         "frontend/src/components/SiteFooter.tsx",
         "frontend/src/components/SiteHeader.tsx"
       ],
@@ -19,51 +40,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-8"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-centralize-the-site-app-name-in-a-single-frontend-constant-module-and-refactor-all-components-that-display-the-site-name-to-use-that-constant-so-future-renames-do-not-require-hunting-for-duplicated-strings",
-      "featureTitle": "Centralize the site/app name in a single frontend constant/module and refactor all components that display the site name to use that constant so future renames do not require hunting for duplicated strings.",
-      "files": [
-        "frontend/.env",
-        "frontend/index.html",
-        "frontend/src/App.tsx",
-        "frontend/src/components/AboutSection.tsx",
-        "frontend/src/components/SiteFooter.tsx",
-        "frontend/src/components/SiteHeader.tsx",
-        "frontend/src/config/branding.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-9"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-footer-s-non-browser-fallback-identifier-string-used-for-the-caffeine-ai-attribution-url-parameter-to-a-slug-that-matches-the-new-name-e-g-torqueshine-supply",
-      "featureTitle": "Update the footer’s non-browser fallback identifier string (used for the caffeine.ai attribution URL parameter) to a slug that matches the new name (e.g., \"torqueshine-supply\").",
-      "files": [
-        "frontend/.env",
-        "frontend/src/components/SiteFooter.tsx",
-        "frontend/src/config/branding.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-10"
+        "REQ-22"
       ],
       "confidence": "high"
     }

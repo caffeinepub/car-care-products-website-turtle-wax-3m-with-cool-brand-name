@@ -24,7 +24,7 @@ export function SiteHeader() {
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             <img 
-              src="/assets/generated/site-logo.dim_512x512.png" 
+              src="/assets/generated/site-logo-user.dim_512x512.png" 
               alt={BRANDING.appName}
               className="h-10 w-10 object-contain"
             />
@@ -42,19 +42,19 @@ export function SiteHeader() {
           <nav className="hidden md:flex items-center gap-6">
             <button
               onClick={() => scrollToSection('home')}
-              className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+              className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
             >
               Home
             </button>
             <button
               onClick={() => scrollToSection('brands')}
-              className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+              className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
             >
               Brands
             </button>
             <button
               onClick={() => scrollToSection('about')}
-              className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+              className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
             >
               About
             </button>
@@ -80,19 +80,19 @@ export function SiteHeader() {
           <nav className="md:hidden py-4 space-y-2 border-t border-border/40">
             <button
               onClick={() => scrollToSection('home')}
-              className="block w-full text-left px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/50 rounded transition-colors"
+              className="block w-full text-left px-4 py-2 text-sm font-medium text-foreground/70 hover:text-primary hover:bg-accent/50 rounded transition-colors"
             >
               Home
             </button>
             <button
               onClick={() => scrollToSection('brands')}
-              className="block w-full text-left px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/50 rounded transition-colors"
+              className="block w-full text-left px-4 py-2 text-sm font-medium text-foreground/70 hover:text-primary hover:bg-accent/50 rounded transition-colors"
             >
               Brands
             </button>
             <button
               onClick={() => scrollToSection('about')}
-              className="block w-full text-left px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/50 rounded transition-colors"
+              className="block w-full text-left px-4 py-2 text-sm font-medium text-foreground/70 hover:text-primary hover:bg-accent/50 rounded transition-colors"
             >
               About
             </button>

@@ -9,7 +9,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const imageSrc = product.imgPath || '/assets/generated/product-placeholders-set.dim_1200x800.png';
 
   return (
-    <div className="group relative bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div className="group relative bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all duration-300 hover:-translate-y-1">
       {/* Product Image */}
       <div className="aspect-square overflow-hidden bg-muted/50">
         <img

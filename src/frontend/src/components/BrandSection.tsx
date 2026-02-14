@@ -11,7 +11,7 @@ export function BrandSection({ brand, products }: BrandSectionProps) {
     <div className="space-y-8">
       {/* Section Header */}
       <div className="space-y-3">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
           {brand} Products
         </h2>
         <div className="h-1 w-20 bg-primary rounded-full" />

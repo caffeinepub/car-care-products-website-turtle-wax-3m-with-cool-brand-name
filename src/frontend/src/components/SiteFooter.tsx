@@ -17,13 +17,13 @@ export function SiteFooter() {
           
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>Built with</span>
-            <Heart className="h-4 w-4 text-destructive fill-destructive" />
+            <Heart className="h-4 w-4 text-primary fill-primary" />
             <span>using</span>
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-foreground hover:underline"
+              className="font-medium text-foreground hover:text-primary transition-colors"
             >
               caffeine.ai
             </a>

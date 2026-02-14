@@ -6,7 +6,7 @@ export function BrandsSection() {
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="text-center space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
             Our Featured Brands
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -17,12 +17,12 @@ export function BrandsSection() {
         {/* Brand Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Turtle Wax */}
-          <div className="bg-card border border-border rounded-lg p-8 space-y-4 hover:shadow-lg transition-shadow">
+          <div className="bg-card border border-border rounded-lg p-8 space-y-4 hover:shadow-lg hover:border-primary/50 transition-all">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-primary/10 rounded-lg">
                 <Sparkles className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold">Turtle Wax</h3>
+              <h3 className="text-2xl font-bold text-foreground">Turtle Wax</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
               Since 1944, Turtle Wax has been a pioneer in car care innovation. Their comprehensive range 
@@ -33,12 +33,12 @@ export function BrandsSection() {
           </div>
 
           {/* 3M */}
-          <div className="bg-card border border-border rounded-lg p-8 space-y-4 hover:shadow-lg transition-shadow">
+          <div className="bg-card border border-border rounded-lg p-8 space-y-4 hover:shadow-lg hover:border-destructive/50 transition-all">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-destructive/10 rounded-lg">
                 <Shield className="h-6 w-6 text-destructive" />
               </div>
-              <h3 className="text-2xl font-bold">3M</h3>
+              <h3 className="text-2xl font-bold text-foreground">3M</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
               3M brings decades of scientific innovation to automotive care. Known for their professional-grade 

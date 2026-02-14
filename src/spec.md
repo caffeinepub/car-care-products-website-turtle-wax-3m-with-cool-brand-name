@@ -1,12 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Rename the site/app from "AutoGleam Supply" to "TorqueShine Supply" across all visible branding and metadata, and centralize the name in one frontend constant for easier future renames.
+**Goal:** Update the site’s global UI theme to closely match a Turtle Wax-inspired color palette and text styling across all major sections and components.
 
 **Planned changes:**
-- Update all user-facing occurrences of "AutoGleam Supply" to "TorqueShine Supply" in the header (brand text + logo alt text), About section (heading/body copy), and footer copyright.
-- Update the HTML document title to start with "TorqueShine Supply".
-- Introduce a single frontend constant/module as the source of truth for the site/app name and refactor relevant components to use it.
-- Update the footer’s non-browser fallback identifier string for the attribution URL parameter to a slug matching the new name (e.g., "torqueshine-supply").
+- Update global theme tokens (e.g., background/foreground/primary/secondary/accent/muted/border/ring) to align the site-wide palette and default text colors with the new Turtle Wax-inspired look.
+- Adjust key frontend components’ Tailwind classes to consistently use the updated theme tokens for headings, links, buttons, cards, borders/dividers, backgrounds, and hover/active states.
+- Ensure the updated palette avoids blue/purple as primary brand colors and maintains readable contrast across Header, Home hero, Brand/Brands sections, About, and Footer.
 
-**User-visible outcome:** The UI consistently displays "TorqueShine Supply" (including page title), with no remaining visible references to "AutoGleam Supply"; future renames require changing the name in only one place.
+**User-visible outcome:** The site visually adopts a cohesive Turtle Wax-inspired theme, with consistent colors and text styling across navigation, hero, sections, cards, and footer.

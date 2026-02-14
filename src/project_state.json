@@ -1,8 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
-  "summary": "Website project for a car care products site featuring brands like Turtle Wax and 3M, including a cool website name/branding.",
-  "architectural_notes": [],
+  "projectStateVersion": 15,
+  "summary": "Website project for a car care products site featuring brands like Turtle Wax and 3M, branded as “Urban Wax Studio.”",
+  "architectural_notes": [
+    "Brand/site name selected: “Urban Wax Studio” (use consistently across header, footer, document title, and About copy).",
+    "Visual design direction: match Turtle Wax website theme closely (color palette + text styling/typography) across the UI."
+  ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
@@ -77,6 +80,102 @@
         "REQ-10"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-centralized-branding-configuration-so-the-website-app-name-is-urban-wax-studio-and-the-branding-slug-is-urban-wax-studio-used-for-non-browser-fallback-identifiers-such-as-the-caffeine-ai-attribution-url-parameter",
+      "title": "Update the centralized branding configuration so the website/app name is \"Urban Wax Studio\" and the branding slug is \"urban-wax-studio\" (used for non-browser fallback identifiers such as the caffeine.ai attribution URL parameter).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-environment-based-branding-values-so-builds-use-the-new-name-urban-wax-studio-and-slug-urban-wax-studio-without-requiring-code-edits",
+      "title": "Update environment-based branding values so builds use the new name \"Urban Wax Studio\" and slug \"urban-wax-studio\" without requiring code edits.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-user-facing-branding-text-that-is-still-hardcoded-to-the-previous-app-name-so-the-ui-consistently-displays-urban-wax-studio-including-the-html-document-title-metadata-and-any-visible-headings-copy-that-mention-the-prior-name",
+      "title": "Update all user-facing branding text that is still hardcoded to the previous app name so the UI consistently displays \"Urban Wax Studio\" (including the HTML document title/metadata and any visible headings/copy that mention the prior name).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-environment-based-branding-values-so-the-app-name-is-urban-wax-studio-and-the-branding-slug-is-urban-wax-studio-for-all-builds",
+      "title": "Update environment-based branding values so the app name is \"Urban Wax Studio\" and the branding slug is \"urban-wax-studio\" for all builds.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-centralized-branding-configuration-defaults-so-that-when-environment-variables-are-missing-the-fallback-app-name-is-urban-wax-studio-and-the-fallback-slug-is-urban-wax-studio",
+      "title": "Update the centralized branding configuration defaults so that, when environment variables are missing, the fallback app name is \"Urban Wax Studio\" and the fallback slug is \"urban-wax-studio\".",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-static-html-document-title-metadata-to-reflect-the-urban-wax-studio-brand-instead-of-any-previous-brand-name",
+      "title": "Update the static HTML document title/metadata to reflect the \"Urban Wax Studio\" brand instead of any previous brand name.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-a-new-urban-wax-studio-logo-image-and-add-it-to-the-app-s-static-generated-assets-directory",
+      "title": "Generate a new Urban Wax Studio logo image and add it to the app’s static generated assets directory.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-header-to-use-the-new-logo-asset-for-the-brand-mark-while-keeping-the-alt-text-bound-to-the-centralized-branding-app-name",
+      "title": "Update the header to use the new logo asset for the brand mark while keeping the alt text bound to the centralized branding app name.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-user-uploaded-logo-image-file-s-to-the-frontend-static-assets-under-frontend-public-assets-generated-and-select-a-single-canonical-logo-filename-to-be-used-by-the-app",
+      "title": "Add the user-uploaded logo image file(s) to the frontend static assets under frontend/public/assets/generated and select a single canonical logo filename to be used by the app.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-header-to-use-the-new-canonical-logo-asset-instead-of-the-current-assets-generated-site-logo-v2-dim-512x512-png-while-keeping-the-img-alt-text-bound-to-branding-appname",
+      "title": "Update the site header to use the new canonical logo asset instead of the current /assets/generated/site-logo-v2.dim_512x512.png, while keeping the img alt text bound to BRANDING.appName.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-wide-visual-theme-to-closely-match-the-turtle-wax-website-look-and-feel-specifically-aligning-the-primary-secondary-color-palette-and-default-text-colors-used-across-the-ui-headers-body-text-links-buttons-cards-borders-and-section-backgrounds",
+      "title": "Update the site-wide visual theme to closely match the Turtle Wax website look-and-feel, specifically aligning the primary/secondary color palette and default text colors used across the UI (headers, body text, links, buttons, cards, borders, and section backgrounds).",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-the-turtle-wax-inspired-theme-consistently-to-key-components-by-adjusting-their-tailwind-classes-to-use-the-updated-theme-tokens-e-g-ensuring-headings-navigation-links-section-dividers-badges-and-hover-states-reflect-the-new-palette-rather-than-the-prior-charcoal-orange-styling",
+      "title": "Apply the Turtle Wax-inspired theme consistently to key components by adjusting their Tailwind classes to use the updated theme tokens (e.g., ensuring headings, navigation links, section dividers, badges, and hover states reflect the new palette rather than the prior charcoal–orange styling).",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -99,10 +198,28 @@
       "summary": "Change the website/app name (update branding/site name across the UI where it appears, e.g., header/nav and related branding text).",
       "reqIds": [],
       "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Update/replace the site logo (change the current logo asset and reflect it in the UI where used).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Integrate the user-provided logo asset into the Urban Wax Studio site (replace current logo where used, e.g., header/branding).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Update the site’s visual theme to closely match the Turtle Wax website (colors and text styling/typography) across the UI.",
+      "reqIds": [],
+      "status": "pending"
     }
   ],
   "gameProjectType": "none",
-  "projectName": "Car Care Products Website (Turtle Wax & 3M) with Cool Brand Name",
+  "projectName": "Urban Wax Studio",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }
