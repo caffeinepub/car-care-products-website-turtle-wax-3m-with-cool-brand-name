@@ -1,78 +1,137 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T19:54:04.430Z",
+  "generatedAt": "2026-02-15T12:56:17.833Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 7,
+    "implemented": 7,
     "items": [
       {
-        "id": "REQ-29",
-        "summary": "Add the 4 user-uploaded Turtle Wax product photos as static assets under frontend/public/assets/generated and wire each photo to the correct Turtle Wax product by name so the correct image renders on every Turtle Wax product card.",
+        "id": "REQ-1",
+        "summary": "Add an “All Products” page that displays all products from the backend in a responsive grid using the existing ProductCard UI (show product picture, MRP, and discounted/selling price).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
-          "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
-          "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
-          "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png"
+          "frontend/src/pages/AllProductsPage.tsx",
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
-          "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
-          "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
-          "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png"
+          "frontend/src/pages/AllProductsPage.tsx",
+          "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-30",
-        "summary": "Update the product image lookup so Turtle Wax products resolve to the updated Turtle Wax image asset paths (keeping the mapping keyed by brand+name).",
+        "id": "REQ-2",
+        "summary": "Update the site navigation to provide a clear entry point to the new “All Products” page without breaking existing navigation to Home, Cart, Wishlist, and My Products.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/lib/productImages.ts",
-          "frontend/src/components/ProductCard.tsx"
+          "frontend/src/components/SiteHeader.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/ProductCard.tsx"
+          "frontend/src/components/SiteHeader.tsx"
         ]
       },
       {
-        "id": "REQ-31",
-        "summary": "Change pricing behavior so that (1) each product’s stored MRP value is increased by 200 INR, and (2) the displayed selling price is a discounted price lower than the displayed MRP.",
+        "id": "REQ-3",
+        "summary": "Standardize and add the 4 uploaded product photos as frontend static assets, and make them usable as product pictures in listings and product detail views.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/lib/pricing.ts",
+          "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
+          "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
+          "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
+          "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
           "frontend/src/components/ProductCard.tsx",
-          "frontend/src/backend.d.ts"
+          "frontend/src/pages/ProductDetailsPage.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/WishlistPage.tsx",
+          "frontend/src/pages/CheckoutPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/lib/pricing.ts",
+          "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
+          "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
+          "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
+          "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
           "frontend/src/components/ProductCard.tsx",
-          "frontend/src/backend.d.ts"
+          "frontend/src/pages/ProductDetailsPage.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/WishlistPage.tsx",
+          "frontend/src/pages/CheckoutPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Enhance the “My Products” create/edit form so the user can easily set product pictures, MRP, and discounted price for each product, including selecting from the newly added uploaded product photos.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/lib/uploadedProductImages.ts",
+          "frontend/src/pages/MyProductsPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/lib/uploadedProductImages.ts",
+          "frontend/src/pages/MyProductsPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Ensure the product view/details page prominently displays product picture, MRP, discounted price, and discount percentage (when applicable), and provides actions for add-to-cart, wishlist, and buy-now to checkout.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/ProductDetailsPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/ProductDetailsPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Ensure checkout includes delivery address capture and payment method selection and that the order confirmation page displays the captured address and selected payment method.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/CheckoutPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CheckoutPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Ensure wishlist functionality is accessible and consistent across product listing cards and the product details page, and that the wishlist page displays saved products with correct images and prices.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/pages/ProductDetailsPage.tsx",
+          "frontend/src/pages/WishlistPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/pages/ProductDetailsPage.tsx",
+          "frontend/src/pages/WishlistPage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
-    "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
-    "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png",
-    "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
+    "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
+    "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
+    "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
+    "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
+    "frontend/src/App.tsx",
     "frontend/src/components/ProductCard.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/lib/pricing.ts",
+    "frontend/src/components/SiteHeader.tsx",
+    "frontend/src/lib/uploadedProductImages.ts",
+    "frontend/src/pages/AllProductsPage.tsx",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/CheckoutPage.tsx",
+    "frontend/src/pages/MyProductsPage.tsx",
+    "frontend/src/pages/ProductDetailsPage.tsx",
+    "frontend/src/pages/WishlistPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

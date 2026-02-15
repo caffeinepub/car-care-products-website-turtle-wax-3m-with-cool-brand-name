@@ -1,231 +1,65 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 21,
-  "summary": "Website project for a car care products site featuring brands like Turtle Wax and 3M, branded as “Urban Wax Studio.”",
-  "architectural_notes": [
-    "Brand/site name selected: “Urban Wax Studio” (use consistently across header, footer, document title, and About copy).",
-    "Visual design direction: match Turtle Wax website theme closely (color palette + text styling/typography) across the UI.",
-    "Ensure each product has a valid imagePath so product pictures render (or use the existing frontend fallback if intentionally blank).",
-    "Pricing rules updated: increase each product’s MRP by 200 INR, and display a discounted selling price that is lower than MRP (do not compute selling price as MRP + 200).",
-    "Turtle Wax product images must match their respective product names (replace mismatched pictures accordingly)."
-  ],
+  "projectStateVersion": 3,
+  "summary": "E-commerce product catalog and shopping flow features being planned (product listing, product details, pricing, address, payment, wishlist).",
+  "architectural_notes": [],
   "known_issues": [],
-  "isFixRequest": true,
-  "imageRequirements": "## Edit Images\n- Use the uploaded photo as the product image (IMG_5129.jpeg > product-turtle-wax-rubbing-compound.dim_800x800.png)\n- Use the uploaded photo as the product image (IMG_5130.jpeg > product-turtle-wax-ceramic-car-wash.dim_800x800.png)\n- Use the uploaded photo as the product image (IMG_5131.jpeg > product-turtle-wax-all-wheel-cleaner.dim_800x800.png)\n- Use the uploaded photo as the product image (IMG_5132.jpeg > product-turtle-wax-ice-spray-wax.dim_800x800.png)",
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Square-cropped product photo on a clean light background (uploaded-product-1.dim_800x800.png)\n- Square-cropped product photo on a clean light background (uploaded-product-2.dim_800x800.png)\n- Square-cropped product photo on a clean light background (uploaded-product-3.dim_800x800.png)\n- Square-cropped product photo on a clean light background (uploaded-product-4.dim_800x800.png)",
   "existing_features": [
     {
-      "id": "feature-create-a-car-care-products-website-with-a-cool-memorable-site-name-and-consistent-branding-logo-wordmark-tagline-and-navigation-label-applied-across-the-app",
-      "title": "Create a car care products website with a cool, memorable site name and consistent branding (logo wordmark, tagline, and navigation label) applied across the app.",
+      "id": "feature-add-an-all-products-page-that-displays-all-products-from-the-backend-in-a-responsive-grid-using-the-existing-productcard-ui-show-product-picture-mrp-and-discounted-selling-price",
+      "title": "Add an “All Products” page that displays all products from the backend in a responsive grid using the existing ProductCard UI (show product picture, MRP, and discounted/selling price).",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-a-homepage-that-showcases-car-care-products-including-at-least-two-product-sections-for-the-brands-turtle-wax-and-3m-each-with-multiple-products-and-basic-details-name-short-description-and-an-image",
-      "title": "Implement a homepage that showcases car care products, including at least two product sections for the brands Turtle Wax and 3M, each with multiple products and basic details (name, short description, and an image).",
+      "id": "feature-update-the-site-navigation-to-provide-a-clear-entry-point-to-the-new-all-products-page-without-breaking-existing-navigation-to-home-cart-wishlist-and-my-products",
+      "title": "Update the site navigation to provide a clear entry point to the new “All Products” page without breaking existing navigation to Home, Cart, Wishlist, and My Products.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-connect-the-frontend-to-the-backend-product-catalog-using-react-query-and-render-products-grouped-by-brand-on-the-homepage",
-      "title": "Connect the frontend to the backend product catalog using React Query and render products grouped by brand on the homepage.",
+      "id": "feature-standardize-and-add-the-4-uploaded-product-photos-as-frontend-static-assets-and-make-them-usable-as-product-pictures-in-listings-and-product-detail-views",
+      "title": "Standardize and add the 4 uploaded product photos as frontend static assets, and make them usable as product pictures in listings and product detail views.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-the-my-products-create-edit-form-so-the-user-can-easily-set-product-pictures-mrp-and-discounted-price-for-each-product-including-selecting-from-the-newly-added-uploaded-product-photos",
+      "title": "Enhance the “My Products” create/edit form so the user can easily set product pictures, MRP, and discounted price for each product, including selecting from the newly added uploaded product photos.",
       "reqIds": [
         "REQ-4"
       ],
       "version": 1
     },
     {
-      "id": "feature-establish-a-coherent-visual-theme-for-a-car-care-retail-brand-site-colors-typography-spacing-and-component-styling-and-apply-it-consistently-across-all-pages-and-components-avoid-blue-purple-as-primary-brand-colors",
-      "title": "Establish a coherent visual theme for a car-care retail/brand site (colors, typography, spacing, and component styling) and apply it consistently across all pages and components; avoid blue/purple as primary brand colors.",
+      "id": "feature-ensure-the-product-view-details-page-prominently-displays-product-picture-mrp-discounted-price-and-discount-percentage-when-applicable-and-provides-actions-for-add-to-cart-wishlist-and-buy-now-to-checkout",
+      "title": "Ensure the product view/details page prominently displays product picture, MRP, discounted price, and discount percentage (when applicable), and provides actions for add-to-cart, wishlist, and buy-now to checkout.",
       "reqIds": [
         "REQ-5"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-basic-site-structure-with-a-header-site-name-navigation-a-footer-and-at-least-these-sections-pages-home-brands-and-about-simple-static-copy-in-english",
-      "title": "Add a basic site structure with a header (site name + navigation), a footer, and at least these sections/pages: Home, Brands, and About (simple static copy in English).",
+      "id": "feature-ensure-checkout-includes-delivery-address-capture-and-payment-method-selection-and-that-the-order-confirmation-page-displays-the-captured-address-and-selected-payment-method",
+      "title": "Ensure checkout includes delivery address capture and payment method selection and that the order confirmation page displays the captured address and selected payment method.",
       "reqIds": [
         "REQ-6"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-generated-static-visual-assets-logo-and-hero-banner-and-integrate-them-into-the-ui-from-frontend-public-assets-generated-served-statically-not-through-the-backend",
-      "title": "Add generated static visual assets (logo and hero banner) and integrate them into the UI from frontend/public/assets/generated (served statically, not through the backend).",
+      "id": "feature-ensure-wishlist-functionality-is-accessible-and-consistent-across-product-listing-cards-and-the-product-details-page-and-that-the-wishlist-page-displays-saved-products-with-correct-images-and-prices",
+      "title": "Ensure wishlist functionality is accessible and consistent across product listing cards and the product details page, and that the wishlist page displays saved products with correct images and prices.",
       "reqIds": [
         "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-change-the-website-app-name-from-autogleam-supply-to-torqueshine-supply-and-update-all-user-facing-branding-text-to-match-across-the-frontend-header-logo-alt-text-about-section-heading-body-copy-footer-copyright-and-html-document-title",
-      "title": "Change the website/app name from \"AutoGleam Supply\" to \"TorqueShine Supply\" and update all user-facing branding text to match across the frontend (header/logo alt text, About section heading/body copy, footer copyright, and HTML document title).",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-centralize-the-site-app-name-in-a-single-frontend-constant-module-and-refactor-all-components-that-display-the-site-name-to-use-that-constant-so-future-renames-do-not-require-hunting-for-duplicated-strings",
-      "title": "Centralize the site/app name in a single frontend constant/module and refactor all components that display the site name to use that constant so future renames do not require hunting for duplicated strings.",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-footer-s-non-browser-fallback-identifier-string-used-for-the-caffeine-ai-attribution-url-parameter-to-a-slug-that-matches-the-new-name-e-g-torqueshine-supply",
-      "title": "Update the footer’s non-browser fallback identifier string (used for the caffeine.ai attribution URL parameter) to a slug that matches the new name (e.g., \"torqueshine-supply\").",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-centralized-branding-configuration-so-the-website-app-name-is-urban-wax-studio-and-the-branding-slug-is-urban-wax-studio-used-for-non-browser-fallback-identifiers-such-as-the-caffeine-ai-attribution-url-parameter",
-      "title": "Update the centralized branding configuration so the website/app name is \"Urban Wax Studio\" and the branding slug is \"urban-wax-studio\" (used for non-browser fallback identifiers such as the caffeine.ai attribution URL parameter).",
-      "reqIds": [
-        "REQ-11"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-environment-based-branding-values-so-builds-use-the-new-name-urban-wax-studio-and-slug-urban-wax-studio-without-requiring-code-edits",
-      "title": "Update environment-based branding values so builds use the new name \"Urban Wax Studio\" and slug \"urban-wax-studio\" without requiring code edits.",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-all-user-facing-branding-text-that-is-still-hardcoded-to-the-previous-app-name-so-the-ui-consistently-displays-urban-wax-studio-including-the-html-document-title-metadata-and-any-visible-headings-copy-that-mention-the-prior-name",
-      "title": "Update all user-facing branding text that is still hardcoded to the previous app name so the UI consistently displays \"Urban Wax Studio\" (including the HTML document title/metadata and any visible headings/copy that mention the prior name).",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-environment-based-branding-values-so-the-app-name-is-urban-wax-studio-and-the-branding-slug-is-urban-wax-studio-for-all-builds",
-      "title": "Update environment-based branding values so the app name is \"Urban Wax Studio\" and the branding slug is \"urban-wax-studio\" for all builds.",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-centralized-branding-configuration-defaults-so-that-when-environment-variables-are-missing-the-fallback-app-name-is-urban-wax-studio-and-the-fallback-slug-is-urban-wax-studio",
-      "title": "Update the centralized branding configuration defaults so that, when environment variables are missing, the fallback app name is \"Urban Wax Studio\" and the fallback slug is \"urban-wax-studio\".",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-static-html-document-title-metadata-to-reflect-the-urban-wax-studio-brand-instead-of-any-previous-brand-name",
-      "title": "Update the static HTML document title/metadata to reflect the \"Urban Wax Studio\" brand instead of any previous brand name.",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-generate-a-new-urban-wax-studio-logo-image-and-add-it-to-the-app-s-static-generated-assets-directory",
-      "title": "Generate a new Urban Wax Studio logo image and add it to the app’s static generated assets directory.",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-header-to-use-the-new-logo-asset-for-the-brand-mark-while-keeping-the-alt-text-bound-to-the-centralized-branding-app-name",
-      "title": "Update the header to use the new logo asset for the brand mark while keeping the alt text bound to the centralized branding app name.",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-the-user-uploaded-logo-image-file-s-to-the-frontend-static-assets-under-frontend-public-assets-generated-and-select-a-single-canonical-logo-filename-to-be-used-by-the-app",
-      "title": "Add the user-uploaded logo image file(s) to the frontend static assets under frontend/public/assets/generated and select a single canonical logo filename to be used by the app.",
-      "reqIds": [
-        "REQ-19"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-site-header-to-use-the-new-canonical-logo-asset-instead-of-the-current-assets-generated-site-logo-v2-dim-512x512-png-while-keeping-the-img-alt-text-bound-to-branding-appname",
-      "title": "Update the site header to use the new canonical logo asset instead of the current /assets/generated/site-logo-v2.dim_512x512.png, while keeping the img alt text bound to BRANDING.appName.",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-site-wide-visual-theme-to-closely-match-the-turtle-wax-website-look-and-feel-specifically-aligning-the-primary-secondary-color-palette-and-default-text-colors-used-across-the-ui-headers-body-text-links-buttons-cards-borders-and-section-backgrounds",
-      "title": "Update the site-wide visual theme to closely match the Turtle Wax website look-and-feel, specifically aligning the primary/secondary color palette and default text colors used across the UI (headers, body text, links, buttons, cards, borders, and section backgrounds).",
-      "reqIds": [
-        "REQ-21"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-the-turtle-wax-inspired-theme-consistently-to-key-components-by-adjusting-their-tailwind-classes-to-use-the-updated-theme-tokens-e-g-ensuring-headings-navigation-links-section-dividers-badges-and-hover-states-reflect-the-new-palette-rather-than-the-prior-charcoal-orange-styling",
-      "title": "Apply the Turtle Wax-inspired theme consistently to key components by adjusting their Tailwind classes to use the updated theme tokens (e.g., ensuring headings, navigation links, section dividers, badges, and hover states reflect the new palette rather than the prior charcoal–orange styling).",
-      "reqIds": [
-        "REQ-22"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-all-newly-added-products-render-correctly-in-the-existing-ui-by-providing-imgpath-values-that-resolve-to-a-valid-image-url-or-intentionally-leaving-imgpath-empty-so-the-frontend-fallback-image-is-used",
-      "title": "Ensure all newly added products render correctly in the existing UI by providing imgPath values that resolve to a valid image URL, or intentionally leaving imgPath empty so the frontend fallback image is used.",
-      "reqIds": [
-        "REQ-24"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-product-ui-cards-to-display-pricing-for-every-product-in-english-showing-mrp-inr-and-a-selling-price-computed-as-mrp-200-inr-rupees",
-      "title": "Update the product UI cards to display pricing for every product in English, showing MRP (INR) and a selling price computed as MRP + 200 INR (rupees).",
-      "reqIds": [
-        "REQ-27"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-and-serve-static-product-images-for-each-original-product-under-frontend-public-assets-generated-and-wire-each-original-product-s-imgpath-to-its-corresponding-image-so-every-original-product-displays-a-picture",
-      "title": "Add and serve static product images for each original product under frontend/public/assets/generated, and wire each original product’s imgPath to its corresponding image so every original product displays a picture.",
-      "reqIds": [
-        "REQ-28"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-the-4-user-uploaded-turtle-wax-product-photos-as-static-assets-under-frontend-public-assets-generated-and-wire-each-photo-to-the-correct-turtle-wax-product-by-name-so-the-correct-image-renders-on-every-turtle-wax-product-card",
-      "title": "Add the 4 user-uploaded Turtle Wax product photos as static assets under frontend/public/assets/generated and wire each photo to the correct Turtle Wax product by name so the correct image renders on every Turtle Wax product card.",
-      "reqIds": [
-        "REQ-29"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-product-image-lookup-so-turtle-wax-products-resolve-to-the-updated-turtle-wax-image-asset-paths-keeping-the-mapping-keyed-by-brand-name",
-      "title": "Update the product image lookup so Turtle Wax products resolve to the updated Turtle Wax image asset paths (keeping the mapping keyed by brand+name).",
-      "reqIds": [
-        "REQ-30"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-change-pricing-behavior-so-that-1-each-product-s-stored-mrp-value-is-increased-by-200-inr-and-2-the-displayed-selling-price-is-a-discounted-price-lower-than-the-displayed-mrp",
-      "title": "Change pricing behavior so that (1) each product’s stored MRP value is increased by 200 INR, and (2) the displayed selling price is a discounted price lower than the displayed MRP.",
-      "reqIds": [
-        "REQ-31"
       ],
       "version": 1
     }
@@ -233,93 +67,42 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create a car care products website featuring products/brands like Turtle Wax and 3M, including selecting a cool website name.",
+      "summary": "Product listing page that displays all products with product pictures",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Support MRP and discounted price display for products",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Product view/details page",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-4",
-      "summary": "Add a simple product catalog data source in the Motoko backend that returns a list of products with fields sufficient to render the homepage (id, brand, name, shortDescription, imagePath, and optional tags).",
-      "reqIds": [
-        "REQ-3"
-      ],
+      "summary": "Address capture/management for checkout",
+      "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-5",
-      "summary": "Change the website/app name (update branding/site name across the UI where it appears, e.g., header/nav and related branding text).",
+      "summary": "Payment method selection/management",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-6",
-      "summary": "Update/replace the site logo (change the current logo asset and reflect it in the UI where used).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Integrate the user-provided logo asset into the Urban Wax Studio site (replace current logo where used, e.g., header/branding).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Update the site’s visual theme to closely match the Turtle Wax website (colors and text styling/typography) across the UI.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-9",
-      "summary": "Add more products to the catalog so additional items appear on the site (e.g., on the homepage/brand sections).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Populate the Motoko product catalog with additional products so the site shows more items on the homepage for the existing brands (\"Turtle Wax\" and \"3M\") without requiring any manual calls to addProduct.",
-      "reqIds": [
-        "REQ-23"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Display all original products with product images and show pricing for every product.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Add MRP and computed selling price fields for products, where displayed price = MRP + 200 INR (rupees) for all products.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-13",
-      "summary": "Extend the backend Product model to include pricing fields for each product: an MRP value in INR (rupees) and enough information for the frontend to display the selling price as MRP + 200 INR for every product.",
-      "reqIds": [
-        "REQ-25"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Update the backend product catalog data so that all original products (3M 1080 Film, 3M Velcro Tape, 3M Wire Harness Tape, Turtle Wax Rubbing Compound, Turtle Wax Ceramic Car Wash, Turtle Wax All Wheel Cleaner, Turtle Wax Ice Spray Wax) each have: (1) a valid imgPath pointing to a real static image file, and (2) an MRP (INR) value so pricing can be displayed for every product.",
-      "reqIds": [
-        "REQ-26"
-      ],
-      "status": "pending"
-    },
-    {
-      "id": "AR-15",
-      "summary": "Replace Turtle Wax product images so each product displays the correct picture by name, and change pricing logic so MRP is increased by 200 INR while the selling price is a discounted price lower than MRP (not MRP + 200).",
+      "summary": "Wishlist feature",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Urban Wax Studio",
+  "projectName": "Add All Products listing and wire uploaded product photos into catalog pricing, details, wishlist, and checkout",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

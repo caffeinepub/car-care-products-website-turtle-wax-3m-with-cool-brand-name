@@ -20,7 +20,11 @@ export interface Product {
   'brand' : string,
   'discountedPrice' : bigint,
 }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addProduct' : ActorMethod<
     [
       bigint,
@@ -34,12 +38,30 @@ export interface _SERVICE {
     ],
     undefined
   >,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'deleteProduct' : ActorMethod<[bigint], undefined>,
   'getAllProducts' : ActorMethod<[], Array<Product>>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getProduct' : ActorMethod<[bigint], Product>,
+  'getProductDetails' : ActorMethod<[bigint], Product>,
   'getProductsByBrand' : ActorMethod<[string], Array<Product>>,
   'getProductsGroupedByBrand' : ActorMethod<
     [],
     Array<[string, Array<Product>]>
+  >,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'updateProduct' : ActorMethod<
+    [
+      bigint,
+      [] | [string],
+      [] | [string],
+      [] | [string],
+      [] | [string],
+      [] | [bigint],
+      [] | [bigint],
+      [] | [Array<string>],
+    ],
+    undefined
   >,
 }
 export declare const idlService: IDL.ServiceClass;

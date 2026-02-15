@@ -1,85 +1,174 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update Turtle Wax product images and discounted pricing display",
+  "title": "All Products listing + uploaded product photos across catalog, details, wishlist, and checkout",
   "requirements": [
     {
-      "id": "REQ-29",
-      "summary": "Replace Turtle Wax product card images with the 4 provided uploaded photos served as static generated assets.",
+      "id": "REQ-1",
+      "summary": "Add a dedicated All Products page that lists all backend products in a responsive ProductCard grid with INR MRP/selling price display.",
       "acceptanceCriteria": [
-        "The uploaded image IMG_5129.jpeg is used for the product named \"Turtle Wax Rubbing Compound\".",
-        "The uploaded image IMG_5130.jpeg is used for the product named \"Turtle Wax Ceramic Car Wash\".",
-        "The uploaded image IMG_5131.jpeg is used for the product named \"Turtle Wax All Wheel Cleaner\".",
-        "The uploaded image IMG_5132.jpeg is used for the product named \"Turtle Wax Ice Spray Wax\".",
-        "All 4 Turtle Wax products render the intended uploaded image on the homepage product grid with no broken image URLs (the fallback image is not shown for these products)."
+        "A new route exists for an all-products listing (separate from the home page brand-grouped sections).",
+        "The page uses the existing products query (getAllProducts via the existing React Query hook) and renders a grid of ProductCard components.",
+        "Each card shows product image, MRP (strikethrough), and discounted/selling price in INR formatting."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png",
-          "operation": "modify",
-          "description": "Replace the existing generated asset with the uploaded photo (IMG_5129.jpeg) so this file renders for \"Turtle Wax Rubbing Compound\" across the app."
+          "path": "frontend/src/pages/AllProductsPage.tsx",
+          "operation": "create",
+          "description": "Create an All Products page that uses the existing useProducts React Query hook (getAllProducts) and renders a responsive grid of existing ProductCard components, with loading/error/empty states aligned to the app patterns."
         },
         {
-          "path": "frontend/public/assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Replace the existing generated asset with the uploaded photo (IMG_5130.jpeg) so this file renders for \"Turtle Wax Ceramic Car Wash\" across the app."
-        },
-        {
-          "path": "frontend/public/assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png",
-          "operation": "modify",
-          "description": "Replace the existing generated asset with the uploaded photo (IMG_5131.jpeg) so this file renders for \"Turtle Wax All Wheel Cleaner\" across the app."
-        },
-        {
-          "path": "frontend/public/assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png",
-          "operation": "modify",
-          "description": "Replace the existing generated asset with the uploaded photo (IMG_5132.jpeg) so this file renders for \"Turtle Wax Ice Spray Wax\" across the app."
+          "description": "Register and wire a new TanStack Router route (e.g., /all-products) to the new AllProductsPage so it is navigable as a separate listing page."
         }
       ]
     },
     {
-      "id": "REQ-30",
-      "summary": "Update the brand+name keyed product image lookup so Turtle Wax products resolve to the updated static asset paths (frontend mapping takes precedence).",
+      "id": "REQ-2",
+      "summary": "Add a clear navigation entry to the All Products page while keeping existing Home/Cart/Wishlist/My Products navigation intact.",
       "acceptanceCriteria": [
-        "For brand \"Turtle Wax\", the product image mapping returns the updated asset paths for the 4 products listed in REQ-29.",
-        "No changes are required to backend product imgPath values for the 4 Turtle Wax products in order for the correct images to display (i.e., the frontend mapping takes precedence as it does today)."
+        "Header contains a visible navigation item that routes to the All Products page.",
+        "Existing navigation items continue to work as before."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/lib/productImages.ts",
+          "path": "frontend/src/components/SiteHeader.tsx",
           "operation": "modify",
-          "description": "Ensure the Turtle Wax brand+name mappings resolve to the updated static paths: /assets/generated/product-turtle-wax-rubbing-compound.dim_800x800.png, /assets/generated/product-turtle-wax-ceramic-car-wash.dim_800x800.png, /assets/generated/product-turtle-wax-all-wheel-cleaner.dim_800x800.png, and /assets/generated/product-turtle-wax-ice-spray-wax.dim_800x800.png; keep lookup keyed by brand+name so it overrides backend imgPath as intended."
-        },
-        {
-          "path": "frontend/src/components/ProductCard.tsx",
-          "operation": "modify",
-          "description": "Keep product card image selection order as: frontend brand+name mapping first, then backend product.imgPath, then fallback; verify Turtle Wax products always resolve to the mapped generated assets and do not hit the fallback."
+          "description": "Add a visible 'All Products' navigation item (desktop + mobile) that navigates to the new All Products route without altering or breaking existing Home, Cart, Wishlist, and My Products navigation behavior."
         }
       ]
     },
     {
-      "id": "REQ-31",
-      "summary": "Adjust pricing display so displayed MRP is +200 INR and displayed selling price is a discounted value strictly lower than displayed MRP (no longer MRP+200 for selling price).",
+      "id": "REQ-3",
+      "summary": "Add four standardized square uploaded product photos as static assets and ensure they can be used via product imgPath across listing/details/cart/wishlist/checkout with fallbacks.",
       "acceptanceCriteria": [
-        "In the UI, for every product card, the displayed Selling Price is strictly less than the displayed MRP.",
-        "The selling price calculation no longer uses the current formula of MRP + 200.",
-        "Existing persisted products have their mrpInRupees increased by exactly 200 INR after upgrade (via a conditional migration), so the displayed MRP reflects the +200 increase without requiring manual re-entry.",
-        "All user-facing pricing labels remain in English (e.g., \"MRP\" and \"Selling Price\")."
+        "The 4 uploaded images are converted/cropped to consistent square assets and stored under frontend/public/assets/generated with the filenames specified in this build request.",
+        "When a product’s imgPath is set to one of these generated assets, ProductCard, ProductDetailsPage, Cart, Wishlist, and Checkout use it successfully (including fallback behavior if an image fails to load)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/lib/pricing.ts",
-          "operation": "modify",
-          "description": "Replace the current selling-price formula (MRP + 200) with utilities that (a) compute displayed MRP as stored MRP + 200 INR, and (b) compute displayed selling price as a discounted value that is guaranteed to be strictly less than the displayed MRP (e.g., using the product’s discounted price while clamping to < displayed MRP if needed)."
+          "path": "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
+          "operation": "create",
+          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
+        },
+        {
+          "path": "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
+          "operation": "create",
+          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
+        },
+        {
+          "path": "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
+          "operation": "create",
+          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
+        },
+        {
+          "path": "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
+          "operation": "create",
+          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
         },
         {
           "path": "frontend/src/components/ProductCard.tsx",
           "operation": "modify",
-          "description": "Update the product card pricing section to use the new pricing utilities: render displayed MRP as (stored MRP + 200) and render selling price as the discounted value (strictly < displayed MRP), keeping the English labels \"MRP\" and \"Selling Price\"."
+          "description": "Update image source selection logic to prefer an explicit product.imgPath when present (so uploaded assets set on products are honored), while retaining getProductImagePath as a fallback and keeping robust onError fallback behavior."
         },
         {
-          "path": "frontend/src/backend.d.ts",
+          "path": "frontend/src/pages/ProductDetailsPage.tsx",
           "operation": "modify",
-          "description": "Align the frontend Product type used by UI components with the fields consumed for pricing (e.g., ensure the type definition matches the pricing display inputs used in ProductCard) to avoid mismatches and keep price rendering consistent."
+          "description": "Update image source selection logic to prefer product.imgPath when set (so uploaded assets are used), while retaining getProductImagePath as a fallback and keeping onError fallback behavior."
+        },
+        {
+          "path": "frontend/src/pages/CartPage.tsx",
+          "operation": "modify",
+          "description": "Update cart item image selection to prefer item.product.imgPath when present, then fall back to getProductImagePath and placeholder, ensuring onError fallback still works."
+        },
+        {
+          "path": "frontend/src/pages/WishlistPage.tsx",
+          "operation": "modify",
+          "description": "Update wishlist item image selection to prefer product.imgPath when present, then fall back to getProductImagePath and placeholder, ensuring onError fallback still works."
+        },
+        {
+          "path": "frontend/src/pages/CheckoutPage.tsx",
+          "operation": "modify",
+          "description": "Update checkout summary images (single-product + cart-mode) to prefer product.imgPath when present, then fall back to getProductImagePath and placeholder, ensuring onError fallback still works."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Improve My Products create/edit form to make setting product image, MRP, and discounted price easy, including picking from newly added uploaded images.",
+      "acceptanceCriteria": [
+        "My Products form includes inputs for MRP (originalMrp) and discounted price (discountedPrice) and persists them via existing backend mutations.",
+        "My Products form allows setting imgPath either by choosing one of the newly generated uploaded images (dropdown / picker) or entering a custom image path.",
+        "After saving, the updated pricing and image are reflected on the All Products page and Product Details page."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/uploadedProductImages.ts",
+          "operation": "create",
+          "description": "Create a small frontend utility that exports the allowed uploaded image asset paths (frontend/public/assets/generated/uploaded-product-1.dim_800x800.png through uploaded-product-4.dim_800x800.png) for reuse in the My Products image picker."
+        },
+        {
+          "path": "frontend/src/pages/MyProductsPage.tsx",
+          "operation": "modify",
+          "description": "Enhance the create/edit dialog form to include an image picker for imgPath that lets the user choose one of the newly generated uploaded images or enter a custom path; continue using existing inputs for originalMrp and discountedPrice and persist through existing mutations. Use shadcn-ui form controls (e.g., Select/RadioGroup/Input) to keep styling consistent; Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Ensure Product Details prominently shows image, MRP, discounted price, discount percent badge, and supports add-to-cart, wishlist, and buy-now actions.",
+      "acceptanceCriteria": [
+        "Product Details page continues to load a product by id and shows image, MRP (struck-through), discounted price, and a discount badge when discountedPrice < originalMrp.",
+        "Add to Cart, Wishlist toggle, and Buy Now actions function and navigate as expected."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ProductDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Confirm/adjust discount badge and pricing presentation to remain prominent, and ensure actions (add to cart, wishlist toggle, buy now to checkout) continue to function; also ensure explicit product.imgPath is honored for the primary image with fallback behavior."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Ensure checkout enforces delivery address capture, supports payment method selection, and shows both on the order confirmation screen (including cart-mode totals).",
+      "acceptanceCriteria": [
+        "Checkout requires the delivery address fields as currently designed and blocks order placement when required fields are missing.",
+        "Checkout offers a payment method selection (e.g., UPI/Card/COD) and displays the chosen method on the confirmation screen.",
+        "Cart-mode checkout still supports showing multiple items and totals correctly."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CheckoutPage.tsx",
+          "operation": "modify",
+          "description": "Strengthen checkout validation UX so required delivery address fields and payment method selection block order placement (e.g., disable submit and/or show an error message), and ensure the confirmation view displays the captured address and chosen payment method while preserving correct cart-mode itemization and totals."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Keep wishlist behavior consistent across ProductCard and Product Details, and ensure wishlist page shows correct images and consistent price display with local persistence.",
+      "acceptanceCriteria": [
+        "Users can add/remove products to wishlist from ProductCard and ProductDetailsPage.",
+        "Wishlist page lists wishlisted products with images (including the new uploaded assets when used), MRP/discounted price display consistency, and navigation to product details.",
+        "Wishlist state persists locally as before."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ProductCard.tsx",
+          "operation": "modify",
+          "description": "Ensure wishlist toggle remains functional and consistent, and keep image selection aligned with the rule to prefer explicit product.imgPath (uploaded assets) with fallback behavior."
+        },
+        {
+          "path": "frontend/src/pages/ProductDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Ensure wishlist toggle remains functional and consistent with ProductCard behavior, and keep image selection aligned with the rule to prefer explicit product.imgPath (uploaded assets) with fallback behavior."
+        },
+        {
+          "path": "frontend/src/pages/WishlistPage.tsx",
+          "operation": "modify",
+          "description": "Ensure wishlist items render with consistent MRP (strikethrough) + discounted price formatting, correct image selection (prefer product.imgPath, fallback to known mapping/placeholder), and navigation to product details; keep local persistence unchanged."
         }
       ]
     }

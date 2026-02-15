@@ -1,11 +1,15 @@
 # Specification
 
 ## Summary
-**Goal:** Replace the Turtle Wax product card images with the user-uploaded photos and adjust pricing so MRP increases while Selling Price shows as a discounted value below MRP.
+**Goal:** Add a dedicated All Products listing and ensure uploaded product photos, pricing (MRP/discounted), wishlist, product details, and checkout display/flow work consistently across the storefront.
 
 **Planned changes:**
-- Add the 4 uploaded Turtle Wax photos as static assets under `frontend/public/assets/generated` and wire them to the correct Turtle Wax products by name.
-- Update the frontend product image lookup/mapping (keyed by brand + name) so these Turtle Wax products resolve to the new asset paths without backend `imgPath` changes.
-- Update pricing behavior so all products’ stored MRP increases by 200 INR (via upgrade migration) and the displayed Selling Price is strictly less than the displayed MRP.
+- Add a new “All Products” page/route that fetches all products via the existing getAllProducts React Query hook and renders them in a responsive grid using the existing ProductCard UI.
+- Update header navigation to include a clear link to the new All Products page while keeping existing links (Home, Cart, Wishlist, My Products) working.
+- Standardize the 4 uploaded product photos into consistent square frontend assets under `frontend/public/assets/generated` and ensure images render across ProductCard, Product Details, Cart, Wishlist, and Checkout with fallback on load failure.
+- Enhance “My Products” create/edit form to set `originalMrp`, `discountedPrice`, and `imgPath` (select from the new uploaded assets or enter a custom path) and persist via existing backend mutations.
+- Update Product Details page to prominently show product image, MRP (strikethrough), discounted/selling price, and discount percentage badge when applicable, plus add-to-cart, wishlist toggle, and buy-now actions.
+- Ensure checkout enforces delivery address capture, supports payment method selection (e.g., UPI/Card/COD), and shows selected address/payment method on the order confirmation page.
+- Ensure wishlist add/remove works from listing cards and product details, and wishlist page shows correct images and prices with navigation to product details.
 
-**User-visible outcome:** On the homepage product grid, Turtle Wax product cards show the correct uploaded images, and every product card shows an increased MRP with a discounted Selling Price displayed below it.
+**User-visible outcome:** Users can browse a full catalog on an All Products page, see consistent product images and MRP/discounted pricing across product cards and details, manage wishlist/cart reliably, and complete checkout with address + payment method shown on confirmation.

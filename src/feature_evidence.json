@@ -2,55 +2,143 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-the-4-user-uploaded-turtle-wax-product-photos-as-static-assets-under-frontend-public-assets-generated-and-wire-each-photo-to-the-correct-turtle-wax-product-by-name-so-the-correct-image-renders-on-every-turtle-wax-product-card",
-      "featureTitle": "Add the 4 user-uploaded Turtle Wax product photos as static assets under frontend/public/assets/generated and wire each photo to the correct Turtle Wax product by name so the correct image renders on every Turtle Wax product card.",
-      "files": [],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-29"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-product-image-lookup-so-turtle-wax-products-resolve-to-the-updated-turtle-wax-image-asset-paths-keeping-the-mapping-keyed-by-brand-name",
-      "featureTitle": "Update the product image lookup so Turtle Wax products resolve to the updated Turtle Wax image asset paths (keeping the mapping keyed by brand+name).",
+      "featureId": "feature-add-an-all-products-page-that-displays-all-products-from-the-backend-in-a-responsive-grid-using-the-existing-productcard-ui-show-product-picture-mrp-and-discounted-selling-price",
+      "featureTitle": "Add an “All Products” page that displays all products from the backend in a responsive grid using the existing ProductCard UI (show product picture, MRP, and discounted/selling price).",
       "files": [
-        "frontend/src/components/ProductCard.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/pages/AllProductsPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-30"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-change-pricing-behavior-so-that-1-each-product-s-stored-mrp-value-is-increased-by-200-inr-and-2-the-displayed-selling-price-is-a-discounted-price-lower-than-the-displayed-mrp",
-      "featureTitle": "Change pricing behavior so that (1) each product’s stored MRP value is increased by 200 INR, and (2) the displayed selling price is a discounted price lower than the displayed MRP.",
+      "featureId": "feature-update-the-site-navigation-to-provide-a-clear-entry-point-to-the-new-all-products-page-without-breaking-existing-navigation-to-home-cart-wishlist-and-my-products",
+      "featureTitle": "Update the site navigation to provide a clear entry point to the new “All Products” page without breaking existing navigation to Home, Cart, Wishlist, and My Products.",
+      "files": [
+        "frontend/src/components/SiteHeader.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-standardize-and-add-the-4-uploaded-product-photos-as-frontend-static-assets-and-make-them-usable-as-product-pictures-in-listings-and-product-detail-views",
+      "featureTitle": "Standardize and add the 4 uploaded product photos as frontend static assets, and make them usable as product pictures in listings and product detail views.",
       "files": [
         "frontend/src/components/ProductCard.tsx",
-        "frontend/src/lib/pricing.ts"
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/pages/CheckoutPage.tsx",
+        "frontend/src/pages/ProductDetailsPage.tsx",
+        "frontend/src/pages/WishlistPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-31"
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-enhance-the-my-products-create-edit-form-so-the-user-can-easily-set-product-pictures-mrp-and-discounted-price-for-each-product-including-selecting-from-the-newly-added-uploaded-product-photos",
+      "featureTitle": "Enhance the “My Products” create/edit form so the user can easily set product pictures, MRP, and discounted price for each product, including selecting from the newly added uploaded product photos.",
+      "files": [
+        "frontend/src/lib/uploadedProductImages.ts",
+        "frontend/src/pages/MyProductsPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-product-view-details-page-prominently-displays-product-picture-mrp-discounted-price-and-discount-percentage-when-applicable-and-provides-actions-for-add-to-cart-wishlist-and-buy-now-to-checkout",
+      "featureTitle": "Ensure the product view/details page prominently displays product picture, MRP, discounted price, and discount percentage (when applicable), and provides actions for add-to-cart, wishlist, and buy-now to checkout.",
+      "files": [
+        "frontend/src/pages/ProductDetailsPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-checkout-includes-delivery-address-capture-and-payment-method-selection-and-that-the-order-confirmation-page-displays-the-captured-address-and-selected-payment-method",
+      "featureTitle": "Ensure checkout includes delivery address capture and payment method selection and that the order confirmation page displays the captured address and selected payment method.",
+      "files": [
+        "frontend/src/pages/CheckoutPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-wishlist-functionality-is-accessible-and-consistent-across-product-listing-cards-and-the-product-details-page-and-that-the-wishlist-page-displays-saved-products-with-correct-images-and-prices",
+      "featureTitle": "Ensure wishlist functionality is accessible and consistent across product listing cards and the product details page, and that the wishlist page displays saved products with correct images and prices.",
+      "files": [
+        "frontend/src/components/ProductCard.tsx",
+        "frontend/src/pages/ProductDetailsPage.tsx",
+        "frontend/src/pages/WishlistPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
       ],
       "confidence": "high"
     }
