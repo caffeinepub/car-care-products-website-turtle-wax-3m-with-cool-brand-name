@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
-import { Menu, X, ShoppingCart, Heart, Package, Grid3x3 } from 'lucide-react';
+import { Menu, X, ShoppingCart, Heart, Package, Grid3x3, MessageSquarePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '../hooks/useCart';
 import { useWishlist } from '../hooks/useWishlist';
 import { BRANDING } from '@/config/branding';
+import { ChangeRequestPanel } from './ChangeRequestPanel';
 
 export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -120,6 +121,16 @@ export function SiteHeader() {
               My Products
             </button>
             
+            {/* Change Request Button */}
+            <ChangeRequestPanel 
+              trigger={
+                <Button variant="ghost" size="sm">
+                  <MessageSquarePlus className="h-4 w-4 mr-2" />
+                  Change Request
+                </Button>
+              }
+            />
+            
             {/* Cart and Wishlist Icons */}
             <div className="flex items-center gap-2 ml-2">
               <Button
@@ -211,6 +222,16 @@ export function SiteHeader() {
                 My Products
               </span>
             </button>
+            <div className="px-4 py-2">
+              <ChangeRequestPanel 
+                trigger={
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    <MessageSquarePlus className="h-4 w-4 mr-2" />
+                    Change Request
+                  </Button>
+                }
+              />
+            </div>
             <div className="border-t border-border/40 pt-2 mt-2">
               <button
                 onClick={handleWishlistClick}

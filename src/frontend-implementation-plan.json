@@ -1,68 +1,88 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Urban Wax Studio — Deployment docs and production network configuration (frontend-only)",
+  "title": "Urban Wax Studio — Change Request panel + robust product image mode/preview/rendering fixes",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add English deployment documentation for local and IC mainnet, including how to verify the deployed app is reachable.",
+      "summary": "Add an in-app Change Request panel accessible from the header and My Products that saves requests to localStorage with list + timestamps + delete.",
       "acceptanceCriteria": [
-        "Repository contains a deployment document (e.g., README section or DEPLOYMENT.md) written in English.",
-        "The guide includes local deployment steps and mainnet deployment steps (e.g., dfx start/deploy vs dfx deploy --network ic).",
-        "The guide includes how to obtain and use the deployed canister URLs for the frontend and backend.",
-        "Following the guide from a clean checkout results in a working local deployment (frontend loads and can call the backend) and provides complete steps for mainnet deployment."
+        "A user can open a Change Request panel and submit a free-text request in English.",
+        "Submitted requests are saved in localStorage and are visible after page refresh.",
+        "The UI provides a list of past submitted requests with timestamp and text.",
+        "The UI allows deleting a saved request.",
+        "All user-facing text is in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/DEPLOYMENT.md",
+          "path": "frontend/src/components/ChangeRequestPanel.tsx",
           "operation": "create",
-          "description": "Create an English deployment guide focused on the frontend developer workflow: prerequisites, local vs mainnet build/deploy commands (including the expected dfx commands), how to find canister IDs, and how to verify the frontend loads and can reach the backend canister. Include a section explaining where frontend network/canister configuration lives (ties into REQ-2)."
+          "description": "Create a ChangeRequestPanel component using shadcn-ui Dialog, Button, Textarea, and standard layout patterns to collect free-text requests, render a reverse-chronological list (timestamp + text), and support deleting items. Persist data via the existing useLocalStorageState hook. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Wire the ChangeRequestPanel into the header (e.g., a \"Change Request\" action/button in desktop + mobile nav) so users can open the panel from anywhere. Use shadcn-ui Button/Dialog composition and keep all labels/messages in English. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/MyProductsPage.tsx",
+          "operation": "modify",
+          "description": "Add an additional entry point to open the ChangeRequestPanel from the My Products page (e.g., near the page title/actions). Ensure the panel uses the same localStorage-backed data and English UI text. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Make frontend network/canister targeting configurable for local vs ic via documented environment variables/config without editing immutable hook files.",
+      "summary": "Make My Products create/edit dialog fully support mutually exclusive Gallery/Upload/Custom Path image modes with correct imgPath transitions, validation, immediate preview updates, and fallback on preview error.",
       "acceptanceCriteria": [
-        "Frontend configuration supports selecting the target network (local vs ic) without editing immutable hook files.",
-        "Deployment documentation lists the exact configuration values/env vars required for an ic deployment and where they are defined (e.g., Vite env vars, generated declarations, or config module).",
-        "When configured for ic, the built frontend successfully targets the ic backend canister endpoints (no hardcoded localhost assumptions)."
+        "In My Products, switching between Gallery/Upload/Custom Path updates imgPath appropriately (gallery sets a default gallery image; upload clears non-data-url values; custom clears gallery/data-url values).",
+        "Upload mode accepts only image/* files and rejects non-image files with an English error message.",
+        "Upload mode enforces a 5MB max file size and shows an English error message when exceeded.",
+        "The image preview updates immediately after selecting a gallery item, uploading a file, or typing a custom path.",
+        "If the preview image fails to load, it falls back to the app’s fallback placeholder image."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/config.ts",
-          "operation": "create",
-          "description": "Implement the frontend configuration module expected by frontend/src/hooks/useActor.ts (importing from '../config') by exporting createActorWithConfig that selects network (local vs ic) and correct canister IDs/hosts from Vite environment variables and safe runtime detection. Use the core-infrastructure component’s backend connection configuration conventions to build the actor config (verify the component's usage instructions before implementing). Ensure this module eliminates hardcoded localhost assumptions when configured for ic."
-        },
-        {
-          "path": "frontend/.env",
+          "path": "frontend/src/pages/MyProductsPage.tsx",
           "operation": "modify",
-          "description": "Add documented Vite environment variables for network and canister configuration (e.g., a VITE_DFX_NETWORK selector and VITE_*_CANISTER_ID values as applicable) while keeping existing branding vars. Ensure defaults remain suitable for local development and do not require editing immutable hook files."
-        },
-        {
-          "path": "frontend/.env.production",
-          "operation": "create",
-          "description": "Provide a production-oriented env template for ic deployments with the exact Vite variables required to target mainnet (ic). Values can be placeholders but must match the configuration module expectations and be referenced explicitly in frontend/DEPLOYMENT.md."
-        },
-        {
-          "path": "frontend/DEPLOYMENT.md",
-          "operation": "modify",
-          "description": "Document the exact environment variables/config values used by the frontend to select local vs ic and to set canister IDs/hosts, including where they are defined (frontend/.env, frontend/.env.production, and frontend/src/config.ts)."
+          "description": "Refine image-mode state handling to guarantee mutual exclusivity and the required imgPath transitions: (1) Gallery always sets imgPath to a valid default gallery image when entering gallery mode, (2) Upload always clears non-data-url values when entering upload mode and clears stale file input state, (3) Custom Path clears gallery paths and data URLs when entering custom mode. Ensure upload validation (image/* only, max 5MB) shows English errors, and that the preview updates immediately on each change and falls back to getFallbackImage() on error. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add a post-deploy verification checklist covering key product browsing flows and authenticated product mutations via Internet Identity.",
+      "summary": "Ensure product images render correctly everywhere (cards, details, cart, wishlist) for data URLs, empty imgPath, and broken URLs using frontend-only fixes.",
       "acceptanceCriteria": [
-        "Deployment docs include a post-deploy checklist covering: loading the app, fetching all products, viewing a product, and performing authenticated product mutations.",
-        "Checklist includes how to log in using Internet Identity and what to expect if not authenticated (e.g., mutation calls should fail with an authorization error)."
+        "A product whose imgPath starts with \"data:\" displays its image correctly on ProductCard, ProductDetails, Cart, and Wishlist screens.",
+        "A product with an empty imgPath uses the mapped static image when available, otherwise uses the fallback placeholder.",
+        "Any broken image URL (including invalid custom path) falls back to the placeholder image without crashing the page.",
+        "No backend changes are required to support the above behavior."
       ],
       "file_operations": [
         {
-          "path": "frontend/DEPLOYMENT.md",
+          "path": "frontend/src/lib/resolveProductImage.ts",
           "operation": "modify",
-          "description": "Add a post-deploy verification checklist section: confirm app loads, confirm products list loads, confirm product details page loads, and confirm authenticated flows in “My Products” (add/update/delete). Include explicit Internet Identity login steps and expected behavior when not authenticated (mutations should fail with an authorization error) and what success looks like after login."
+          "description": "Harden resolveProductImage so it reliably handles data URLs, trims whitespace, and treats empty/invalid placeholder values as missing (so mapped static image or fallback is chosen). Keep fallback pointing to the existing placeholder asset and avoid backend changes."
+        },
+        {
+          "path": "frontend/src/components/ProductCard.tsx",
+          "operation": "modify",
+          "description": "Audit and adjust ProductCard image rendering to ensure data: imgPath values are passed through unchanged, empty imgPath uses resolveProductImage mapping/fallback, and any image load error reliably switches to getFallbackImage() without breaking the UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ProductDetailsPage.tsx",
+          "operation": "modify",
+          "description": "Audit and adjust ProductDetailsPage image rendering to ensure data URLs work, empty imgPath uses mapping/fallback via resolveProductImage, and onError always swaps to getFallbackImage() safely. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/CartPage.tsx",
+          "operation": "modify",
+          "description": "Audit and adjust CartPage image rendering to ensure items render correctly when imgPath is a data URL, when imgPath is empty (mapped static image), and when URLs are broken (fallback placeholder via onError). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/WishlistPage.tsx",
+          "operation": "modify",
+          "description": "Audit and adjust WishlistPage image rendering to ensure data URLs work, empty imgPath uses mapping/fallback, and broken URLs fall back to the placeholder image without crashing. Verify the component's usage instructions before implementing."
         }
       ]
     }

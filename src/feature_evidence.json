@@ -2,10 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-clear-deployment-guide-for-deploying-the-app-to-the-internet-computer-local-and-mainnet-including-prerequisites-build-steps-deploy-commands-and-how-to-verify-the-deployed-frontend-and-backend-are-reachable",
-      "featureTitle": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
+      "featureId": "feature-add-an-in-app-change-request-panel-accessible-from-the-header-or-my-products-page-that-lets-the-user-describe-what-changes-they-want-and-store-these-requests-locally-in-the-browser-so-they-persist-across-refreshes",
+      "featureTitle": "Add an in-app “Change Request” panel (accessible from the header or My Products page) that lets the user describe what changes they want, and store these requests locally in the browser so they persist across refreshes.",
       "files": [
-        "frontend/DEPLOYMENT.md"
+        "frontend/src/components/ChangeRequestPanel.tsx",
+        "frontend/src/components/SiteHeader.tsx",
+        "frontend/src/pages/MyProductsPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -21,12 +23,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-the-frontend-can-be-configured-to-point-to-the-correct-canister-ids-and-network-local-vs-ic-at-build-runtime-and-document-the-exact-environment-variables-or-configuration-values-that-must-be-set-for-a-production-ic-deployment",
-      "featureTitle": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
+      "featureId": "feature-ensure-the-my-products-create-edit-dialog-fully-supports-three-mutually-exclusive-product-image-modes-1-choose-from-in-app-gallery-list-2-upload-from-device-store-as-data-url-in-imgpath-3-enter-a-custom-image-path-and-always-shows-a-working-preview-with-a-clear-fallback-image-on-error",
+      "featureTitle": "Ensure the “My Products” create/edit dialog fully supports three mutually exclusive product image modes—(1) choose from in-app gallery list, (2) upload from device (store as data URL in imgPath), (3) enter a custom image path—and always shows a working preview with a clear fallback image on error.",
       "files": [
-        "frontend/.env",
-        "frontend/.env.production",
-        "frontend/DEPLOYMENT.md"
+        "frontend/src/pages/MyProductsPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -42,10 +42,14 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-simple-post-deploy-verification-checklist-that-confirms-core-backend-endpoints-and-critical-user-flows-work-after-deployment-e-g-list-products-view-product-details-authenticated-add-update-delete-from-my-products",
-      "featureTitle": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
+      "featureId": "feature-verify-and-if-needed-fix-product-image-rendering-across-all-product-display-surfaces-product-cards-product-details-cart-wishlist-so-that-products-whose-imgpath-is-a-data-url-from-device-upload-render-correctly-without-requiring-backend-changes",
+      "featureTitle": "Verify and (if needed) fix product image rendering across all product display surfaces (product cards, product details, cart, wishlist) so that products whose imgPath is a data URL (from device upload) render correctly without requiring backend changes.",
       "files": [
-        "frontend/DEPLOYMENT.md"
+        "frontend/src/components/ProductCard.tsx",
+        "frontend/src/lib/resolveProductImage.ts",
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/pages/ProductDetailsPage.tsx",
+        "frontend/src/pages/WishlistPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",

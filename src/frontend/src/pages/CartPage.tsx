@@ -6,14 +6,12 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { EmptyState } from '../components/EmptyState';
 import { formatINR } from '@/lib/pricing';
-import { getProductImagePath } from '@/lib/productImages';
+import { resolveProductImage, getFallbackImage } from '@/lib/resolveProductImage';
 import { Minus, Plus, Trash2, ShoppingCart } from 'lucide-react';
 
 export default function CartPage() {
   const navigate = useNavigate();
   const { items, updateQuantity, removeItem, getTotal } = useCart();
-
-  const fallbackImage = '/assets/generated/product-placeholders-set.dim_1200x800.png';
 
   const handleQuantityChange = (productId: bigint, newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -49,8 +47,11 @@ export default function CartPage() {
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
             {items.map((item) => {
-              const mappedImage = getProductImagePath({ brand: item.product.brand, name: item.product.name });
-              const imageSrc = item.product.imgPath || mappedImage || fallbackImage;
+              const imageSrc = resolveProductImage({
+                imgPath: item.product.imgPath || '',
+                brand: item.product.brand,
+                name: item.product.name,
+              });
               const subtotal = Number(item.product.discountedPrice) * item.quantity;
 
               return (
@@ -63,7 +64,10 @@ export default function CartPage() {
                           src={imageSrc}
                           alt={item.product.name}
                           onError={(e) => {
-                            e.currentTarget.src = fallbackImage;
+                            const target = e.currentTarget;
+                            if (target.src !== getFallbackImage()) {
+                              target.src = getFallbackImage();
+                            }
                           }}
                           className="w-full h-full object-cover"
                         />

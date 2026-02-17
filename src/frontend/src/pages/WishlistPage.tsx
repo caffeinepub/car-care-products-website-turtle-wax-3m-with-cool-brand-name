@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '../components/EmptyState';
 import { formatINR } from '@/lib/pricing';
-import { getProductImagePath } from '@/lib/productImages';
+import { resolveProductImage, getFallbackImage } from '@/lib/resolveProductImage';
 import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -14,8 +14,6 @@ export default function WishlistPage() {
   const navigate = useNavigate();
   const { items, removeItem } = useWishlist();
   const { addItem } = useCart();
-
-  const fallbackImage = '/assets/generated/product-placeholders-set.dim_1200x800.png';
 
   const handleMoveToCart = (productId: bigint) => {
     const product = items.find((item) => item.id === productId);
@@ -56,8 +54,11 @@ export default function WishlistPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((product) => {
-            const mappedImage = getProductImagePath({ brand: product.brand, name: product.name });
-            const imageSrc = product.imgPath || mappedImage || fallbackImage;
+            const imageSrc = resolveProductImage({
+              imgPath: product.imgPath || '',
+              brand: product.brand,
+              name: product.name,
+            });
 
             return (
               <Card key={product.id.toString()} className="group hover:shadow-lg transition-shadow">
@@ -71,7 +72,10 @@ export default function WishlistPage() {
                       src={imageSrc}
                       alt={product.name}
                       onError={(e) => {
-                        e.currentTarget.src = fallbackImage;
+                        const target = e.currentTarget;
+                        if (target.src !== getFallbackImage()) {
+                          target.src = getFallbackImage();
+                        }
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />

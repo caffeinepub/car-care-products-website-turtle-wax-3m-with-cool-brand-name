@@ -7,24 +7,24 @@
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-add-a-clear-deployment-guide-for-deploying-the-app-to-the-internet-computer-local-and-mainnet-including-prerequisites-build-steps-deploy-commands-and-how-to-verify-the-deployed-frontend-and-backend-are-reachable",
-      "title": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
+      "id": "feature-add-an-in-app-change-request-panel-accessible-from-the-header-or-my-products-page-that-lets-the-user-describe-what-changes-they-want-and-store-these-requests-locally-in-the-browser-so-they-persist-across-refreshes",
+      "title": "Add an in-app “Change Request” panel (accessible from the header or My Products page) that lets the user describe what changes they want, and store these requests locally in the browser so they persist across refreshes.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-ensure-the-frontend-can-be-configured-to-point-to-the-correct-canister-ids-and-network-local-vs-ic-at-build-runtime-and-document-the-exact-environment-variables-or-configuration-values-that-must-be-set-for-a-production-ic-deployment",
-      "title": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
+      "id": "feature-ensure-the-my-products-create-edit-dialog-fully-supports-three-mutually-exclusive-product-image-modes-1-choose-from-in-app-gallery-list-2-upload-from-device-store-as-data-url-in-imgpath-3-enter-a-custom-image-path-and-always-shows-a-working-preview-with-a-clear-fallback-image-on-error",
+      "title": "Ensure the “My Products” create/edit dialog fully supports three mutually exclusive product image modes—(1) choose from in-app gallery list, (2) upload from device (store as data URL in imgPath), (3) enter a custom image path—and always shows a working preview with a clear fallback image on error.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-simple-post-deploy-verification-checklist-that-confirms-core-backend-endpoints-and-critical-user-flows-work-after-deployment-e-g-list-products-view-product-details-authenticated-add-update-delete-from-my-products",
-      "title": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
+      "id": "feature-verify-and-if-needed-fix-product-image-rendering-across-all-product-display-surfaces-product-cards-product-details-cart-wishlist-so-that-products-whose-imgpath-is-a-data-url-from-device-upload-render-correctly-without-requiring-backend-changes",
+      "title": "Verify and (if needed) fix product image rendering across all product display surfaces (product cards, product details, cart, wishlist) so that products whose imgPath is a data URL (from device upload) render correctly without requiring backend changes.",
       "reqIds": [
         "REQ-3"
       ],

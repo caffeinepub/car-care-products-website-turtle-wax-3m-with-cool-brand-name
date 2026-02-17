@@ -1,69 +1,105 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T18:49:18.166Z",
-  "summary": "Diff adds a new deployment document stub and production env file, but the provided diff summary does not show complete implementation of the requested deployment/verification documentation. It also introduces unrequested backend data migration and authorization/ownership logic, including a new Motoko file that violates the constraint to keep Motoko logic in a single backend actor file.",
+  "generatedAt": "2026-02-17T14:00:39.339Z",
+  "summary": "REQ-1 and REQ-3 appear implemented via a new ChangeRequestPanel with localStorage persistence and a shared resolveProductImage utility applied across ProductCard/ProductDetails/Cart/Wishlist with onError fallback. REQ-2 changes are partially evidenced (image mode detection and some wiring), but key acceptance criteria (file type/size validation messaging, exact imgPath update/clearing behavior, immediate preview behavior for all modes) are not clearly shown in the provided diff summary (MyProductsPage is truncated). The diff summary also indicates several unrelated UI/route/branding/theming/checkout changes that were not requested.",
   "missing_requirements": [
     {
-      "id": "REQ-1",
-      "requirement": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
-      "reason": "A deployment doc was added, but the diff summary shows it is truncated right after starting local deployment step 1 and does not provide evidence of the required local + mainnet steps, deploy commands, canister URL retrieval/usage, and reachability verification instructions.",
+      "id": "REQ-2",
+      "requirement": "Upload mode accepts only image/* files and rejects non-image files with an English error message.",
+      "reason": "The MyProductsPage diff is truncated and does not show any input accept attribute, MIME-type checking, or the specific English error handling for non-image files.",
       "evidence": [
-        "frontend/DEPLOYMENT.md"
+        "frontend/src/pages/MyProductsPage.tsx (truncated)"
       ]
     },
     {
       "id": "REQ-2",
-      "requirement": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
-      "reason": "Env files were added/updated (including .env.production with VITE_DFX_NETWORK=ic), but the diff summary does not show the actual frontend configuration module changes or documentation detailing the exact required variables/where defined, nor evidence that localhost assumptions are removed when targeting ic.",
+      "requirement": "Upload mode enforces a 5MB max file size and shows an English error message when exceeded.",
+      "reason": "No file size checks or 5MB enforcement are visible in the provided MyProductsPage snippet; the relevant handler code is likely beyond the truncation.",
       "evidence": [
-        "frontend/.env",
-        "frontend/.env.production",
-        "frontend/DEPLOYMENT.md",
-        "frontend-file-summaries.txt"
+        "frontend/src/pages/MyProductsPage.tsx (truncated)"
       ]
     },
     {
-      "id": "REQ-3",
-      "requirement": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
-      "reason": "The added deployment document content shown does not include (in the visible/truncated portion) a post-deploy checklist covering loading the app, fetching all products, viewing a product, and authenticated product mutations, including Internet Identity login expectations and failure behavior when unauthenticated.",
+      "id": "REQ-2",
+      "requirement": "Switching between Gallery/Upload/Custom Path updates imgPath appropriately (gallery sets a default gallery image; upload clears non-data-url values; custom clears gallery/data-url values).",
+      "reason": "The diff shows mode detection on edit and default gallery image initialization, but does not show the actual mode-switch handlers that set/clear imgPath per the acceptance criteria.",
       "evidence": [
-        "frontend/DEPLOYMENT.md"
+        "frontend/src/pages/MyProductsPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "The image preview updates immediately after selecting a gallery item, uploading a file, or typing a custom path.",
+      "reason": "The diff does not include the preview component logic or event handlers for gallery selection/upload/custom typing; MyProductsPage content is truncated before those sections.",
+      "evidence": [
+        "frontend/src/pages/MyProductsPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "If the preview image fails to load, it falls back to the app’s fallback placeholder image.",
+      "reason": "While other surfaces implement <img onError> fallback, the My Products create/edit dialog preview behavior is not visible in the truncated MyProductsPage diff.",
+      "evidence": [
+        "frontend/src/pages/MyProductsPage.tsx (truncated)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Introduced a Motoko migration module and wired it into the backend actor via a with-clause migration, adding schema migration behavior not requested.",
-      "reason": "BuildRequest focuses on deployment documentation and frontend production network configuration; no requirement requests backend schema migration logic. Also conflicts with the stated constraint to keep all Motoko logic in backend/main.mo.",
+      "description": "Addition of an /all-products route and related router setup changes.",
+      "reason": "Not requested by REQ-1/2/3; appears as unrelated routing enhancement.",
       "evidence": [
-        "backend/migration.mo",
-        "backend/main.mo"
+        "frontend-file-summaries.txt (mentions: \"frontend/src/App.tsx\": \"... defining routes including the new /all-products route\")"
       ]
     },
     {
-      "description": "Added/changed backend authorization and product ownership enforcement (user profiles, permission checks, owner field on Product, ownership checks on mutations).",
-      "reason": "Not requested by any REQ; the request is about deployment docs and network configuration. This is additional functional behavior beyond scope.",
+      "description": "Branding centralization and app title/meta description changes (Urban Wax Studio branding config, index.html updates, .env branding variables).",
+      "reason": "Not requested by REQ-1/2/3; appears as a separate branding refactor.",
       "evidence": [
-        "backend/main.mo"
+        "frontend-file-summaries.txt (mentions: frontend/src/config/branding.ts, frontend/index.html, frontend/.env)"
       ]
     },
     {
-      "description": "Added substantial new frontend app features/routes/components (e.g., new /all-products route, header navigation changes, cart/wishlist UI, branding/theme changes).",
-      "reason": "Not part of the deployment/network configuration/documentation requirements and appears to be unrelated product/UI work.",
+      "description": "Global theming overhaul (OKLCH color system, Tailwind config changes, Turtle Wax-inspired theme).",
+      "reason": "Not requested by REQ-1/2/3; appears as unrelated styling work.",
       "evidence": [
-        "frontend-file-summaries.txt"
+        "frontend-file-summaries.txt (mentions: frontend/src/index.css, frontend/tailwind.config.js)"
+      ]
+    },
+    {
+      "description": "Footer attribution/link changes (caffeine.ai attribution with UTM tracking).",
+      "reason": "Not requested by REQ-1/2/3; unrelated to change requests or product image selection/rendering.",
+      "evidence": [
+        "frontend-file-summaries.txt (mentions: frontend/src/components/SiteFooter.tsx)"
+      ]
+    },
+    {
+      "description": "Checkout page expansion (payment method selection, validation, demo confirmation screen).",
+      "reason": "Not requested by REQ-1/2/3; unrelated functional expansion.",
+      "evidence": [
+        "frontend-file-summaries.txt (mentions: frontend/src/pages/CheckoutPage.tsx)"
+      ]
+    },
+    {
+      "description": "Addition/modification of project_state.json tracking AR-* items and statuses.",
+      "reason": "Not requested by the BuildRequest; appears to be meta/project tracking rather than app functionality.",
+      "evidence": [
+        "project_state.json"
       ]
     }
   ],
-  "confidence": 0.72,
+  "confidence": 0.66,
   "changed_files": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/.env",
-    "frontend/.env.production",
-    "frontend/DEPLOYMENT.md",
+    "frontend/src/components/ChangeRequestPanel.tsx",
+    "frontend/src/components/ProductCard.tsx",
+    "frontend/src/components/SiteHeader.tsx",
+    "frontend/src/lib/resolveProductImage.ts",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/MyProductsPage.tsx",
+    "frontend/src/pages/ProductDetailsPage.tsx",
+    "frontend/src/pages/WishlistPage.tsx",
     "project_state.json"
   ]
 }

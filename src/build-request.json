@@ -1,73 +1,79 @@
 {
   "kind": "build_request",
-  "title": "Add deployment documentation and production network configuration",
+  "title": "Implement requested changes (clarify scope) and finalize product image selection improvements",
   "projectName": "Urban Wax Studio",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
-      "target": "both",
+      "text": "Add an in-app “Change Request” panel (accessible from the header or My Products page) that lets the user describe what changes they want, and store these requests locally in the browser so they persist across refreshes.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-7"
         ],
         "quotes": [
-          "Deploy"
+          "I need to do changes"
         ]
       },
       "acceptanceCriteria": [
-        "Repository contains a deployment document (e.g., README section or DEPLOYMENT.md) written in English.",
-        "The guide includes local deployment steps and mainnet deployment steps (e.g., dfx start/deploy vs dfx deploy --network ic).",
-        "The guide includes how to obtain and use the deployed canister URLs for the frontend and backend.",
-        "Following the guide from a clean checkout results in a working local deployment (frontend loads and can call the backend) and provides complete steps for mainnet deployment."
+        "A user can open a Change Request panel and submit a free-text request in English.",
+        "Submitted requests are saved in localStorage and are visible after page refresh.",
+        "The UI provides a list of past submitted requests with timestamp and text.",
+        "The UI allows deleting a saved request.",
+        "All user-facing text is in English."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
+      "text": "Ensure the “My Products” create/edit dialog fully supports three mutually exclusive product image modes—(1) choose from in-app gallery list, (2) upload from device (store as data URL in imgPath), (3) enter a custom image path—and always shows a working preview with a clear fallback image on error.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-7"
         ],
         "quotes": [
-          "Deploy"
+          "I need to do changes"
         ]
       },
       "acceptanceCriteria": [
-        "Frontend configuration supports selecting the target network (local vs ic) without editing immutable hook files.",
-        "Deployment documentation lists the exact configuration values/env vars required for an ic deployment and where they are defined (e.g., Vite env vars, generated declarations, or config module).",
-        "When configured for ic, the built frontend successfully targets the ic backend canister endpoints (no hardcoded localhost assumptions)."
+        "In My Products, switching between Gallery/Upload/Custom Path updates imgPath appropriately (gallery sets a default gallery image; upload clears non-data-url values; custom clears gallery/data-url values).",
+        "Upload mode accepts only image/* files and rejects non-image files with an English error message.",
+        "Upload mode enforces a 5MB max file size and shows an English error message when exceeded.",
+        "The image preview updates immediately after selecting a gallery item, uploading a file, or typing a custom path.",
+        "If the preview image fails to load, it falls back to the app’s fallback placeholder image."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
-      "target": "both",
+      "text": "Verify and (if needed) fix product image rendering across all product display surfaces (product cards, product details, cart, wishlist) so that products whose imgPath is a data URL (from device upload) render correctly without requiring backend changes.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-7"
         ],
         "quotes": [
-          "Deploy"
+          "I need to do changes"
         ]
       },
       "acceptanceCriteria": [
-        "Deployment docs include a post-deploy checklist covering: loading the app, fetching all products, viewing a product, and performing authenticated product mutations.",
-        "Checklist includes how to log in using Internet Identity and what to expect if not authenticated (e.g., mutation calls should fail with an authorization error)."
+        "A product whose imgPath starts with \"data:\" displays its image correctly on ProductCard, ProductDetails, Cart, and Wishlist screens.",
+        "A product with an empty imgPath uses the mapped static image when available, otherwise uses the fallback placeholder.",
+        "Any broken image URL (including invalid custom path) falls back to the placeholder image without crashing the page.",
+        "No backend changes are required to support the above behavior."
       ]
     }
   ],
   "constraints": [
-    "Keep all Motoko logic in the single backend actor (backend/main.mo).",
-    "Do not edit files under frontend immutable paths (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui).",
-    "Use English for any user-facing text added by this change."
+    "Do not modify files under frontend/src/components/ui (compose them instead).",
+    "Do not edit immutable hook files listed in SYSTEM_CONTEXT.",
+    "Keep backend as a single Motoko actor in backend/main.mo; only add a migration file if a state schema change is required.",
+    "Use English for all user-facing UI text."
   ],
   "nonGoals": [
-    "Actually performing the deployment on behalf of the user (this request should produce repo changes and instructions).",
-    "Adding third-party CI/CD integrations (e.g., GitHub Actions, Vercel, Netlify).",
-    "Introducing new backend services, databases, or non-IC hosting providers."
+    "Implementing server-side image uploads, storage, or CDN hosting for product images.",
+    "Adding third-party authentication providers (only Internet Identity is allowed).",
+    "Adding external databases or additional backend services."
   ],
   "imageRequirements": {
     "required": [],

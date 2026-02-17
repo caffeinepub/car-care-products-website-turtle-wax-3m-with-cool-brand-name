@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useProducts } from '../hooks/useProducts';
 import { useProductMutations } from '../hooks/useProductMutations';
@@ -39,9 +39,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Pencil, Trash2, Plus, Loader2, Image as ImageIcon } from 'lucide-react';
+import { Pencil, Trash2, Plus, Loader2, Image as ImageIcon, Upload } from 'lucide-react';
 import { formatINR } from '@/lib/pricing';
 import { UPLOADED_PRODUCT_IMAGES, isUploadedProductImage } from '@/lib/uploadedProductImages';
+import { getFallbackImage } from '@/lib/resolveProductImage';
+import { ChangeRequestPanel } from '../components/ChangeRequestPanel';
 import type { Product } from '../backend';
 import { toast } from 'sonner';
 
@@ -54,6 +56,8 @@ type ProductFormData = {
   discountedPrice: string;
   tags: string;
 };
+
+type ImageMode = 'gallery' | 'upload' | 'custom';
 
 const emptyForm: ProductFormData = {
   brand: '',
@@ -75,7 +79,8 @@ export default function MyProductsPage() {
   const [formData, setFormData] = useState<ProductFormData>(emptyForm);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
-  const [useCustomPath, setUseCustomPath] = useState(false);
+  const [imageMode, setImageMode] = useState<ImageMode>('gallery');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const isAuthenticated = !!identity;
   const isLoggingIn = loginStatus === 'logging-in';
@@ -83,14 +88,27 @@ export default function MyProductsPage() {
   const handleOpenCreate = () => {
     setEditingProduct(null);
     setFormData(emptyForm);
-    setUseCustomPath(false);
+    setImageMode('gallery');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
     setIsFormOpen(true);
   };
 
   const handleOpenEdit = (product: Product) => {
     setEditingProduct(product);
-    const isUploadedImage = isUploadedProductImage(product.imgPath);
-    setUseCustomPath(!isUploadedImage && product.imgPath !== '');
+    
+    // Determine image mode based on current imgPath
+    let mode: ImageMode = 'gallery';
+    if (product.imgPath.startsWith('data:')) {
+      mode = 'upload';
+    } else if (isUploadedProductImage(product.imgPath)) {
+      mode = 'gallery';
+    } else if (product.imgPath !== '') {
+      mode = 'custom';
+    }
+    
+    setImageMode(mode);
     setFormData({
       brand: product.brand,
       name: product.name,
@@ -100,6 +118,9 @@ export default function MyProductsPage() {
       discountedPrice: product.discountedPrice.toString(),
       tags: product.tags?.join(', ') || '',
     });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
     setIsFormOpen(true);
   };
 
@@ -107,7 +128,10 @@ export default function MyProductsPage() {
     setIsFormOpen(false);
     setEditingProduct(null);
     setFormData(emptyForm);
-    setUseCustomPath(false);
+    setImageMode('gallery');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleOpenDelete = (product: Product) => {
@@ -120,11 +144,74 @@ export default function MyProductsPage() {
     setProductToDelete(null);
   };
 
+  const handleImageModeChange = (mode: ImageMode) => {
+    setImageMode(mode);
+    
+    // Update imgPath based on mode with proper mutual exclusivity
+    if (mode === 'gallery') {
+      // Gallery mode: set to first gallery image
+      if (UPLOADED_PRODUCT_IMAGES.length > 0) {
+        setFormData({ ...formData, imgPath: UPLOADED_PRODUCT_IMAGES[0].path });
+      }
+    } else if (mode === 'upload') {
+      // Upload mode: clear non-data-url values
+      if (!formData.imgPath.startsWith('data:')) {
+        setFormData({ ...formData, imgPath: '' });
+      }
+      // Clear file input to allow re-selection
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    } else if (mode === 'custom') {
+      // Custom mode: clear gallery paths and data URLs
+      if (isUploadedProductImage(formData.imgPath) || formData.imgPath.startsWith('data:')) {
+        setFormData({ ...formData, imgPath: '' });
+      }
+    }
+  };
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select a valid image file');
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Image size must be less than 5MB');
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      return;
+    }
+
+    // Read file as data URL
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string;
+      setFormData({ ...formData, imgPath: dataUrl });
+    };
+    reader.onerror = () => {
+      toast.error('Failed to read image file');
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const validateForm = (): string | null => {
     if (!formData.brand.trim()) return 'Brand is required';
     if (!formData.name.trim()) return 'Name is required';
     if (!formData.shortDescription.trim()) return 'Short description is required';
-    if (!formData.imgPath.trim()) return 'Image path is required';
+    if (!formData.imgPath.trim()) return 'Image is required';
     
     const mrp = parseFloat(formData.originalMrp);
     const discounted = parseFloat(formData.discountedPrice);
@@ -191,6 +278,14 @@ export default function MyProductsPage() {
     }
   };
 
+  const getPreviewImage = (): string => {
+    const trimmedPath = formData.imgPath.trim();
+    if (trimmedPath) {
+      return trimmedPath;
+    }
+    return getFallbackImage();
+  };
+
   if (!isAuthenticated) {
     return (
       <div className="container mx-auto px-4 py-12">
@@ -216,27 +311,30 @@ export default function MyProductsPage() {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
             My Products
           </h1>
-          <Button onClick={handleOpenCreate}>
-            <Plus className="h-5 w-5 mr-2" />
-            Add Product
-          </Button>
+          <div className="flex items-center gap-3">
+            <ChangeRequestPanel />
+            <Button onClick={handleOpenCreate}>
+              <Plus className="h-5 w-5 mr-2" />
+              Add Product
+            </Button>
+          </div>
         </div>
 
         {productsLoading ? (
-          <div className="flex justify-center py-12">
+          <div className="flex justify-center items-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         ) : !products || products.length === 0 ? (
           <div className="text-center py-12 space-y-4">
-            <p className="text-muted-foreground">No products yet. Create your first product!</p>
+            <p className="text-muted-foreground">You haven't created any products yet.</p>
             <Button onClick={handleOpenCreate}>
               <Plus className="h-5 w-5 mr-2" />
-              Add Product
+              Create Your First Product
             </Button>
           </div>
         ) : (
@@ -246,9 +344,8 @@ export default function MyProductsPage() {
                 <TableRow>
                   <TableHead>Brand</TableHead>
                   <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
                   <TableHead>MRP</TableHead>
-                  <TableHead>Selling Price</TableHead>
+                  <TableHead>Price</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -257,13 +354,8 @@ export default function MyProductsPage() {
                   <TableRow key={product.id.toString()}>
                     <TableCell className="font-medium">{product.brand}</TableCell>
                     <TableCell>{product.name}</TableCell>
-                    <TableCell className="max-w-xs truncate">
-                      {product.shortDescription}
-                    </TableCell>
                     <TableCell>{formatINR(product.originalMrp)}</TableCell>
-                    <TableCell className="font-semibold text-primary">
-                      {formatINR(product.discountedPrice)}
-                    </TableCell>
+                    <TableCell>{formatINR(product.discountedPrice)}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
                         <Button
@@ -295,89 +387,91 @@ export default function MyProductsPage() {
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
-                {editingProduct ? 'Edit Product' : 'Create New Product'}
+                {editingProduct ? 'Edit Product' : 'Add New Product'}
               </DialogTitle>
               <DialogDescription>
-                {editingProduct
-                  ? 'Update the product details below.'
-                  : 'Fill in the details to create a new product.'}
+                Fill in the product details below. All fields are required.
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="brand">Brand *</Label>
+                  <Label htmlFor="brand">Brand</Label>
                   <Input
                     id="brand"
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                     placeholder="e.g., Turtle Wax"
-                    required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="name">Product Name *</Label>
+                  <Label htmlFor="name">Product Name</Label>
                   <Input
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g., Ceramic Car Wash"
-                    required
+                    placeholder="e.g., Ice Spray Wax"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="shortDescription">Short Description *</Label>
+                <Label htmlFor="description">Short Description</Label>
                 <Textarea
-                  id="shortDescription"
+                  id="description"
                   value={formData.shortDescription}
-                  onChange={(e) =>
-                    setFormData({ ...formData, shortDescription: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
                   placeholder="Brief description of the product"
                   rows={3}
-                  required
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Product Image *</Label>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-4">
-                    <Button
-                      type="button"
-                      variant={!useCustomPath ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => {
-                        setUseCustomPath(false);
-                        if (UPLOADED_PRODUCT_IMAGES.length > 0 && !formData.imgPath) {
-                          setFormData({ ...formData, imgPath: UPLOADED_PRODUCT_IMAGES[0].path });
-                        }
-                      }}
-                    >
-                      <ImageIcon className="h-4 w-4 mr-2" />
-                      Choose from Gallery
-                    </Button>
-                    <Button
-                      type="button"
-                      variant={useCustomPath ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setUseCustomPath(true)}
-                    >
-                      Custom Path
-                    </Button>
-                  </div>
+              {/* Image Selection */}
+              <div className="space-y-4">
+                <Label>Product Image</Label>
+                
+                {/* Image Mode Selector */}
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant={imageMode === 'gallery' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => handleImageModeChange('gallery')}
+                  >
+                    <ImageIcon className="h-4 w-4 mr-2" />
+                    Gallery
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={imageMode === 'upload' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => handleImageModeChange('upload')}
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    Upload
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={imageMode === 'custom' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => handleImageModeChange('custom')}
+                  >
+                    Custom Path
+                  </Button>
+                </div>
 
-                  {!useCustomPath ? (
+                {/* Gallery Mode */}
+                {imageMode === 'gallery' && (
+                  <div className="space-y-2">
+                    <Label htmlFor="gallery-select">Select from Gallery</Label>
                     <Select
                       value={formData.imgPath}
                       onValueChange={(value) => setFormData({ ...formData, imgPath: value })}
                     >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select an uploaded image" />
+                      <SelectTrigger id="gallery-select">
+                        <SelectValue placeholder="Choose an image" />
                       </SelectTrigger>
                       <SelectContent>
                         {UPLOADED_PRODUCT_IMAGES.map((img) => (
@@ -387,46 +481,77 @@ export default function MyProductsPage() {
                         ))}
                       </SelectContent>
                     </Select>
-                  ) : (
+                  </div>
+                )}
+
+                {/* Upload Mode */}
+                {imageMode === 'upload' && (
+                  <div className="space-y-2">
+                    <Label htmlFor="file-upload">Upload Image (max 5MB)</Label>
                     <Input
-                      id="imgPath"
+                      id="file-upload"
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileSelect}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Supported formats: JPG, PNG, GIF, WebP
+                    </p>
+                  </div>
+                )}
+
+                {/* Custom Path Mode */}
+                {imageMode === 'custom' && (
+                  <div className="space-y-2">
+                    <Label htmlFor="custom-path">Image URL or Path</Label>
+                    <Input
+                      id="custom-path"
                       value={formData.imgPath}
                       onChange={(e) => setFormData({ ...formData, imgPath: e.target.value })}
-                      placeholder="/assets/generated/your-image.png"
-                      required
+                      placeholder="/assets/my-image.png or https://..."
                     />
-                  )}
+                  </div>
+                )}
+
+                {/* Image Preview */}
+                <div className="space-y-2">
+                  <Label>Preview</Label>
+                  <div className="w-full aspect-square max-w-xs rounded-lg overflow-hidden border border-border bg-muted/50">
+                    <img
+                      src={getPreviewImage()}
+                      alt="Preview"
+                      onError={(e) => {
+                        e.currentTarget.src = getFallbackImage();
+                      }}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="originalMrp">MRP (₹) *</Label>
+                  <Label htmlFor="mrp">Original MRP (₹)</Label>
                   <Input
-                    id="originalMrp"
+                    id="mrp"
                     type="number"
                     step="0.01"
                     value={formData.originalMrp}
-                    onChange={(e) =>
-                      setFormData({ ...formData, originalMrp: e.target.value })
-                    }
-                    placeholder="e.g., 599"
-                    required
+                    onChange={(e) => setFormData({ ...formData, originalMrp: e.target.value })}
+                    placeholder="999"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="discountedPrice">Selling Price (₹) *</Label>
+                  <Label htmlFor="price">Discounted Price (₹)</Label>
                   <Input
-                    id="discountedPrice"
+                    id="price"
                     type="number"
                     step="0.01"
                     value={formData.discountedPrice}
-                    onChange={(e) =>
-                      setFormData({ ...formData, discountedPrice: e.target.value })
-                    }
-                    placeholder="e.g., 499"
-                    required
+                    onChange={(e) => setFormData({ ...formData, discountedPrice: e.target.value })}
+                    placeholder="799"
                   />
                 </div>
               </div>
@@ -437,7 +562,7 @@ export default function MyProductsPage() {
                   id="tags"
                   value={formData.tags}
                   onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                  placeholder="e.g., Ceramic, Wash, Premium"
+                  placeholder="wax, polish, shine"
                 />
               </div>
 
@@ -460,21 +585,20 @@ export default function MyProductsPage() {
         </Dialog>
 
         {/* Delete Confirmation Dialog */}
-        <AlertDialog open={deleteDialogOpen} onOpenChange={handleCloseDelete}>
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
               <AlertDialogDescription>
-                This will permanently delete "{productToDelete?.name}". This action cannot be
-                undone.
+                This will permanently delete "{productToDelete?.name}". This action cannot be undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel onClick={handleCloseDelete}>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDelete}
-                disabled={deleteProduct.isPending}
                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                disabled={deleteProduct.isPending}
               >
                 {deleteProduct.isPending && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

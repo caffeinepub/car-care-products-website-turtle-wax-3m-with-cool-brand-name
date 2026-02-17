@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T18:49:18.169Z",
+  "generatedAt": "2026-02-17T14:00:39.342Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -12,61 +12,64 @@
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
+        "summary": "Add an in-app “Change Request” panel (accessible from the header or My Products page) that lets the user describe what changes they want, and store these requests locally in the browser so they persist across refreshes.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/components/ChangeRequestPanel.tsx",
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/pages/MyProductsPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/components/ChangeRequestPanel.tsx",
+          "frontend/src/components/SiteHeader.tsx",
+          "frontend/src/pages/MyProductsPage.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
+        "summary": "Ensure the “My Products” create/edit dialog fully supports three mutually exclusive product image modes—(1) choose from in-app gallery list, (2) upload from device (store as data URL in imgPath), (3) enter a custom image path—and always shows a working preview with a clear fallback image on error.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/config.ts",
-          "frontend/.env",
-          "frontend/.env.production",
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/pages/MyProductsPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/config.ts",
-          "frontend/.env",
-          "frontend/.env.production",
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/pages/MyProductsPage.tsx"
         ]
       },
       {
         "id": "REQ-3",
-        "summary": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
+        "summary": "Verify and (if needed) fix product image rendering across all product display surfaces (product cards, product details, cart, wishlist) so that products whose imgPath is a data URL (from device upload) render correctly without requiring backend changes.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/lib/resolveProductImage.ts",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/pages/ProductDetailsPage.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/WishlistPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/lib/resolveProductImage.ts",
+          "frontend/src/components/ProductCard.tsx",
+          "frontend/src/pages/ProductDetailsPage.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/WishlistPage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
-    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/.env",
-    "frontend/.env.production",
-    "frontend/DEPLOYMENT.md",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/config.ts",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
+    "frontend/src/components/ChangeRequestPanel.tsx",
+    "frontend/src/components/ProductCard.tsx",
+    "frontend/src/components/SiteHeader.tsx",
+    "frontend/src/lib/resolveProductImage.ts",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/MyProductsPage.tsx",
+    "frontend/src/pages/ProductDetailsPage.tsx",
+    "frontend/src/pages/WishlistPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
