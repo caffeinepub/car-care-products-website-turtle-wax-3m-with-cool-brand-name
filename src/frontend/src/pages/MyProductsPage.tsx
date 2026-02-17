@@ -41,7 +41,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Pencil, Trash2, Plus, Loader2, Image as ImageIcon } from 'lucide-react';
 import { formatINR } from '@/lib/pricing';
-import { UPLOADED_PRODUCT_IMAGES } from '@/lib/uploadedProductImages';
+import { UPLOADED_PRODUCT_IMAGES, isUploadedProductImage } from '@/lib/uploadedProductImages';
 import type { Product } from '../backend';
 import { toast } from 'sonner';
 
@@ -59,7 +59,7 @@ const emptyForm: ProductFormData = {
   brand: '',
   name: '',
   shortDescription: '',
-  imgPath: '',
+  imgPath: UPLOADED_PRODUCT_IMAGES.length > 0 ? UPLOADED_PRODUCT_IMAGES[0].path : '',
   originalMrp: '',
   discountedPrice: '',
   tags: '',
@@ -89,7 +89,7 @@ export default function MyProductsPage() {
 
   const handleOpenEdit = (product: Product) => {
     setEditingProduct(product);
-    const isUploadedImage = UPLOADED_PRODUCT_IMAGES.some(img => img.path === product.imgPath);
+    const isUploadedImage = isUploadedProductImage(product.imgPath);
     setUseCustomPath(!isUploadedImage && product.imgPath !== '');
     setFormData({
       brand: product.brand,
@@ -353,7 +353,7 @@ export default function MyProductsPage() {
                       size="sm"
                       onClick={() => {
                         setUseCustomPath(false);
-                        if (UPLOADED_PRODUCT_IMAGES.length > 0) {
+                        if (UPLOADED_PRODUCT_IMAGES.length > 0 && !formData.imgPath) {
                           setFormData({ ...formData, imgPath: UPLOADED_PRODUCT_IMAGES[0].path });
                         }
                       }}
@@ -473,8 +473,8 @@ export default function MyProductsPage() {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDelete}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                 disabled={deleteProduct.isPending}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
                 {deleteProduct.isPending && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -7,10 +7,14 @@ export interface None {
     __kind__: "None";
 }
 export type Option<T> = Some<T> | None;
+export interface UserProfile {
+    name: string;
+}
 export interface Product {
     id: bigint;
     imgPath: string;
     originalMrp: bigint;
+    owner: Principal;
     name: string;
     tags?: Array<string>;
     shortDescription: string;
@@ -27,11 +31,15 @@ export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     deleteProduct(id: bigint): Promise<void>;
     getAllProducts(): Promise<Array<Product>>;
+    getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getMyProducts(): Promise<Array<Product>>;
     getProduct(id: bigint): Promise<Product>;
     getProductDetails(id: bigint): Promise<Product>;
     getProductsByBrand(brand: string): Promise<Array<Product>>;
     getProductsGroupedByBrand(): Promise<Array<[string, Array<Product>]>>;
+    getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
+    saveCallerUserProfile(profile: UserProfile): Promise<void>;
     updateProduct(id: bigint, brand: string | null, name: string | null, shortDescription: string | null, imgPath: string | null, originalMrp: bigint | null, discountedPrice: bigint | null, tags: Array<string> | null): Promise<void>;
 }

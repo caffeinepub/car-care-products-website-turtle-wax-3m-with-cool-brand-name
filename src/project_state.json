@@ -1,108 +1,38 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "E-commerce product catalog and shopping flow features being planned (product listing, product details, pricing, address, payment, wishlist).",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Square-cropped product photo on a clean light background (uploaded-product-1.dim_800x800.png)\n- Square-cropped product photo on a clean light background (uploaded-product-2.dim_800x800.png)\n- Square-cropped product photo on a clean light background (uploaded-product-3.dim_800x800.png)\n- Square-cropped product photo on a clean light background (uploaded-product-4.dim_800x800.png)",
   "existing_features": [
     {
-      "id": "feature-add-an-all-products-page-that-displays-all-products-from-the-backend-in-a-responsive-grid-using-the-existing-productcard-ui-show-product-picture-mrp-and-discounted-selling-price",
-      "title": "Add an “All Products” page that displays all products from the backend in a responsive grid using the existing ProductCard UI (show product picture, MRP, and discounted/selling price).",
+      "id": "feature-add-a-clear-deployment-guide-for-deploying-the-app-to-the-internet-computer-local-and-mainnet-including-prerequisites-build-steps-deploy-commands-and-how-to-verify-the-deployed-frontend-and-backend-are-reachable",
+      "title": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-update-the-site-navigation-to-provide-a-clear-entry-point-to-the-new-all-products-page-without-breaking-existing-navigation-to-home-cart-wishlist-and-my-products",
-      "title": "Update the site navigation to provide a clear entry point to the new “All Products” page without breaking existing navigation to Home, Cart, Wishlist, and My Products.",
+      "id": "feature-ensure-the-frontend-can-be-configured-to-point-to-the-correct-canister-ids-and-network-local-vs-ic-at-build-runtime-and-document-the-exact-environment-variables-or-configuration-values-that-must-be-set-for-a-production-ic-deployment",
+      "title": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-standardize-and-add-the-4-uploaded-product-photos-as-frontend-static-assets-and-make-them-usable-as-product-pictures-in-listings-and-product-detail-views",
-      "title": "Standardize and add the 4 uploaded product photos as frontend static assets, and make them usable as product pictures in listings and product detail views.",
+      "id": "feature-add-a-simple-post-deploy-verification-checklist-that-confirms-core-backend-endpoints-and-critical-user-flows-work-after-deployment-e-g-list-products-view-product-details-authenticated-add-update-delete-from-my-products",
+      "title": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
-    },
-    {
-      "id": "feature-enhance-the-my-products-create-edit-form-so-the-user-can-easily-set-product-pictures-mrp-and-discounted-price-for-each-product-including-selecting-from-the-newly-added-uploaded-product-photos",
-      "title": "Enhance the “My Products” create/edit form so the user can easily set product pictures, MRP, and discounted price for each product, including selecting from the newly added uploaded product photos.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-the-product-view-details-page-prominently-displays-product-picture-mrp-discounted-price-and-discount-percentage-when-applicable-and-provides-actions-for-add-to-cart-wishlist-and-buy-now-to-checkout",
-      "title": "Ensure the product view/details page prominently displays product picture, MRP, discounted price, and discount percentage (when applicable), and provides actions for add-to-cart, wishlist, and buy-now to checkout.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-checkout-includes-delivery-address-capture-and-payment-method-selection-and-that-the-order-confirmation-page-displays-the-captured-address-and-selected-payment-method",
-      "title": "Ensure checkout includes delivery address capture and payment method selection and that the order confirmation page displays the captured address and selected payment method.",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-wishlist-functionality-is-accessible-and-consistent-across-product-listing-cards-and-the-product-details-page-and-that-the-wishlist-page-displays-saved-products-with-correct-images-and-prices",
-      "title": "Ensure wishlist functionality is accessible and consistent across product listing cards and the product details page, and that the wishlist page displays saved products with correct images and prices.",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
     }
   ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Product listing page that displays all products with product pictures",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Support MRP and discounted price display for products",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Product view/details page",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Address capture/management for checkout",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Payment method selection/management",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Wishlist feature",
-      "reqIds": [],
-      "status": "pending"
-    }
-  ],
-  "projectName": "Add All Products listing and wire uploaded product photos into catalog pricing, details, wishlist, and checkout",
+  "new_feature_requests": [],
+  "projectName": "Urban Wax Studio",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

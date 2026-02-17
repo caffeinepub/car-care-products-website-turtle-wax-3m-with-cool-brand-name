@@ -23,9 +23,11 @@ export default function ProductDetailsPage() {
 
   const fallbackImage = '/assets/generated/product-placeholders-set.dim_1200x800.png';
   
-  // Prefer explicit imgPath, then mapped image, then fallback
+  // Prefer explicit imgPath if non-empty, then mapped image, then fallback
   const mappedImage = product ? getProductImagePath({ brand: product.brand, name: product.name }) : undefined;
-  const initialImage = product?.imgPath || mappedImage || fallbackImage;
+  const initialImage = (product?.imgPath && product.imgPath.trim() !== '')
+    ? product.imgPath
+    : (mappedImage || fallbackImage);
   
   const [imageSrc, setImageSrc] = useState(initialImage);
   const isWishlisted = product ? isInWishlist(product.id) : false;
@@ -33,7 +35,9 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     if (product) {
       const newMappedImage = getProductImagePath({ brand: product.brand, name: product.name });
-      const newImage = product.imgPath || newMappedImage || fallbackImage;
+      const newImage = (product.imgPath && product.imgPath.trim() !== '')
+        ? product.imgPath
+        : (newMappedImage || fallbackImage);
       setImageSrc(newImage);
     }
   }, [product]);

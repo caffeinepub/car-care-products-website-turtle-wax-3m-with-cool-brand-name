@@ -2,11 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-an-all-products-page-that-displays-all-products-from-the-backend-in-a-responsive-grid-using-the-existing-productcard-ui-show-product-picture-mrp-and-discounted-selling-price",
-      "featureTitle": "Add an “All Products” page that displays all products from the backend in a responsive grid using the existing ProductCard UI (show product picture, MRP, and discounted/selling price).",
+      "featureId": "feature-add-a-clear-deployment-guide-for-deploying-the-app-to-the-internet-computer-local-and-mainnet-including-prerequisites-build-steps-deploy-commands-and-how-to-verify-the-deployed-frontend-and-backend-are-reachable",
+      "featureTitle": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/AllProductsPage.tsx"
+        "frontend/DEPLOYMENT.md"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -22,10 +21,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-site-navigation-to-provide-a-clear-entry-point-to-the-new-all-products-page-without-breaking-existing-navigation-to-home-cart-wishlist-and-my-products",
-      "featureTitle": "Update the site navigation to provide a clear entry point to the new “All Products” page without breaking existing navigation to Home, Cart, Wishlist, and My Products.",
+      "featureId": "feature-ensure-the-frontend-can-be-configured-to-point-to-the-correct-canister-ids-and-network-local-vs-ic-at-build-runtime-and-document-the-exact-environment-variables-or-configuration-values-that-must-be-set-for-a-production-ic-deployment",
+      "featureTitle": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
       "files": [
-        "frontend/src/components/SiteHeader.tsx"
+        "frontend/.env",
+        "frontend/.env.production",
+        "frontend/DEPLOYMENT.md"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -41,14 +42,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-standardize-and-add-the-4-uploaded-product-photos-as-frontend-static-assets-and-make-them-usable-as-product-pictures-in-listings-and-product-detail-views",
-      "featureTitle": "Standardize and add the 4 uploaded product photos as frontend static assets, and make them usable as product pictures in listings and product detail views.",
+      "featureId": "feature-add-a-simple-post-deploy-verification-checklist-that-confirms-core-backend-endpoints-and-critical-user-flows-work-after-deployment-e-g-list-products-view-product-details-authenticated-add-update-delete-from-my-products",
+      "featureTitle": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
       "files": [
-        "frontend/src/components/ProductCard.tsx",
-        "frontend/src/pages/CartPage.tsx",
-        "frontend/src/pages/CheckoutPage.tsx",
-        "frontend/src/pages/ProductDetailsPage.tsx",
-        "frontend/src/pages/WishlistPage.tsx"
+        "frontend/DEPLOYMENT.md"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -60,85 +57,6 @@
       ],
       "testIds": [
         "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-enhance-the-my-products-create-edit-form-so-the-user-can-easily-set-product-pictures-mrp-and-discounted-price-for-each-product-including-selecting-from-the-newly-added-uploaded-product-photos",
-      "featureTitle": "Enhance the “My Products” create/edit form so the user can easily set product pictures, MRP, and discounted price for each product, including selecting from the newly added uploaded product photos.",
-      "files": [
-        "frontend/src/lib/uploadedProductImages.ts",
-        "frontend/src/pages/MyProductsPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-the-product-view-details-page-prominently-displays-product-picture-mrp-discounted-price-and-discount-percentage-when-applicable-and-provides-actions-for-add-to-cart-wishlist-and-buy-now-to-checkout",
-      "featureTitle": "Ensure the product view/details page prominently displays product picture, MRP, discounted price, and discount percentage (when applicable), and provides actions for add-to-cart, wishlist, and buy-now to checkout.",
-      "files": [
-        "frontend/src/pages/ProductDetailsPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-checkout-includes-delivery-address-capture-and-payment-method-selection-and-that-the-order-confirmation-page-displays-the-captured-address-and-selected-payment-method",
-      "featureTitle": "Ensure checkout includes delivery address capture and payment method selection and that the order confirmation page displays the captured address and selected payment method.",
-      "files": [
-        "frontend/src/pages/CheckoutPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-wishlist-functionality-is-accessible-and-consistent-across-product-listing-cards-and-the-product-details-page-and-that-the-wishlist-page-displays-saved-products-with-correct-images-and-prices",
-      "featureTitle": "Ensure wishlist functionality is accessible and consistent across product listing cards and the product details page, and that the wishlist page displays saved products with correct images and prices.",
-      "files": [
-        "frontend/src/components/ProductCard.tsx",
-        "frontend/src/pages/ProductDetailsPage.tsx",
-        "frontend/src/pages/WishlistPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
       ],
       "confidence": "high"
     }

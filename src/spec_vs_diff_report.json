@@ -1,40 +1,69 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T12:56:17.830Z",
-  "summary": "Implemented a new /all-products route and page using the existing products query and ProductCard grid; updated header navigation to link to All Products; enhanced product image handling (prefer product.imgPath, then mapped image, then fallback) across ProductCard, Product Details, Cart, and Wishlist; added uploadedProductImages helper and updated My Products form data model to include imgPath/originalMrp/discountedPrice and uploaded image selection; checkout includes address fields and payment method selection with validation (confirmation display not clearly evidenced due to truncation).",
+  "generatedAt": "2026-02-16T18:49:18.166Z",
+  "summary": "Diff adds a new deployment document stub and production env file, but the provided diff summary does not show complete implementation of the requested deployment/verification documentation. It also introduces unrequested backend data migration and authorization/ownership logic, including a new Motoko file that violates the constraint to keep Motoko logic in a single backend actor file.",
   "missing_requirements": [
     {
-      "id": "REQ-3",
-      "requirement": "Add the 4 uploaded product photos as square-cropped static assets under frontend/public/assets/generated with the specified filenames.",
-      "reason": "The diff adds a TypeScript list referencing these asset paths, but does not show the actual image files being added under frontend/public/assets/generated.",
+      "id": "REQ-1",
+      "requirement": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
+      "reason": "A deployment doc was added, but the diff summary shows it is truncated right after starting local deployment step 1 and does not provide evidence of the required local + mainnet steps, deploy commands, canister URL retrieval/usage, and reachability verification instructions.",
       "evidence": [
-        "frontend/src/lib/uploadedProductImages.ts"
+        "frontend/DEPLOYMENT.md"
       ]
     },
     {
-      "id": "REQ-6",
-      "requirement": "Order confirmation page displays the captured delivery address and selected payment method.",
-      "reason": "CheckoutPage shows address state, payment method selection, and validation, but the diff excerpt is truncated before any explicit confirmation UI that displays the captured address and chosen payment method.",
+      "id": "REQ-2",
+      "requirement": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
+      "reason": "Env files were added/updated (including .env.production with VITE_DFX_NETWORK=ic), but the diff summary does not show the actual frontend configuration module changes or documentation detailing the exact required variables/where defined, nor evidence that localhost assumptions are removed when targeting ic.",
       "evidence": [
-        "frontend/src/pages/CheckoutPage.tsx"
+        "frontend/.env",
+        "frontend/.env.production",
+        "frontend/DEPLOYMENT.md",
+        "frontend-file-summaries.txt"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
+      "reason": "The added deployment document content shown does not include (in the visible/truncated portion) a post-deploy checklist covering loading the app, fetching all products, viewing a product, and authenticated product mutations, including Internet Identity login expectations and failure behavior when unauthenticated.",
+      "evidence": [
+        "frontend/DEPLOYMENT.md"
       ]
     }
   ],
-  "hallucinated_features": [],
-  "confidence": 0.64,
+  "hallucinated_features": [
+    {
+      "description": "Introduced a Motoko migration module and wired it into the backend actor via a with-clause migration, adding schema migration behavior not requested.",
+      "reason": "BuildRequest focuses on deployment documentation and frontend production network configuration; no requirement requests backend schema migration logic. Also conflicts with the stated constraint to keep all Motoko logic in backend/main.mo.",
+      "evidence": [
+        "backend/migration.mo",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Added/changed backend authorization and product ownership enforcement (user profiles, permission checks, owner field on Product, ownership checks on mutations).",
+      "reason": "Not requested by any REQ; the request is about deployment docs and network configuration. This is additional functional behavior beyond scope.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Added substantial new frontend app features/routes/components (e.g., new /all-products route, header navigation changes, cart/wishlist UI, branding/theme changes).",
+      "reason": "Not part of the deployment/network configuration/documentation requirements and appears to be unrelated product/UI work.",
+      "evidence": [
+        "frontend-file-summaries.txt"
+      ]
+    }
+  ],
+  "confidence": 0.72,
   "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/components/ProductCard.tsx",
-    "frontend/src/components/SiteHeader.tsx",
-    "frontend/src/lib/uploadedProductImages.ts",
-    "frontend/src/pages/AllProductsPage.tsx",
-    "frontend/src/pages/CartPage.tsx",
-    "frontend/src/pages/CheckoutPage.tsx",
-    "frontend/src/pages/MyProductsPage.tsx",
-    "frontend/src/pages/ProductDetailsPage.tsx",
-    "frontend/src/pages/WishlistPage.tsx",
+    "frontend/.env",
+    "frontend/.env.production",
+    "frontend/DEPLOYMENT.md",
     "project_state.json"
   ]
 }

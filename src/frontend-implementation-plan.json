@@ -1,174 +1,68 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "All Products listing + uploaded product photos across catalog, details, wishlist, and checkout",
+  "title": "Urban Wax Studio — Deployment docs and production network configuration (frontend-only)",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add a dedicated All Products page that lists all backend products in a responsive ProductCard grid with INR MRP/selling price display.",
+      "summary": "Add English deployment documentation for local and IC mainnet, including how to verify the deployed app is reachable.",
       "acceptanceCriteria": [
-        "A new route exists for an all-products listing (separate from the home page brand-grouped sections).",
-        "The page uses the existing products query (getAllProducts via the existing React Query hook) and renders a grid of ProductCard components.",
-        "Each card shows product image, MRP (strikethrough), and discounted/selling price in INR formatting."
+        "Repository contains a deployment document (e.g., README section or DEPLOYMENT.md) written in English.",
+        "The guide includes local deployment steps and mainnet deployment steps (e.g., dfx start/deploy vs dfx deploy --network ic).",
+        "The guide includes how to obtain and use the deployed canister URLs for the frontend and backend.",
+        "Following the guide from a clean checkout results in a working local deployment (frontend loads and can call the backend) and provides complete steps for mainnet deployment."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/AllProductsPage.tsx",
+          "path": "frontend/DEPLOYMENT.md",
           "operation": "create",
-          "description": "Create an All Products page that uses the existing useProducts React Query hook (getAllProducts) and renders a responsive grid of existing ProductCard components, with loading/error/empty states aligned to the app patterns."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register and wire a new TanStack Router route (e.g., /all-products) to the new AllProductsPage so it is navigable as a separate listing page."
+          "description": "Create an English deployment guide focused on the frontend developer workflow: prerequisites, local vs mainnet build/deploy commands (including the expected dfx commands), how to find canister IDs, and how to verify the frontend loads and can reach the backend canister. Include a section explaining where frontend network/canister configuration lives (ties into REQ-2)."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Add a clear navigation entry to the All Products page while keeping existing Home/Cart/Wishlist/My Products navigation intact.",
+      "summary": "Make frontend network/canister targeting configurable for local vs ic via documented environment variables/config without editing immutable hook files.",
       "acceptanceCriteria": [
-        "Header contains a visible navigation item that routes to the All Products page.",
-        "Existing navigation items continue to work as before."
+        "Frontend configuration supports selecting the target network (local vs ic) without editing immutable hook files.",
+        "Deployment documentation lists the exact configuration values/env vars required for an ic deployment and where they are defined (e.g., Vite env vars, generated declarations, or config module).",
+        "When configured for ic, the built frontend successfully targets the ic backend canister endpoints (no hardcoded localhost assumptions)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/SiteHeader.tsx",
+          "path": "frontend/src/config.ts",
+          "operation": "create",
+          "description": "Implement the frontend configuration module expected by frontend/src/hooks/useActor.ts (importing from '../config') by exporting createActorWithConfig that selects network (local vs ic) and correct canister IDs/hosts from Vite environment variables and safe runtime detection. Use the core-infrastructure component’s backend connection configuration conventions to build the actor config (verify the component's usage instructions before implementing). Ensure this module eliminates hardcoded localhost assumptions when configured for ic."
+        },
+        {
+          "path": "frontend/.env",
           "operation": "modify",
-          "description": "Add a visible 'All Products' navigation item (desktop + mobile) that navigates to the new All Products route without altering or breaking existing Home, Cart, Wishlist, and My Products navigation behavior."
+          "description": "Add documented Vite environment variables for network and canister configuration (e.g., a VITE_DFX_NETWORK selector and VITE_*_CANISTER_ID values as applicable) while keeping existing branding vars. Ensure defaults remain suitable for local development and do not require editing immutable hook files."
+        },
+        {
+          "path": "frontend/.env.production",
+          "operation": "create",
+          "description": "Provide a production-oriented env template for ic deployments with the exact Vite variables required to target mainnet (ic). Values can be placeholders but must match the configuration module expectations and be referenced explicitly in frontend/DEPLOYMENT.md."
+        },
+        {
+          "path": "frontend/DEPLOYMENT.md",
+          "operation": "modify",
+          "description": "Document the exact environment variables/config values used by the frontend to select local vs ic and to set canister IDs/hosts, including where they are defined (frontend/.env, frontend/.env.production, and frontend/src/config.ts)."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add four standardized square uploaded product photos as static assets and ensure they can be used via product imgPath across listing/details/cart/wishlist/checkout with fallbacks.",
+      "summary": "Add a post-deploy verification checklist covering key product browsing flows and authenticated product mutations via Internet Identity.",
       "acceptanceCriteria": [
-        "The 4 uploaded images are converted/cropped to consistent square assets and stored under frontend/public/assets/generated with the filenames specified in this build request.",
-        "When a product’s imgPath is set to one of these generated assets, ProductCard, ProductDetailsPage, Cart, Wishlist, and Checkout use it successfully (including fallback behavior if an image fails to load)."
+        "Deployment docs include a post-deploy checklist covering: loading the app, fetching all products, viewing a product, and performing authenticated product mutations.",
+        "Checklist includes how to log in using Internet Identity and what to expect if not authenticated (e.g., mutation calls should fail with an authorization error)."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
-          "operation": "create",
-          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
-        },
-        {
-          "path": "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
-          "operation": "create",
-          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
-        },
-        {
-          "path": "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
-          "operation": "create",
-          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
-        },
-        {
-          "path": "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
-          "operation": "create",
-          "description": "Add the standardized square-cropped uploaded product image asset at this exact path so it can be referenced via Product.imgPath."
-        },
-        {
-          "path": "frontend/src/components/ProductCard.tsx",
+          "path": "frontend/DEPLOYMENT.md",
           "operation": "modify",
-          "description": "Update image source selection logic to prefer an explicit product.imgPath when present (so uploaded assets set on products are honored), while retaining getProductImagePath as a fallback and keeping robust onError fallback behavior."
-        },
-        {
-          "path": "frontend/src/pages/ProductDetailsPage.tsx",
-          "operation": "modify",
-          "description": "Update image source selection logic to prefer product.imgPath when set (so uploaded assets are used), while retaining getProductImagePath as a fallback and keeping onError fallback behavior."
-        },
-        {
-          "path": "frontend/src/pages/CartPage.tsx",
-          "operation": "modify",
-          "description": "Update cart item image selection to prefer item.product.imgPath when present, then fall back to getProductImagePath and placeholder, ensuring onError fallback still works."
-        },
-        {
-          "path": "frontend/src/pages/WishlistPage.tsx",
-          "operation": "modify",
-          "description": "Update wishlist item image selection to prefer product.imgPath when present, then fall back to getProductImagePath and placeholder, ensuring onError fallback still works."
-        },
-        {
-          "path": "frontend/src/pages/CheckoutPage.tsx",
-          "operation": "modify",
-          "description": "Update checkout summary images (single-product + cart-mode) to prefer product.imgPath when present, then fall back to getProductImagePath and placeholder, ensuring onError fallback still works."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Improve My Products create/edit form to make setting product image, MRP, and discounted price easy, including picking from newly added uploaded images.",
-      "acceptanceCriteria": [
-        "My Products form includes inputs for MRP (originalMrp) and discounted price (discountedPrice) and persists them via existing backend mutations.",
-        "My Products form allows setting imgPath either by choosing one of the newly generated uploaded images (dropdown / picker) or entering a custom image path.",
-        "After saving, the updated pricing and image are reflected on the All Products page and Product Details page."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/uploadedProductImages.ts",
-          "operation": "create",
-          "description": "Create a small frontend utility that exports the allowed uploaded image asset paths (frontend/public/assets/generated/uploaded-product-1.dim_800x800.png through uploaded-product-4.dim_800x800.png) for reuse in the My Products image picker."
-        },
-        {
-          "path": "frontend/src/pages/MyProductsPage.tsx",
-          "operation": "modify",
-          "description": "Enhance the create/edit dialog form to include an image picker for imgPath that lets the user choose one of the newly generated uploaded images or enter a custom path; continue using existing inputs for originalMrp and discountedPrice and persist through existing mutations. Use shadcn-ui form controls (e.g., Select/RadioGroup/Input) to keep styling consistent; Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Ensure Product Details prominently shows image, MRP, discounted price, discount percent badge, and supports add-to-cart, wishlist, and buy-now actions.",
-      "acceptanceCriteria": [
-        "Product Details page continues to load a product by id and shows image, MRP (struck-through), discounted price, and a discount badge when discountedPrice < originalMrp.",
-        "Add to Cart, Wishlist toggle, and Buy Now actions function and navigate as expected."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/ProductDetailsPage.tsx",
-          "operation": "modify",
-          "description": "Confirm/adjust discount badge and pricing presentation to remain prominent, and ensure actions (add to cart, wishlist toggle, buy now to checkout) continue to function; also ensure explicit product.imgPath is honored for the primary image with fallback behavior."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Ensure checkout enforces delivery address capture, supports payment method selection, and shows both on the order confirmation screen (including cart-mode totals).",
-      "acceptanceCriteria": [
-        "Checkout requires the delivery address fields as currently designed and blocks order placement when required fields are missing.",
-        "Checkout offers a payment method selection (e.g., UPI/Card/COD) and displays the chosen method on the confirmation screen.",
-        "Cart-mode checkout still supports showing multiple items and totals correctly."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/CheckoutPage.tsx",
-          "operation": "modify",
-          "description": "Strengthen checkout validation UX so required delivery address fields and payment method selection block order placement (e.g., disable submit and/or show an error message), and ensure the confirmation view displays the captured address and chosen payment method while preserving correct cart-mode itemization and totals."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Keep wishlist behavior consistent across ProductCard and Product Details, and ensure wishlist page shows correct images and consistent price display with local persistence.",
-      "acceptanceCriteria": [
-        "Users can add/remove products to wishlist from ProductCard and ProductDetailsPage.",
-        "Wishlist page lists wishlisted products with images (including the new uploaded assets when used), MRP/discounted price display consistency, and navigation to product details.",
-        "Wishlist state persists locally as before."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ProductCard.tsx",
-          "operation": "modify",
-          "description": "Ensure wishlist toggle remains functional and consistent, and keep image selection aligned with the rule to prefer explicit product.imgPath (uploaded assets) with fallback behavior."
-        },
-        {
-          "path": "frontend/src/pages/ProductDetailsPage.tsx",
-          "operation": "modify",
-          "description": "Ensure wishlist toggle remains functional and consistent with ProductCard behavior, and keep image selection aligned with the rule to prefer explicit product.imgPath (uploaded assets) with fallback behavior."
-        },
-        {
-          "path": "frontend/src/pages/WishlistPage.tsx",
-          "operation": "modify",
-          "description": "Ensure wishlist items render with consistent MRP (strikethrough) + discounted price formatting, correct image selection (prefer product.imgPath, fallback to known mapping/placeholder), and navigation to product details; keep local persistence unchanged."
+          "description": "Add a post-deploy verification checklist section: confirm app loads, confirm products list loads, confirm product details page loads, and confirm authenticated flows in “My Products” (add/update/delete). Include explicit Internet Identity login steps and expected behavior when not authenticated (mutations should fail with an authorization error) and what success looks like after login."
         }
       ]
     }

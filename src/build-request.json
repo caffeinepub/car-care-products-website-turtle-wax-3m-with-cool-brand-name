@@ -1,151 +1,76 @@
 {
   "kind": "build_request",
-  "title": "Add All Products listing and wire uploaded product photos into catalog pricing, details, wishlist, and checkout",
+  "title": "Add deployment documentation and production network configuration",
+  "projectName": "Urban Wax Studio",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add an “All Products” page that displays all products from the backend in a responsive grid using the existing ProductCard UI (show product picture, MRP, and discounted/selling price).",
-      "target": "frontend",
+      "text": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-2"
         ],
         "quotes": [
-          "Display all products here is all product pictures and set mrp and discounted prices"
+          "Deploy"
         ]
       },
       "acceptanceCriteria": [
-        "A new route exists for an all-products listing (separate from the home page brand-grouped sections).",
-        "The page uses the existing products query (getAllProducts via the existing React Query hook) and renders a grid of ProductCard components.",
-        "Each card shows product image, MRP (strikethrough), and discounted/selling price in INR formatting."
+        "Repository contains a deployment document (e.g., README section or DEPLOYMENT.md) written in English.",
+        "The guide includes local deployment steps and mainnet deployment steps (e.g., dfx start/deploy vs dfx deploy --network ic).",
+        "The guide includes how to obtain and use the deployed canister URLs for the frontend and backend.",
+        "Following the guide from a clean checkout results in a working local deployment (frontend loads and can call the backend) and provides complete steps for mainnet deployment."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update the site navigation to provide a clear entry point to the new “All Products” page without breaking existing navigation to Home, Cart, Wishlist, and My Products.",
+      "text": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-2"
         ],
         "quotes": [
-          "Display all products here"
+          "Deploy"
         ]
       },
       "acceptanceCriteria": [
-        "Header contains a visible navigation item that routes to the All Products page.",
-        "Existing navigation items continue to work as before."
+        "Frontend configuration supports selecting the target network (local vs ic) without editing immutable hook files.",
+        "Deployment documentation lists the exact configuration values/env vars required for an ic deployment and where they are defined (e.g., Vite env vars, generated declarations, or config module).",
+        "When configured for ic, the built frontend successfully targets the ic backend canister endpoints (no hardcoded localhost assumptions)."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Standardize and add the 4 uploaded product photos as frontend static assets, and make them usable as product pictures in listings and product detail views.",
-      "target": "frontend",
+      "text": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-2"
         ],
         "quotes": [
-          "here is all product pictures"
+          "Deploy"
         ]
       },
       "acceptanceCriteria": [
-        "The 4 uploaded images are converted/cropped to consistent square assets and stored under frontend/public/assets/generated with the filenames specified in this build request.",
-        "When a product’s imgPath is set to one of these generated assets, ProductCard, ProductDetailsPage, Cart, Wishlist, and Checkout use it successfully (including fallback behavior if an image fails to load)."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Enhance the “My Products” create/edit form so the user can easily set product pictures, MRP, and discounted price for each product, including selecting from the newly added uploaded product photos.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "set mrp and discounted prices"
-        ]
-      },
-      "acceptanceCriteria": [
-        "My Products form includes inputs for MRP (originalMrp) and discounted price (discountedPrice) and persists them via existing backend mutations.",
-        "My Products form allows setting imgPath either by choosing one of the newly generated uploaded images (dropdown / picker) or entering a custom image path.",
-        "After saving, the updated pricing and image are reflected on the All Products page and Product Details page."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Ensure the product view/details page prominently displays product picture, MRP, discounted price, and discount percentage (when applicable), and provides actions for add-to-cart, wishlist, and buy-now to checkout.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "product view page"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Product Details page continues to load a product by id and shows image, MRP (struck-through), discounted price, and a discount badge when discountedPrice < originalMrp.",
-        "Add to Cart, Wishlist toggle, and Buy Now actions function and navigate as expected."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Ensure checkout includes delivery address capture and payment method selection and that the order confirmation page displays the captured address and selected payment method.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "address payment method"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Checkout requires the delivery address fields as currently designed and blocks order placement when required fields are missing.",
-        "Checkout offers a payment method selection (e.g., UPI/Card/COD) and displays the chosen method on the confirmation screen.",
-        "Cart-mode checkout still supports showing multiple items and totals correctly."
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Ensure wishlist functionality is accessible and consistent across product listing cards and the product details page, and that the wishlist page displays saved products with correct images and prices.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "wishlist"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Users can add/remove products to wishlist from ProductCard and ProductDetailsPage.",
-        "Wishlist page lists wishlisted products with images (including the new uploaded assets when used), MRP/discounted price display consistency, and navigation to product details.",
-        "Wishlist state persists locally as before."
+        "Deployment docs include a post-deploy checklist covering: loading the app, fetching all products, viewing a product, and performing authenticated product mutations.",
+        "Checklist includes how to log in using Internet Identity and what to expect if not authenticated (e.g., mutation calls should fail with an authorization error)."
       ]
     }
   ],
-  "constraints": [],
-  "nonGoals": [],
+  "constraints": [
+    "Keep all Motoko logic in the single backend actor (backend/main.mo).",
+    "Do not edit files under frontend immutable paths (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui).",
+    "Use English for any user-facing text added by this change."
+  ],
+  "nonGoals": [
+    "Actually performing the deployment on behalf of the user (this request should produce repo changes and instructions).",
+    "Adding third-party CI/CD integrations (e.g., GitHub Actions, Vercel, Netlify).",
+    "Introducing new backend services, databases, or non-IC hosting providers."
+  ],
   "imageRequirements": {
-    "required": [
-      "Square-cropped product photo on a clean light background (uploaded-product-1.dim_800x800.png)",
-      "Square-cropped product photo on a clean light background (uploaded-product-2.dim_800x800.png)",
-      "Square-cropped product photo on a clean light background (uploaded-product-3.dim_800x800.png)",
-      "Square-cropped product photo on a clean light background (uploaded-product-4.dim_800x800.png)"
-    ],
+    "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

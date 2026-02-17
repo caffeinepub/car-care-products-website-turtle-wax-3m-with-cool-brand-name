@@ -1,15 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Add a dedicated All Products listing and ensure uploaded product photos, pricing (MRP/discounted), wishlist, product details, and checkout display/flow work consistently across the storefront.
+**Goal:** Add clear deployment documentation for local and Internet Computer (ic) mainnet, and ensure the frontend can be configured to target the correct network/canister IDs for production deployments.
 
 **Planned changes:**
-- Add a new “All Products” page/route that fetches all products via the existing getAllProducts React Query hook and renders them in a responsive grid using the existing ProductCard UI.
-- Update header navigation to include a clear link to the new All Products page while keeping existing links (Home, Cart, Wishlist, My Products) working.
-- Standardize the 4 uploaded product photos into consistent square frontend assets under `frontend/public/assets/generated` and ensure images render across ProductCard, Product Details, Cart, Wishlist, and Checkout with fallback on load failure.
-- Enhance “My Products” create/edit form to set `originalMrp`, `discountedPrice`, and `imgPath` (select from the new uploaded assets or enter a custom path) and persist via existing backend mutations.
-- Update Product Details page to prominently show product image, MRP (strikethrough), discounted/selling price, and discount percentage badge when applicable, plus add-to-cart, wishlist toggle, and buy-now actions.
-- Ensure checkout enforces delivery address capture, supports payment method selection (e.g., UPI/Card/COD), and shows selected address/payment method on the order confirmation page.
-- Ensure wishlist add/remove works from listing cards and product details, and wishlist page shows correct images and prices with navigation to product details.
+- Add an English deployment guide (README section and/or DEPLOYMENT.md) covering prerequisites, build steps, local deployment commands, mainnet deployment commands, and how to verify the deployed frontend and backend are reachable.
+- Update frontend configuration to allow selecting target network (local vs ic) and correct canister IDs at build/runtime without editing immutable hook files.
+- Document the exact environment variables/configuration values required for an ic (production) deployment and where they are defined.
+- Add a post-deploy verification checklist covering loading the app, listing products, viewing product details, and authenticated add/update/delete from “My Products”, including Internet Identity login expectations and unauthenticated failure behavior.
 
-**User-visible outcome:** Users can browse a full catalog on an All Products page, see consistent product images and MRP/discounted pricing across product cards and details, manage wishlist/cart reliably, and complete checkout with address + payment method shown on confirmation.
+**User-visible outcome:** A developer can follow the repository’s deployment instructions to deploy locally or to the IC mainnet, configure the frontend to point to the correct canisters/network, and verify core product browsing and authenticated “My Products” actions work after deployment.

@@ -1,137 +1,72 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T12:56:17.833Z",
+  "generatedAt": "2026-02-16T18:49:18.169Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 7,
-    "implemented": 7,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add an “All Products” page that displays all products from the backend in a responsive grid using the existing ProductCard UI (show product picture, MRP, and discounted/selling price).",
+        "summary": "Add a clear deployment guide for deploying the app to the Internet Computer (local and mainnet), including prerequisites, build steps, deploy commands, and how to verify the deployed frontend and backend are reachable.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/AllProductsPage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/DEPLOYMENT.md"
         ],
         "matchedFiles": [
-          "frontend/src/pages/AllProductsPage.tsx",
-          "frontend/src/App.tsx"
+          "frontend/DEPLOYMENT.md"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Update the site navigation to provide a clear entry point to the new “All Products” page without breaking existing navigation to Home, Cart, Wishlist, and My Products.",
+        "summary": "Ensure the frontend can be configured to point to the correct canister IDs and network (local vs ic) at build/runtime, and document the exact environment variables or configuration values that must be set for a production (ic) deployment.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/SiteHeader.tsx"
+          "frontend/src/config.ts",
+          "frontend/.env",
+          "frontend/.env.production",
+          "frontend/DEPLOYMENT.md"
         ],
         "matchedFiles": [
-          "frontend/src/components/SiteHeader.tsx"
+          "frontend/src/config.ts",
+          "frontend/.env",
+          "frontend/.env.production",
+          "frontend/DEPLOYMENT.md"
         ]
       },
       {
         "id": "REQ-3",
-        "summary": "Standardize and add the 4 uploaded product photos as frontend static assets, and make them usable as product pictures in listings and product detail views.",
+        "summary": "Add a simple post-deploy verification checklist that confirms core backend endpoints and critical user flows work after deployment (e.g., list products, view product details, authenticated add/update/delete from “My Products”).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
-          "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
-          "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
-          "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
-          "frontend/src/components/ProductCard.tsx",
-          "frontend/src/pages/ProductDetailsPage.tsx",
-          "frontend/src/pages/CartPage.tsx",
-          "frontend/src/pages/WishlistPage.tsx",
-          "frontend/src/pages/CheckoutPage.tsx"
+          "frontend/DEPLOYMENT.md"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
-          "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
-          "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
-          "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
-          "frontend/src/components/ProductCard.tsx",
-          "frontend/src/pages/ProductDetailsPage.tsx",
-          "frontend/src/pages/CartPage.tsx",
-          "frontend/src/pages/WishlistPage.tsx",
-          "frontend/src/pages/CheckoutPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Enhance the “My Products” create/edit form so the user can easily set product pictures, MRP, and discounted price for each product, including selecting from the newly added uploaded product photos.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/lib/uploadedProductImages.ts",
-          "frontend/src/pages/MyProductsPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/lib/uploadedProductImages.ts",
-          "frontend/src/pages/MyProductsPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-5",
-        "summary": "Ensure the product view/details page prominently displays product picture, MRP, discounted price, and discount percentage (when applicable), and provides actions for add-to-cart, wishlist, and buy-now to checkout.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/ProductDetailsPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/ProductDetailsPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-6",
-        "summary": "Ensure checkout includes delivery address capture and payment method selection and that the order confirmation page displays the captured address and selected payment method.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/CheckoutPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/CheckoutPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Ensure wishlist functionality is accessible and consistent across product listing cards and the product details page, and that the wishlist page displays saved products with correct images and prices.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/ProductCard.tsx",
-          "frontend/src/pages/ProductDetailsPage.tsx",
-          "frontend/src/pages/WishlistPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/ProductCard.tsx",
-          "frontend/src/pages/ProductDetailsPage.tsx",
-          "frontend/src/pages/WishlistPage.tsx"
+          "frontend/DEPLOYMENT.md"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
+    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/uploaded-product-1.dim_800x800.png",
-    "frontend/public/assets/generated/uploaded-product-2.dim_800x800.png",
-    "frontend/public/assets/generated/uploaded-product-3.dim_800x800.png",
-    "frontend/public/assets/generated/uploaded-product-4.dim_800x800.png",
-    "frontend/src/App.tsx",
-    "frontend/src/components/ProductCard.tsx",
-    "frontend/src/components/SiteHeader.tsx",
-    "frontend/src/lib/uploadedProductImages.ts",
-    "frontend/src/pages/AllProductsPage.tsx",
-    "frontend/src/pages/CartPage.tsx",
-    "frontend/src/pages/CheckoutPage.tsx",
-    "frontend/src/pages/MyProductsPage.tsx",
-    "frontend/src/pages/ProductDetailsPage.tsx",
-    "frontend/src/pages/WishlistPage.tsx",
+    "frontend/.env",
+    "frontend/.env.production",
+    "frontend/DEPLOYMENT.md",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/config.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

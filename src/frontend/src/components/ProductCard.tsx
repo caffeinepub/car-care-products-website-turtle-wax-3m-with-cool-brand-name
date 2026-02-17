@@ -20,9 +20,11 @@ export function ProductCard({ product }: ProductCardProps) {
   const { toggleItem, isInWishlist } = useWishlist();
   const fallbackImage = '/assets/generated/product-placeholders-set.dim_1200x800.png';
   
-  // Prefer explicit imgPath, then mapped image, then fallback
+  // Prefer explicit imgPath if non-empty, then mapped image, then fallback
   const mappedImage = getProductImagePath({ brand: product.brand, name: product.name });
-  const initialImage = product.imgPath || mappedImage || fallbackImage;
+  const initialImage = (product.imgPath && product.imgPath.trim() !== '') 
+    ? product.imgPath 
+    : (mappedImage || fallbackImage);
   
   const [imageSrc, setImageSrc] = useState(initialImage);
   const isWishlisted = isInWishlist(product.id);

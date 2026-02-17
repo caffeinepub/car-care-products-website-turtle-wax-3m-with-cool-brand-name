@@ -17,12 +17,14 @@ export const Product = IDL.Record({
   'id' : IDL.Nat,
   'imgPath' : IDL.Text,
   'originalMrp' : IDL.Nat,
+  'owner' : IDL.Principal,
   'name' : IDL.Text,
   'tags' : IDL.Opt(IDL.Vec(IDL.Text)),
   'shortDescription' : IDL.Text,
   'brand' : IDL.Text,
   'discountedPrice' : IDL.Nat,
 });
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -43,7 +45,9 @@ export const idlService = IDL.Service({
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'deleteProduct' : IDL.Func([IDL.Nat], [], []),
   'getAllProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getMyProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
   'getProduct' : IDL.Func([IDL.Nat], [Product], ['query']),
   'getProductDetails' : IDL.Func([IDL.Nat], [Product], ['query']),
   'getProductsByBrand' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
@@ -52,7 +56,13 @@ export const idlService = IDL.Service({
       [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(Product)))],
       ['query'],
     ),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'updateProduct' : IDL.Func(
       [
         IDL.Nat,
@@ -81,12 +91,14 @@ export const idlFactory = ({ IDL }) => {
     'id' : IDL.Nat,
     'imgPath' : IDL.Text,
     'originalMrp' : IDL.Nat,
+    'owner' : IDL.Principal,
     'name' : IDL.Text,
     'tags' : IDL.Opt(IDL.Vec(IDL.Text)),
     'shortDescription' : IDL.Text,
     'brand' : IDL.Text,
     'discountedPrice' : IDL.Nat,
   });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -107,7 +119,9 @@ export const idlFactory = ({ IDL }) => {
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'deleteProduct' : IDL.Func([IDL.Nat], [], []),
     'getAllProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getMyProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
     'getProduct' : IDL.Func([IDL.Nat], [Product], ['query']),
     'getProductDetails' : IDL.Func([IDL.Nat], [Product], ['query']),
     'getProductsByBrand' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
@@ -116,7 +130,13 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Vec(Product)))],
         ['query'],
       ),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'updateProduct' : IDL.Func(
         [
           IDL.Nat,
